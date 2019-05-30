@@ -1,0 +1,35 @@
+.miles-nav {
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+
+  .miles-logo {
+    margin-left: 284px;
+  }
+
+  .miles-menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 143px;
+
+    .miles-item {
+      color: #FFFFFF;
+      margin-right: 40px;
+
+      i {
+        font-size: 24px;
+      }
+
+      span {
+        font-size: 16px;
+      }
+
+      &:hover {
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+}

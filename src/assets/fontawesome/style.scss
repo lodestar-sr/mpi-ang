@@ -1,0 +1,144 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rqoo81');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rqoo81#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?rqoo81') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?rqoo81') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?rqoo81##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="fa-"], [class*=" fa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-arrow-alt-to-left_regular {
+  &:before {
+    content: $fa-arrow-alt-to-left_regular; 
+  }
+}
+.fa-balance-scale_regular {
+  &:before {
+    content: $fa-balance-scale_regular; 
+  }
+}
+.fa-book-open_regular {
+  &:before {
+    content: $fa-book-open_regular; 
+  }
+}
+.fa-city_regular {
+  &:before {
+    content: $fa-city_regular; 
+  }
+}
+.fa-cloud-upload-alt_regular {
+  &:before {
+    content: $fa-cloud-upload-alt_regular; 
+  }
+}
+.fa-database_regular {
+  &:before {
+    content: $fa-database_regular; 
+  }
+}
+.fa-draw-polygon_regular {
+  &:before {
+    content: $fa-draw-polygon_regular; 
+  }
+}
+.fa-file-certificate_regular {
+  &:before {
+    content: $fa-file-certificate_regular; 
+  }
+}
+.fa-filter_regular {
+  &:before {
+    content: $fa-filter_regular; 
+  }
+}
+.fa-globe-americas_regular {
+  &:before {
+    content: $fa-globe-americas_regular; 
+  }
+}
+.fa-hand-holding-seedling_regular {
+  &:before {
+    content: $fa-hand-holding-seedling_regular; 
+  }
+}
+.fa-home_regular {
+  &:before {
+    content: $fa-home_regular; 
+  }
+}
+.fa-hotel_regular {
+  &:before {
+    content: $fa-hotel_regular; 
+  }
+}
+.fa-landmark-alt_regular {
+  &:before {
+    content: $fa-landmark-alt_regular; 
+  }
+}
+.fa-object-group_regular {
+  &:before {
+    content: $fa-object-group_regular; 
+  }
+}
+.fa-search_regular {
+  &:before {
+    content: $fa-search_regular; 
+  }
+}
+.fa-sign-out-alt_regular {
+  &:before {
+    content: $fa-sign-out-alt_regular; 
+  }
+}
+.fa-snowplow_regular {
+  &:before {
+    content: $fa-snowplow_regular; 
+  }
+}
+.fa-tools_regular {
+  &:before {
+    content: $fa-tools_regular; 
+  }
+}
+.fa-university_regular {
+  &:before {
+    content: $fa-university_regular; 
+  }
+}
+.fa-user_regular {
+  &:before {
+    content: $fa-user_regular; 
+  }
+}
+.fa-user-tie_regular {
+  &:before {
+    content: $fa-user-tie_regular; 
+  }
+}
+.fa-hand {
+  &:before {
+    content: $fa-hand; 
+  }
+}
+

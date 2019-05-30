@@ -27,8 +27,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/assets/fontawesome/style.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
