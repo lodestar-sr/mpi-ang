@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+declare var $: any;
 
 @Component({
   selector: 'app-miles-landing',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MilesLandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  goToMain() {
+    $('#loginModal').modal('hide');
+    this.router.navigate(['/main']);
+  }
 }
