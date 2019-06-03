@@ -21,7 +21,7 @@
 
       .search-box {
         background: transparent;
-        border: solid 1px #FFFFFF;
+        border: solid 1px #FFFFFF88;
         border-radius: 0;
         color: #FFFFFF;
         margin-right: 12px;
@@ -29,8 +29,14 @@
         width: 128px;
 
         &:focus {
-          box-shadow: none;
+          box-shadow: #FFFFFF;
         }
+      }
+
+      .search-btn {
+        padding: 0;
+        color: #FFFFFF;
+        cursor: pointer;
       }
 
       .user-name {
@@ -39,6 +45,12 @@
         font-size: 12px;
       }
     }
+  }
+
+  .main {
+    height: calc(100% - 72px);
+    margin-left: 276px;
+    margin-right: 279px;
   }
 
   .font-8px {

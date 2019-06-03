@@ -20,6 +20,6 @@ export class MainComponent implements OnInit {
   }
 
   toggleSearch() {
-    $('.search-box').toggle();
+    $('.search-box').slideToggle(100)
   }
 }

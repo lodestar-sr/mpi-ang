@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MilesLandingComponent } from './miles-landing/miles-landing.component';
 import { MilesNavComponent } from './miles-nav/miles-nav.component';
 import { MainComponent } from './main/main.component';
+import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { MainComponent } from './main/main.component';
     MilesLandingComponent,
     MilesNavComponent,
     MainComponent,
+    MainSidebarComponent,
   ],
   imports: [
     BrowserModule,

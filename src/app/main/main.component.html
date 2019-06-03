@@ -3,12 +3,16 @@
     <img class="logo" src="/assets/images/miles_logo.png" width="104" height="72">
     <div class="top-menu">
       <input type="text" class="form-control search-box" style="display: none;">
-      <button class="btn text-white p-0 fa-search_regular" (click)="toggleSearch()"></button>
+      <i class="search-btn fa-search_regular" (click)="toggleSearch()"></i>
       <span class="user-name">Peter McPlaceholder</span>
       <i class="fa-book-open_regular font-8px rotate-20deg"></i>
       <i class="fa-user_regular"></i>
       <span class="font-28px opacity-50">&nbsp;|&nbsp;</span>
       <button class="btn text-white p-0 fa-sign-out-alt_regular" (click)="signOut()"></button>
     </div>
+  </div>
+
+  <div class="main">
+    <app-main-sidebar></app-main-sidebar>
   </div>
 </div>
