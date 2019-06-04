@@ -32,4 +32,57 @@
       }
     }
   }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  @media (max-width: 1412px) {
+    .miles-logo {
+      margin-left: 46px;
+      width: 175px;
+    }
+
+    .miles-menu {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 957px) {
+    .miles-menu {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: block;
+      margin-left: auto;
+      margin-right: 25px;
+
+      #hamburger-panel {
+        background: transparent;
+        border: none;
+
+        a {
+          color: #FFFFFF;
+          font-size: 24px;
+        }
+
+        a:hover {
+          background-color: #FFFFFF;
+          color: #008AFF;
+        }
+      }
+
+      i {
+        font-size: 36px;
+      }
+
+      button:focus {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -o-box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+    }
+  }
 }

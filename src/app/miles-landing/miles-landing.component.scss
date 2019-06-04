@@ -14,6 +14,14 @@
     font-size: 64px;
     font-weight: bold;
   }
+
+  @media (max-width: 957px) {
+    .landing-text {
+      font-size: 42px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
 }
 
 .modal {
