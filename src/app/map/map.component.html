@@ -1,0 +1,42 @@
+<mgl-map
+  [style]="'mapbox://styles/mapbox/light-v10'"
+  [zoom]="[3]"
+  [center]="[-87.622088, 41.878781]"
+  [fitBounds]="mapvars.continental"
+>
+  <mgl-layer
+    [id]="states_poly"
+    [type]="fill"
+    [filter]="['!in', 'STATEFP', selected_state, 'DEMO '+selected_state, 'MAPTILER '+selected_state]"
+    [layout]="{
+    'visibility': 'visible'
+    }"
+    [paint]="{
+    'fill-color': '#8B4513',
+    'fill-outline-color': '#8B4513',
+    'fill-antialias': true,
+    'fill-opacity': 0.4
+    }"
+    [source]="{
+    'type': 'geojson',
+    'data': 'http://whistle.mapware.net/jsons/states56.json'
+    }"
+  ></mgl-layer>
+  <mgl-layer
+    [id]="states_line"
+    [type]="line"
+    [source]="{
+    'type': 'geojson',
+    'data': 'http://whistle.mapware.net/jsons/states56.json'
+    }"
+    [layout]="{
+    'visibility': 'visible'
+    }"
+    [paint]="{
+    'line-color': '#8B4513',
+    'line-width': 3,
+    'line-opacity': 1
+    }"
+  ></mgl-layer>
+  <mgl-control></mgl-control>
+</mgl-map>

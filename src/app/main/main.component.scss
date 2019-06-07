@@ -61,6 +61,11 @@
     height: calc(100% - 72px);
     margin-left: 15%;
     margin-right: 15%;
+    display: flex;
+
+    app-map {
+      flex: 1;
+    }
   }
 
   .font-8px {
