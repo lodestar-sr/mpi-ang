@@ -2,41 +2,106 @@
   [style]="'mapbox://styles/mapbox/light-v10'"
   [zoom]="[3]"
   [center]="[-87.622088, 41.878781]"
-  [fitBounds]="mapvars.continental"
+  [fitBounds]="fitBound"
+  [fitBoundsOptions]="fitBoundsOption"
 >
   <mgl-layer
-    [id]="states_poly"
-    [type]="fill"
-    [filter]="['!in', 'STATEFP', selected_state, 'DEMO '+selected_state, 'MAPTILER '+selected_state]"
+    id="states_poly"
+    type="fill"
+    [source]="states56Json"
+    [filter]="['!in', 'STATEFP', selectedState, 'DEMO ' + selectedState, 'MAPTILER ' + selectedState]"
     [layout]="{
-    'visibility': 'visible'
+      'visibility': 'visible'
     }"
     [paint]="{
-    'fill-color': '#8B4513',
-    'fill-outline-color': '#8B4513',
-    'fill-antialias': true,
-    'fill-opacity': 0.4
+      'fill-color': '#8B4513',
+      'fill-outline-color': '#8B4513',
+      'fill-antialias': true,
+      'fill-opacity': 0.4
     }"
-    [source]="{
-    'type': 'geojson',
-    'data': 'http://whistle.mapware.net/jsons/states56.json'
+    (click)="stateClicked($event)"
+  ></mgl-layer>
+  <mgl-layer
+    id="states_line"
+    type="line"
+    [source]="states56Json"
+    [layout]="{
+      'visibility': 'visible'
+    }"
+    [paint]="{
+      'line-color': '#8B4513',
+      'line-width': 3,
+      'line-opacity': 1
+    }"
+  ></mgl-layer>
+
+  <mgl-layer
+    id="county_poly"
+    type="fill"
+    [source]="countyJson"
+    [filter]="['!in', 'GEOID', selectedCounty, 'DEMO ' + selectedCounty, 'MAPTILER ' + selectedCounty]"
+    [layout]="{
+      'visibility': 'visible'
+    }"
+    [paint]="{
+      'fill-color': '#8B4513',
+      'fill-outline-color': '#8B4513',
+      'fill-antialias': true,
+      'fill-opacity': 0.5
+    }"
+    (click)="countyClicked($event)"
+  ></mgl-layer>
+  <mgl-layer
+    id="county_label"
+    type="symbol"
+    [source]="countyLabelJson"
+    [filter]="['!in', 'GEOID', selectedCounty, 'DEMO ' + selectedCounty, 'MAPTILER ' + selectedCounty]"
+    [layout]="{
+      'text-field': '{NAME}',
+      'text-font': [
+        'DIN Offc Pro Medium',
+        'Arial Unicode MS Bold'
+      ],
+      'text-size': 12
+    }"
+    [paint]="{
+      'text-color': 'rgb(20, 20, 20)'
+    }"
+  ></mgl-layer>
+
+  <mgl-layer
+    id="twp_poly"
+    type="fill"
+    [source]="twpPolyJson"
+    [layout]="{
+      'visibility': 'visible'
+    }"
+    [paint]="{
+      'fill-color': '#8B4513',
+      'fill-outline-color': '#8B4513',
+      'fill-antialias': true,
+      'fill-opacity': 0.65
     }"
   ></mgl-layer>
   <mgl-layer
-    [id]="states_line"
-    [type]="line"
-    [source]="{
-    'type': 'geojson',
-    'data': 'http://whistle.mapware.net/jsons/states56.json'
-    }"
+    id="twp_label"
+    type="symbol"
+    [source]="twpLabelJson"
     [layout]="{
-    'visibility': 'visible'
+      'text-field': '{NAME}',
+      'text-font': [
+        'DIN Offc Pro Medium',
+        'Arial Unicode MS Bold'
+      ],
+      'text-size': 12
     }"
     [paint]="{
-    'line-color': '#8B4513',
-    'line-width': 3,
-    'line-opacity': 1
+      'text-color': 'rgb(20, 20, 20)'
     }"
   ></mgl-layer>
-  <mgl-control></mgl-control>
+
+  <mgl-control
+    mglNavigation
+  ></mgl-control>
+
 </mgl-map>
