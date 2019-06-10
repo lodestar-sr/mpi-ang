@@ -53,7 +53,7 @@ export class MapComponent implements OnInit {
     this.map.fitBounds(this.mapvars.continental);
     this.map.addSource('states_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/states56.json'
+      data: '/assets/jsons/states56.json'
     });
     this.map.addLayer({
       id: 'states_poly',
@@ -122,7 +122,7 @@ export class MapComponent implements OnInit {
 
     this.map.addSource('county_poly_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/counties_ok/cnt' + this.selectedState + 'poly.json',
+      data: '/assets/jsons/counties_ok/cnt' + this.selectedState + 'poly.json',
     });
     this.map.addLayer({
       id: 'county_poly',
@@ -141,7 +141,7 @@ export class MapComponent implements OnInit {
 
     this.map.addSource('county_label_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/counties_ok/cnt' + this.selectedState + 'cen.json'
+      data: '/assets/jsons/counties_ok/cnt' + this.selectedState + 'cen.json'
     });
     this.map.addLayer({
       id: 'county_label',
@@ -165,7 +165,7 @@ export class MapComponent implements OnInit {
 
     this.map.addSource('places_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/places_ok/places' + this.selectedState + '.json'
+      data: '/assets/jsons/places_ok/places' + this.selectedState + '.json'
     });
     this.map.addLayer({
       id: 'places_poly',
@@ -224,11 +224,11 @@ export class MapComponent implements OnInit {
 
     this.map.addSource('twp_poly_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/towns_ok/twp' + this.selectedCounty + '.json'
+      data: '/assets/jsons/towns_ok/twp' + this.selectedCounty + '.json'
     });
     this.map.addSource('twp_label_src', {
       type: 'geojson',
-      data: 'http://whistle.mapware.net/jsons/towns_ok/twp' + this.selectedCounty + 'cen.json'
+      data: '/assets/jsons/towns_ok/twp' + this.selectedCounty + 'cen.json'
     });
 
     this.map.addLayer({
