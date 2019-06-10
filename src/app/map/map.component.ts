@@ -10,6 +10,7 @@ import axios from 'axios';
 })
 export class MapComponent implements OnInit {
 
+  map: Map;
   mapvars = {
     continental: new LngLatBounds(new LngLat(-130, 30), new LngLat(-65, 50)),
     alaska: new LngLatBounds(new LngLat(-180, 50), new LngLat(-140, 75)),
@@ -19,10 +20,10 @@ export class MapComponent implements OnInit {
   fitBoundsOption: any;
   selectedState: string;
   selectedCounty: string;
+  countyFilter: any;
   states56Json: any;
   countyJson: any;
   countyLabelJson: any;
-  countyFilter: any;
   twpPolyJson: any;
   twpLabelJson: any;
 
@@ -32,6 +33,10 @@ export class MapComponent implements OnInit {
     this.selectedState = '';
     this.selectedCounty = '';
     this.countyFilter = [];
+    this.countyJson = {};
+    this.countyLabelJson = {};
+    this.twpPolyJson = {};
+    this.twpLabelJson = {};
   }
 
   ngOnInit() {
@@ -43,6 +48,10 @@ export class MapComponent implements OnInit {
     });
   }
 
+  onLoad(mapInst: Map) {
+    this.map = mapInst;
+  }
+
   async stateClicked(e) {
     let first = false;
     if (this.selectedState === '') {
@@ -50,23 +59,21 @@ export class MapComponent implements OnInit {
     }
     this.selectedState = e.features[0].properties.STATEFP.replace('DEMO ', '').replace('MAPTILER ', '');
 
-    this.fitBound = new LngLatBounds(bbox(e.features[0].geometry));
-    this.fitBoundsOption = {
-      padding: 10
-    };
+    const bBox: number[] = bbox(e.features[0].geometry);
+    this.fitBound = new LngLatBounds(bBox);
 
     if (!first) {
-      // map.off('click', 'county_poly', countyClicked);
-      // map.removeLayer('county_poly');
-      // map.removeLayer('county_label');
-      // map.removeSource('county_poly_src');
-      // map.removeSource('county_label_src');
+      // this.map.off('click', 'county_poly', countyClicked);
+      this.map.removeLayer('county_poly');
+      this.map.removeLayer('county_label');
+      // this.map.removeSource('county_poly_src');
+      // this.map.removeSource('county_label_src');
     }
     if (this.selectedCounty !== '') {
-      // map.removeLayer('twp_poly');
-      // map.removeLayer('twp_label');
-      // map.removeSource('twp_poly_src');
-      // map.removeSource('twp_label_src');
+      this.map.removeLayer('twp_poly');
+      this.map.removeLayer('twp_label');
+      // this.map.removeSource('twp_poly_src');
+      // this.map.removeSource('twp_label_src');
       this.selectedCounty = '';
     }
 
@@ -79,21 +86,15 @@ export class MapComponent implements OnInit {
 
   async countyClicked(e) {
     if (this.selectedCounty !== '') {
-      // map.removeLayer('twp_poly');
-      // map.removeLayer('twp_label');
-      // map.removeSource('twp_poly_src');
-      // map.removeSource('twp_label_src');
+      this.map.removeLayer('twp_poly');
+      this.map.removeLayer('twp_label');
+      // this.map.removeSource('twp_poly_src');
+      // this.map.removeSource('twp_label_src');
     }
     this.selectedCounty = e.features[0].properties.GEOID.replace('DEMO ', '').replace('MAPTILER ', '');
 
     this.fitBound = new LngLatBounds(bbox(e.features[0].geometry));
-    this.fitBoundsOption = {
-      padding: 10
-    };
 
-    // const filter = ['!in', 'GEOID', selectedCounty, 'DEMO ' + selectedCounty, 'MAPTILER ' + selectedCounty];
-    // map.setFilter('county_poly', filter);
-    // map.setFilter('county_label', filter);
     const resultTwpPoly = await axios.get('http://whistle.mapware.net/jsons/towns_ok/twp' + this.selectedCounty + '.json');
     this.twpPolyJson = resultTwpPoly.data;
 

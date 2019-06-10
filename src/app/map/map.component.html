@@ -3,7 +3,10 @@
   [zoom]="[3]"
   [center]="[-87.622088, 41.878781]"
   [fitBounds]="fitBound"
-  [fitBoundsOptions]="fitBoundsOption"
+  [fitBoundsOptions]="{
+    padding: 10
+  }"
+  (load)="onLoad($event)"
 >
   <mgl-layer
     id="states_poly"
@@ -41,7 +44,7 @@
     [source]="countyJson"
     [filter]="['!in', 'GEOID', selectedCounty, 'DEMO ' + selectedCounty, 'MAPTILER ' + selectedCounty]"
     [layout]="{
-      'visibility': 'visible'
+      'visibility': 'none'
     }"
     [paint]="{
       'fill-color': '#8B4513',
@@ -74,7 +77,7 @@
     type="fill"
     [source]="twpPolyJson"
     [layout]="{
-      'visibility': 'visible'
+      'visibility': 'none'
     }"
     [paint]="{
       'fill-color': '#8B4513',
