@@ -1,0 +1,12 @@
+<mgl-map
+  [style]="'mapbox://styles/mapbox/light-v10'"
+  [zoom]="[2]"
+  [center]="[-87.622088, 41.878781]"
+  (load)="onLoad($event)"
+>
+
+  <mgl-control
+    mglNavigation
+  ></mgl-control>
+
+</mgl-map>

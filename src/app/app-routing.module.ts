@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MilesLandingComponent } from './miles-landing/miles-landing.component';
-import { MainComponent } from './main/main.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: MilesLandingComponent },
-  { path: 'main', component: MainComponent},
+  {path: '', loadChildren: './miles/miles.module#MilesModule'},
+  {path: 'map', loadChildren: './map/map.module#MapModule'},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

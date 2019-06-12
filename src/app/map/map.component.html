@@ -1,12 +1,19 @@
-<mgl-map
-  [style]="'mapbox://styles/mapbox/light-v10'"
-  [zoom]="[2]"
-  [center]="[-87.622088, 41.878781]"
-  (load)="onLoad($event)"
->
+<div class="main-page">
+  <div class="top-menu-bar">
+    <img class="logo" src="/assets/images/miles_logo.png" width="104" height="72">
+    <div class="top-menu">
+      <input type="text" class="form-control search-box" style="display: none;">
+      <i class="search-btn fa-search_regular" (click)="toggleSearch()"></i>
+      <span class="user-name">Peter McPlaceholder</span>
+      <i class="fa-book-open_regular font-8px rotate-20deg"></i>
+      <i class="fa-user_regular"></i>
+      <span class="font-28px opacity-50">&nbsp;|&nbsp;</span>
+      <button class="btn text-white p-0 fa-sign-out-alt_regular" (click)="signOut()"></button>
+    </div>
+  </div>
 
-  <mgl-control
-    mglNavigation
-  ></mgl-control>
-
-</mgl-map>
+  <div class="main">
+    <app-sidebar></app-sidebar>
+    <app-miles-map></app-miles-map>
+  </div>
+</div>

@@ -17,6 +17,6 @@ export class MilesLandingComponent implements OnInit {
 
   goToMain() {
     $('#loginModal').modal('hide');
-    this.router.navigate(['/main']);
+    this.router.navigate(['/map']);
   }
 }
