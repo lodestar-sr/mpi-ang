@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {fromEvent} from "rxjs";
+import {fromEvent} from 'rxjs';
 
 declare var $: any;
 
