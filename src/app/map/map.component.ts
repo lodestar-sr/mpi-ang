@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
       }
     });
 
-    fromEvent(document, 'click').subscribe(event => {
+    fromEvent<MouseEvent>(document.body, 'click').subscribe((event: any) => {
       if (window.innerWidth <= 768 &&
         event.target.id != 'hamburger' &&
         !event.target.className.includes('fa-compass_regular') &&
