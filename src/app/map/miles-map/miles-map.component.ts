@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
+import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
 
 @Component({
   selector: 'app-miles-map',
@@ -14,8 +14,7 @@ export class MilesMapComponent implements OnInit {
     alaska: new LngLatBounds(new LngLat(-180, 50), new LngLat(-140, 75)),
     hawaii: new LngLatBounds(new LngLat(-180, 20), new LngLat(-152, 28))
   };
-  fitBound: LngLatBounds;
-  fitBoundsOption: any;
+  mapControl: IControl;
   selectedState: string;
   selectedStateName: string;
   selectedCounty: string;
@@ -24,25 +23,14 @@ export class MilesMapComponent implements OnInit {
   selectedTownshipId: any;
   selectedTownshipGeoid: any;
   selectedTownshipName: any;
-  countyFilter: any;
-  states56Json: any;
-  countyJson: any;
-  countyLabelJson: any;
-  twpPolyJson: any;
-  twpLabelJson: any;
+  datapath: string;
 
   constructor() {
-    this.fitBound = this.mapvars.continental;
-    this.fitBoundsOption = {};
     this.selectedState = '';
     this.selectedStateName = '';
     this.selectedCounty = '';
     this.selectedCountyName = '';
-    this.countyFilter = [];
-    this.countyJson = {};
-    this.countyLabelJson = {};
-    this.twpPolyJson = {};
-    this.twpLabelJson = {};
+    this.datapath = 'https://mpi-dev-proc.firebaseapp.com';
   }
 
   ngOnInit() {
@@ -52,13 +40,14 @@ export class MilesMapComponent implements OnInit {
     this.map = mapInst;
     this.map.fitBounds(this.mapvars.continental);
     this.map.addSource('states_src', {
-      type: 'geojson',
-      data: '/assets/jsons/states56.json'
+      type: 'vector',
+      tiles: [this.datapath + '/assets/tiles/states/{z}/{x}/{y}.pbf']
     });
     this.map.addLayer({
       id: 'states_poly',
       type: 'fill',
       source: 'states_src',
+      'source-layer': 'states',
       filter: ['!in', 'STATEFP', this.selectedState, 'DEMO ' + this.selectedState, 'MAPTILER ' + this.selectedState],
       layout: {
         visibility: 'visible'
@@ -74,6 +63,7 @@ export class MilesMapComponent implements OnInit {
       id: 'states_line',
       type: 'line',
       source: 'states_src',
+      'source-layer': 'states',
       layout: {
         visibility: 'visible'
       },
@@ -84,6 +74,46 @@ export class MilesMapComponent implements OnInit {
       }
     });
     this.map.on('click', 'states_poly', (evt: MapMouseEvent) => this.stateClicked(evt));
+    this.mapControl = {onAdd: this.controlOnAdd, onRemove: this.controlOnRemove};
+    this.map.addControl(this.mapControl, 'bottom-left');
+  }
+
+  controlOnAdd(map) {
+    const container = document.createElement('div');
+    container.id = 'zoom-buttons';
+    const b1 = window.document.createElement('button');
+    b1.style.clear = 'none';
+    b1.className = 'mapboxgl-ctrl';
+    b1.innerHTML = '<img src="/assets/images/map1_64.png"/>';
+    b1.addEventListener('click', (e) => {
+      map.fitBounds(new LngLatBounds(new LngLat(-130, 30), new LngLat(-65, 50)));
+      e.stopPropagation();
+    }, false);
+    container.appendChild(b1);
+    const b2 = window.document.createElement('button');
+    b2.style.clear = 'none';
+    b2.className = 'mapboxgl-ctrl';
+    b2.innerHTML = '<img src="/assets/images/map2_64.png"/>';
+    b2.addEventListener('click', (e) => {
+      map.fitBounds(new LngLatBounds(new LngLat(-206.05, 45.85), new LngLat(-126.95, 71.65)));
+      e.stopPropagation();
+    }, false);
+    container.appendChild(b2);
+    const b3 = window.document.createElement('button');
+    b3.style.clear = 'none';
+    b3.className = 'mapboxgl-ctrl';
+    b3.innerHTML = '<img src="/assets/images/map3_64.png"/>';
+    b3.addEventListener('click', (e) => {
+      map.fitBounds(new LngLatBounds(new LngLat(-180, 20), new LngLat(-152, 28)));
+      e.stopPropagation();
+    }, false);
+    container.appendChild(b3);
+    return container;
+  }
+
+  controlOnRemove(map) {
+    const container = document.getElementById('zoom-buttons');
+    container.parentNode.removeChild(container);
   }
 
   stateClicked(e) {
@@ -121,13 +151,14 @@ export class MilesMapComponent implements OnInit {
     }
 
     this.map.addSource('county_poly_src', {
-      type: 'geojson',
-      data: '/assets/jsons/counties_ok/cnt' + this.selectedState + 'poly.json',
+      type: 'vector',
+      tiles: [this.datapath + '/assets/tiles/counties/' + this.selectedState + '/{z}/{x}/{y}.pbf'],
     });
     this.map.addLayer({
       id: 'county_poly',
       type: 'fill',
       source: 'county_poly_src',
+      'source-layer': 'counties',
       layout: {
         visibility: 'visible'
       },
@@ -141,7 +172,7 @@ export class MilesMapComponent implements OnInit {
 
     this.map.addSource('county_label_src', {
       type: 'geojson',
-      data: '/assets/jsons/counties_ok/cnt' + this.selectedState + 'cen.json'
+      data: this.datapath + '/assets/jsons/counties_ok/cnt' + this.selectedState + 'cen.json'
     });
     this.map.addLayer({
       id: 'county_label',
@@ -156,8 +187,8 @@ export class MilesMapComponent implements OnInit {
         'text-size': 15
       },
       paint: {
-        'text-halo-color' : '#ffffff',
-        'text-halo-width' : 1,
+        'text-halo-color': '#ffffff',
+        'text-halo-width': 1,
         'text-color': 'rgb(20, 20, 20)'
       }
     });
@@ -165,7 +196,7 @@ export class MilesMapComponent implements OnInit {
 
     this.map.addSource('places_src', {
       type: 'geojson',
-      data: '/assets/jsons/places_ok/places' + this.selectedState + '.json'
+      data: this.datapath + '/assets/jsons/places_ok/places' + this.selectedState + '.json'
     });
     this.map.addLayer({
       id: 'places_poly',
@@ -211,8 +242,8 @@ export class MilesMapComponent implements OnInit {
     this.map.setLayoutProperty('places_poly', 'visibility', 'none');
     this.map.setLayoutProperty('places_label', 'visibility', 'none');
 
-    this.selectedCounty = e.features[0].properties.GEOID;
-    this.selectedCountyName = e.features[0].properties.NAME ;
+    this.selectedCounty = e.features[0].properties.GEOID.replace('DEMO ', '').replace('MAPTILER ', '');
+    this.selectedCountyName = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
     const bbox = new LngLatBounds(
       new LngLat(e.features[0].properties.EXT_MIN_X, e.features[0].properties.EXT_MIN_Y),
       new LngLat(e.features[0].properties.EXT_MAX_X, e.features[0].properties.EXT_MAX_Y)
@@ -224,11 +255,11 @@ export class MilesMapComponent implements OnInit {
 
     this.map.addSource('twp_poly_src', {
       type: 'geojson',
-      data: '/assets/jsons/towns_ok/twp' + this.selectedCounty + '.json'
+      data: this.datapath + '/assets/jsons/towns_ok/twp' + this.selectedCounty + '.json'
     });
     this.map.addSource('twp_label_src', {
       type: 'geojson',
-      data: '/assets/jsons/towns_ok/twp' + this.selectedCounty + 'cen.json'
+      data: this.datapath + '/assets/jsons/towns_ok/twp' + this.selectedCounty + 'cen.json'
     });
 
     this.map.addLayer({
@@ -269,17 +300,56 @@ export class MilesMapComponent implements OnInit {
     this.selectedTownshipId = e.features[0].properties.COUSUBFP;
     this.selectedTownshipGeoid = e.features[0].properties.GEOID;
     this.selectedTownshipName = e.features[0].properties.NAMELSAD;
+    const selectn: any[] = this.map.querySourceFeatures('twp_poly_src', {filter: ['==', 'GEOID', this.selectedTownshipGeoid]});
+    let carray = [];
+
+    for (let i = 0; i < selectn.length; i++) {
+      const coords = selectn[i].geometry.coordinates;
+      if (selectn[i].geometry.type === 'MultiPolygon') {
+        for (let j = 0; j < coords.length; j++) {
+          carray = carray.concat(coords[j][0]);
+        }
+      }
+      if (selectn[i].geometry.type === 'Polygon') {
+        carray = carray.concat(coords[0]);
+      }
+    }
+
+    const bnds = carray.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new LngLatBounds(carray[0], carray[0]));
+
+    this.map.fitBounds(bnds, {padding: 10});
     const placesfilter = ['all', ['==', 'COUSUBFP', this.selectedTownshipId], ['==', 'CountyID', this.selectedTownshipCnt]];
     this.map.setFilter('places_poly', placesfilter);
     this.map.setFilter('places_label', placesfilter);
     this.map.setLayoutProperty('places_poly', 'visibility', 'visible');
     this.map.setLayoutProperty('places_label', 'visibility', 'visible');
-    const twpfilter = [ '!in' , 'GEOID', this.selectedTownshipGeoid];
+    const twpfilter = ['!in', 'GEOID', this.selectedTownshipGeoid];
     this.map.setFilter('twp_poly', twpfilter);
     this.map.setFilter('twp_label', twpfilter);
   }
 
   placeClicked(e) {
+    const selectn: any[] = this.map.querySourceFeatures('places_src',
+      {filter: ['all', ['==', 'GEOID', e.features[0].properties.GEOID], ['==', 'COUSUBFP', e.features[0].properties.COUSUBFP]]});
+    let carray = [];
+    for (let i = 0; i < selectn.length; i++) {
+      const coords = selectn[i].geometry.coordinates;
+      if (selectn[i].geometry.type === 'MultiPolygon') {
+        for (let j = 0; j < coords.length; j++) {
+          carray = carray.concat(coords[j][0]);
+        }
+      }
+      if (selectn[i].geometry.type === 'Polygon') {
+        carray = carray.concat(coords[0]);
+      }
+    }
+
+    const bnds = carray.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new LngLatBounds(carray[0], carray[0]));
+    this.map.fitBounds(bnds, {padding: 10});
     const html = '<strong>' + e.features[0].properties.NAMELSAD + '</strong><br />' + this.selectedTownshipName + '<br />' +
       this.selectedCountyName + ' County<br />' + this.selectedStateName;
     new Popup()
@@ -289,14 +359,14 @@ export class MilesMapComponent implements OnInit {
   }
 
   viewCont() {
-    this.fitBound = this.mapvars.continental;
+    this.map.fitBounds(this.mapvars.continental);
   }
 
   viewAlaska() {
-    this.fitBound = this.mapvars.alaska;
+    this.map.fitBounds(this.mapvars.alaska);
   }
 
   viewHawaii() {
-    this.fitBound = this.mapvars.hawaii;
+    this.map.fitBounds(this.mapvars.hawaii);
   }
 }
