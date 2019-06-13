@@ -10,7 +10,7 @@
     background: #2699FB;
 
     .logo {
-      margin-left: 8.5%;
+      margin-left: 20px;
     }
 
     .top-menu {
@@ -60,9 +60,24 @@
   .main {
     height: calc(100% - 72px);
     display: flex;
+    position: relative;
 
     app-miles-map {
       flex: 1;
+    }
+
+    app-sidebar {
+      margin-left: 0;
+      transition-delay: 1s;
+    }
+
+    @media (max-width: 768px) {
+      app-sidebar {
+        position: fixed;
+        margin-left: -360px;
+        transition-delay: 1s;
+        overflow: scroll;
+      }
     }
   }
 
@@ -80,12 +95,5 @@
 
   .rotate-20deg {
     transform: rotate(-20deg);
-  }
-
-  @media (max-width: 957px) {
-    .main {
-      margin-left: 0;
-      margin-right: 0;
-    }
   }
 }
