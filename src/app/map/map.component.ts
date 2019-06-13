@@ -24,6 +24,21 @@ export class MapComponent implements OnInit {
         $('.search-box').hide();
       }
     });
+
+    fromEvent(document, 'click').subscribe(event => {
+      if (window.innerWidth <= 768 &&
+        event.target.id != 'hamburger' &&
+        !event.target.className.includes('fa-compass_regular') &&
+        !event.target.className.includes('fa-university_regular') &&
+        !event.target.className.includes('fa-landmark-alt_regular') &&
+        !event.target.className.includes('fa-city_regular') &&
+        !event.target.className.includes('fa-hotel_regular') &&
+        !event.target.className.includes('nav-link') &&
+        !event.target.className.includes('nav-item')
+      ) {
+        this.additionalSidebarClass = '';
+      }
+    });
   }
 
   signOut() {
