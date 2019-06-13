@@ -13,25 +13,16 @@
       margin-left: 20px;
     }
 
+    .top-menu-items {
+      justify-content: flex-end;
+    }
+
     .top-menu {
       color: #FFFFFF;
       display: flex;
       align-items: center;
       margin-right: 15.5%;
-
-      .search-box {
-        background: transparent;
-        border: solid 1px #FFFFFF88;
-        border-radius: 0;
-        color: #FFFFFF;
-        margin-right: 12px;
-        font-size: 12px;
-        width: 128px;
-
-        &:focus {
-          box-shadow: #FFFFFF;
-        }
-      }
+      float: right;
 
       .search-btn {
         padding: 0;
@@ -46,6 +37,24 @@
       }
     }
 
+    .hamburger {
+      margin-left: 10px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+
+      .top-menu-items {
+        justify-content: space-between;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
     @media (max-width: 957px) {
       .logo {
         margin-left: 20px;
@@ -55,6 +64,25 @@
         margin-right: 20px;
       }
     }
+  }
+
+  .search-box, .search-box-bottom {
+    background: transparent;
+    border: solid 1px #FFFFFF88;
+    border-radius: 0;
+    color: #FFFFFF;
+    margin-right: 12px;
+    font-size: 12px;
+    width: 128px;
+
+    &:focus {
+      box-shadow: #FFFFFF;
+    }
+  }
+
+  .search-box-bottom {
+    width: 100%;
+    margin-left: 12px;
   }
 
   .main {
@@ -74,9 +102,15 @@
     @media (max-width: 768px) {
       app-sidebar {
         position: fixed;
+        height: 100%;
         margin-left: -360px;
         transition-delay: 1s;
         overflow: scroll;
+        z-index: 100;
+
+        &.visible {
+          margin-left: 0;
+        }
       }
     }
   }
