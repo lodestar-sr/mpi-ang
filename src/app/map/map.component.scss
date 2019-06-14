@@ -96,7 +96,7 @@
 
     app-sidebar {
       margin-left: 0;
-      transition-delay: 1s;
+      transition-duration: 1s;
     }
 
     @media (max-width: 768px) {
@@ -106,13 +106,13 @@
         position: fixed;
         height: 100%;
         margin-left: -360px;
-        transition-delay: 1s;
+        transition-duration: 1s;
         overflow: scroll;
         z-index: 100;
 
         &.visible {
           margin-left: 0;
-          transition-delay: 1s;
+          transition-duration: 1s;
         }
       }
     }
