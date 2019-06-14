@@ -30,7 +30,7 @@ export class MilesMapComponent implements OnInit {
     this.selectedStateName = '';
     this.selectedCounty = '';
     this.selectedCountyName = '';
-    this.datapath = '';//'https://mpi-dev-proc.firebaseapp.com';
+    this.datapath = 'https://mpi-dev-proc.firebaseapp.com';
   }
 
   ngOnInit() {
