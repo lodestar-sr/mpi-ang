@@ -1,0 +1,18 @@
+#!/bin/bash
+# this has to be done only once, then : $git pull origin master;$deploy-fb
+clear
+pushd .
+cd ../..
+pwd
+
+#install tools & auth
+#sudo npm install -g firebase-tools
+#firebase login --no-localhost
+
+# -- set GCP project
+#firebase use mpi-dev-proc
+
+# chose 'N' to modify index.html
+# chose 'dist/miles' for the 'public' directory
+#firebase init
+popd
