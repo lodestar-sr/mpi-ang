@@ -1,0 +1,17 @@
+#!/bin/bash
+printf '\nbegin build'
+date
+pwd
+pushd .
+cd ../..
+rm -rf dist
+ls dist
+
+printf '\nbuilding project'
+pwd
+export NODE_OPTIONS=--max_old_space_size=4096
+ng build --prod
+popd
+pwd
+printf '\nend build'
+date
