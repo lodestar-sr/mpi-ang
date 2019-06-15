@@ -113,7 +113,9 @@ export class MilesMapComponent implements OnInit {
 
   controlOnRemove(map) {
     const container = document.getElementById('zoom-buttons');
-    container.parentNode.removeChild(container);
+    if (container) {
+      container.parentNode.removeChild(container);
+    }
   }
 
   stateClicked(e) {
