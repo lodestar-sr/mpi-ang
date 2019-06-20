@@ -10,3 +10,11 @@
 .text-size-24p {
   font-size: 24px;
 }
+
+.text-decoration-none {
+  text-decoration: none;
+
+  &:hover, &:focus, &:active {
+    text-decoration: none;
+  }
+}
