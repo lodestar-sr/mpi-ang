@@ -72,3 +72,20 @@
     }
   }
 }
+
+body.modal-open {
+
+  .miles-landing {
+    -webkit-filter: blur(12px);
+    -moz-filter: blur(12px);
+    -o-filter: blur(12px);
+    -ms-filter: blur(12px);
+    filter: blur(12px);
+    filter: url(/assets/images/blur.svg#blur);
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='12');
+  }
+
+  .modal-backdrop.show {
+    opacity: 0.1;
+  }
+}

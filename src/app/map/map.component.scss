@@ -107,7 +107,7 @@
         height: 100%;
         margin-left: -360px;
         transition-duration: 1s;
-        overflow: scroll;
+        overflow: auto;
         z-index: 100;
 
         &.visible {
