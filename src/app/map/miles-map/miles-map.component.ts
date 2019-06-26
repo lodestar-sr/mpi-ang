@@ -4,7 +4,6 @@ import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-
 @Component({
   selector: 'app-miles-map',
   templateUrl: './miles-map.component.html',
-  styleUrls: ['./miles-map.component.scss']
 })
 export class MilesMapComponent implements OnInit {
 
@@ -400,7 +399,6 @@ export class MilesMapComponent implements OnInit {
 
     container.id = 'zoom-buttons';
     const b1 = window.document.createElement('button');
-    b1.style.clear = 'none';
     b1.className = 'mapboxgl-ctrl';
     b1.innerHTML = '<img src="/assets/images/map1_64.png"/>';
     b1.addEventListener('click', (e) => {
@@ -410,7 +408,6 @@ export class MilesMapComponent implements OnInit {
 
     container.appendChild(b1);
     const b2 = window.document.createElement('button');
-    b2.style.clear = 'none';
     b2.className = 'mapboxgl-ctrl';
     b2.innerHTML = '<img src="/assets/images/map2_64.png"/>';
     b2.addEventListener('click', (e) => {
@@ -420,7 +417,6 @@ export class MilesMapComponent implements OnInit {
 
     container.appendChild(b2);
     const b3 = window.document.createElement('button');
-    b3.style.clear = 'none';
     b3.className = 'mapboxgl-ctrl';
     b3.innerHTML = '<img src="/assets/images/map3_64.png"/>';
     b3.addEventListener('click', (e) => {
