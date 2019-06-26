@@ -1,149 +1,63 @@
-<div class="sidebar">
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" href="#overview" role="tab" data-toggle="tab">
-        <i class="fa-compass_regular"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#us" role="tab" data-toggle="tab">
-        <i class="fa-university_regular"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#state" role="tab" data-toggle="tab">
-        <i class="fa-landmark-alt_regular"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#county" role="tab" data-toggle="tab">
-        <i class="fa-city_regular"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#municipality" role="tab" data-toggle="tab">
-        <i class="fa-hotel_regular"></i>
-      </a>
-    </li>
-  </ul>
+<div #sidebar [class]="'sidebar ' + (isSmall ? 'small' : '')">
+  <div class="blur-container">
+    <div class="backdrop-blur"></div>
+  </div>
+  <div class="sidemenu">
+    <ul class="list-unstyled components">
+      <li [class]="activated == 'HOME' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('HOME')">
+          <i class="fa-compass_regular"></i>
+          <span>HOME</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+      <hr class="separator"/>
+      <li [class]="activated == 'SEARCH' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('SEARCH')">
+          <i class="fa-search_regular"></i>
+          <span>SEARCH</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+      <li [class]="activated == 'ADD DATA' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('ADD DATA')">
+          <i class="fa-cloud-upload-alt_regular"></i>
+          <span>ADD DATA</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+      <li [class]="activated == 'DRAW' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('DRAW')">
+          <i class="fa-draw-polygon_regular"></i>
+          <span>DRAW</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+      <hr class="separator"/>
+      <li [class]="activated == 'BOUNDARIES' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('BOUNDARIES')">
+          <i class="fa-object-group_regular"></i>
+          <span>BOUNDARIES</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+      <li [class]="activated == 'DATA LAYERS' ? 'active' : ''">
+        <a href="javascript:" (click)="activateMenu('DATA LAYERS')">
+          <i class="fa-database_regular"></i>
+          <span>DATA LAYERS</span>
+        </a>
+        <div class="activated-bar"></div>
+      </li>
+    </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="overview">
-      <nav class="sidemenu">
-        <div class="tab-title">OVERVIEW</div>
-        <ul class="list-unstyled">
-          <li class="active">
-            <a href="javascript:"><span><i class="fa-filter_regular"></i></span>FILTER</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-draw-polygon_regular"></i></span>DRAW</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-object-group_regular"></i></span>BOUNDARIES</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-cloud-upload-alt_regular"></i></span>UPLOAD</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-database_regular"></i></span>DATA LAYERS</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="us">
-      <nav class="sidemenu">
-        <div class="tab-title">UNITED STATES</div>
-        <ul class="list-unstyled">
-          <li>
-            <a href="javascript:"><span><i class="fa-landmark-alt_regular"></i></span>54 States</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-city_regular"></i></span>3,126 Counties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-hotel_regular"></i></span>40,633 Municipalities</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-home_regular"></i></span>XXX,XXX,XXX Properties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-user-tie_regular"></i></span>XX,XXX,XXX Property Owners</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-file-certificate_regular"></i></span>XX,XXX Registration Ordinances</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="state">
-      <nav class="sidemenu">
-        <div class="tab-title">STATE</div>
-        <ul class="list-unstyled">
-          <li>
-            <a href="javascript:"><span><i class="fa-city_regular"></i></span>3,126 Counties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-hotel_regular"></i></span>40,633 Municipalities</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-home_regular"></i></span>XXX,XXX,XXX Properties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-user-tie_regular"></i></span>XX,XXX,XXX Property Owners</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-file-certificate_regular"></i></span>XX,XXX Registration Ordinances</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="county">
-      <nav class="sidemenu">
-        <div class="tab-title">COUNTY</div>
-        <ul class="list-unstyled">
-          <li>
-            <a href="javascript:"><span><i class="fa-hotel_regular"></i></span>40,633 Municipalities</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-home_regular"></i></span>XXX,XXX,XXX Properties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-user-tie_regular"></i></span>XX,XXX,XXX Property Owners</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-file-certificate_regular"></i></span>XX,XXX Registration Ordinances</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div role="tabpanel" class="tab-pane fade" id="municipality">
-      <nav class="sidemenu">
-        <div class="tab-title">MUNICIPALITY</div>
-        <ul class="list-unstyled">
-          <li>
-            <a href="javascript:"><span><i class="fa-home_regular"></i></span>XXX,XXX,XXX Properties</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-user-tie_regular"></i></span>XX,XXX,XXX Property Owners</a>
-          </li>
-          <li>
-            <a href="javascript:"><span><i class="fa-file-certificate_regular"></i></span>XX,XXX Registration Ordinances</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="sidebar-info">
-      <div class="d-flex justify-content-between">
-        <div>
-          <span class="text-size-16p">XX, XXXX</span>&nbsp;<span class="text-size-10p ml-1">Entities reporting</span>
-        </div>
-        <div>
-          <span class="text-size-10p mr-1">Updated:</span>&nbsp;<span class="text-size-16p">XX/XX/XXXX</span>
-        </div>
-      </div>
-      <div class="text-right">
-        <button class="btn btn-link p-0 m-0 text-decoration-none"><i class="fa-arrow-alt-to-left_regular text-size-24p text-white"></i></button>
+    <i [class]="(isSmall ? 'fa-arrow-alt-from-left_regular' : 'fa-arrow-alt-to-left_regular') + ' sidebar-switch'" (click)="switchSidebar(sidebar, details)"></i>
+  </div>
+  <div #details class="details">
+    <div class="details-paragraph">
+      <div class="title">
+        <i class="fa-landmark-alt_regular"></i>
+        <span>COLORADO</span>
+        <i class="fa-arrow-alt-from-top_regular collapsable"></i>
       </div>
     </div>
   </div>

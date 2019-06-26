@@ -72,5 +72,12 @@ mgl-map {
         }
       }
     }
+
+    .mapboxgl-canvas-container {
+
+      canvas.mapboxgl-canvas {
+        width: 100% !important;
+      }
+    }
   }
 }

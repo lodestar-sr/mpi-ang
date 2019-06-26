@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ja0qh3');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ja0qh3#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?ja0qh3') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?ja0qh3') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?ja0qh3##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?kczy7p');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?kczy7p#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?kczy7p') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?kczy7p') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?kczy7p##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,14 +26,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fa-bars_regular {
+.fa-arrow-alt-from-bottom_regular {
   &:before {
-    content: $fa-bars_regular; 
+    content: $fa-arrow-alt-from-bottom_regular; 
   }
 }
-.fa-compass_regular {
+.fa-arrow-alt-from-left_regular {
   &:before {
-    content: $fa-compass_regular; 
+    content: $fa-arrow-alt-from-left_regular; 
+  }
+}
+.fa-arrow-alt-from-top_regular {
+  &:before {
+    content: $fa-arrow-alt-from-top_regular; 
   }
 }
 .fa-arrow-alt-to-left_regular {
@@ -41,9 +46,19 @@
     content: $fa-arrow-alt-to-left_regular; 
   }
 }
+.fa-arrow-alt-to-right_regular {
+  &:before {
+    content: $fa-arrow-alt-to-right_regular; 
+  }
+}
 .fa-balance-scale_regular {
   &:before {
     content: $fa-balance-scale_regular; 
+  }
+}
+.fa-bars_regular {
+  &:before {
+    content: $fa-bars_regular; 
   }
 }
 .fa-book-open_regular {
@@ -59,6 +74,11 @@
 .fa-cloud-upload-alt_regular {
   &:before {
     content: $fa-cloud-upload-alt_regular; 
+  }
+}
+.fa-compass_regular {
+  &:before {
+    content: $fa-compass_regular; 
   }
 }
 .fa-database_regular {
@@ -111,6 +131,16 @@
     content: $fa-object-group_regular; 
   }
 }
+.fa-road_regular {
+  &:before {
+    content: $fa-road_regular; 
+  }
+}
+.fa-satellite_regular {
+  &:before {
+    content: $fa-satellite_regular; 
+  }
+}
 .fa-search_regular {
   &:before {
     content: $fa-search_regular; 
@@ -144,11 +174,6 @@
 .fa-user-tie_regular {
   &:before {
     content: $fa-user-tie_regular; 
-  }
-}
-.fa-hand {
-  &:before {
-    content: $fa-hand; 
   }
 }
 

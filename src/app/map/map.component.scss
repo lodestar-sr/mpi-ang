@@ -2,15 +2,24 @@
   background: url(/assets/images/miles_hero.png) center top;
   background-size: cover;
   width: 100%;
-  height: calc(100vh - 80px);
 
   .top-menu-bar {
 
-    .backdrop-blur {
+    .blur-container {
       width: 100%;
       height: 80px;
-      background: rgba(0, 0, 0, 0.5);
-      filter: url(/assets/images/blur.svg#blur);
+      overflow: hidden;
+
+      .backdrop-blur {
+        width: 150%;
+        height: 120px;
+        margin-left: -25%;
+        margin-top: -20px;
+        background: url(/assets/images/miles_hero.png) center top;
+        background-size: cover;
+        filter: blur(20px) brightness(0.5);
+      }
+
     }
 
     .top-bar-content {
@@ -39,7 +48,7 @@
           text-decoration: none;
 
           i {
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 24px;
           }
 
@@ -126,47 +135,38 @@
         }
       }
 
-      .hamburger {
-        margin-left: 10px;
-        display: none;
-      }
-
       @media (max-width: 768px) {
 
         .top-menu-items {
           justify-content: space-between;
         }
-
-        .hamburger {
-          display: block;
-        }
       }
     }
-  }
 
-  .search-box, .search-box-bottom {
-    background: transparent;
-    border: solid 1px #FFFFFF88;
-    border-radius: 0;
-    color: #FFFFFF;
-    margin-right: 12px;
-    font-size: 12px;
-    width: 128px;
+    .search-box, .search-box-bottom {
+      background: transparent;
+      border: solid 1px #FFFFFF88;
+      border-radius: 0;
+      color: #FFFFFF;
+      margin-right: 12px;
+      font-size: 12px;
+      width: 128px;
 
-    &:focus {
-      box-shadow: #FFFFFF;
+      &:focus {
+        box-shadow: #FFFFFF;
+      }
     }
-  }
 
-  .search-box-bottom {
-    width: 100%;
-    background-color: #183c72;
+    .search-box-bottom {
+      width: 100%;
+      background-color: #183c72;
+    }
   }
 
   .main {
-    height: 100%;
     display: flex;
     position: relative;
+    height: calc(100vh - 80px);
 
     app-miles-map {
       flex: 1;
@@ -175,24 +175,6 @@
     app-sidebar {
       margin-left: 0;
       transition-duration: 1s;
-    }
-
-    @media (max-width: 768px) {
-      height: calc(100vh - 114px);
-
-      app-sidebar {
-        position: relative;
-        height: 100%;
-        margin-left: -360px;
-        transition-duration: 1s;
-        overflow: auto;
-        z-index: 100;
-
-        &.visible {
-          margin-left: 0;
-          transition-duration: 1s;
-        }
-      }
     }
   }
 }
