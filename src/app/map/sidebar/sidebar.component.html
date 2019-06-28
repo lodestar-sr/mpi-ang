@@ -1,4 +1,4 @@
-<div #sidebar [class]="'sidebar ' + (isSmall ? 'small' : '')">
+<div #sidebar [class]="'sidebar ' + (isSmall ? 'small' : '')" [style.width.px]="(isSmall ? 56 : 128) + (details.length ? 360 : 0)">
   <div class="blur-container">
     <div class="backdrop-blur"></div>
   </div>
@@ -50,15 +50,49 @@
       </li>
     </ul>
 
-    <i [class]="(isSmall ? 'fa-arrow-alt-from-left_regular' : 'fa-arrow-alt-to-left_regular') + ' sidebar-switch'" (click)="switchSidebar(sidebar, details)"></i>
+    <i [class]="(isSmall ? 'fa-arrow-alt-from-left_regular' : 'fa-arrow-alt-to-left_regular') + ' sidebar-switch'" (click)="switchSidebar(sidebar, detailsPanel)"></i>
   </div>
-  <div #details class="details">
-    <div class="details-paragraph">
-      <div class="title">
-        <i class="fa-landmark-alt_regular"></i>
-        <span>COLORADO</span>
-        <i class="fa-arrow-alt-from-top_regular collapsable"></i>
+
+  <div #detailsPanel [class]="'details ' + (details.length ? 'disp' : '')">
+    <!--Accordion wrapper-->
+    <div class="accordion accordion-wrapper" id="details-accordion" role="tablist" aria-multiselectable="true">
+
+      <div *ngFor="let detail of details; let i = index" class="card">
+        <div class="card-header" role="tab" [id]="detail.title.replace(' ', '_')">
+          <i *ngIf="i == 0" class="fa-landmark-alt_regular"></i>
+          <i *ngIf="i == 1" class="fa-hotel_regular"></i>
+          <i *ngIf="i == 2" class="fa-building_regular"></i>
+          <span>{{ detail.title }}</span>
+          <a class="collapsable" data-toggle="collapse" data-parent="#details-accordion" [href]="'#collapse' + i" (click)="changeStatus(i)">
+            <i class="fa-arrow-alt-from-bottom_regular"></i>
+            <i class="fa-arrow-alt-from-top_regular"></i>
+          </a>
+        </div>
+        <div [id]="'collapse' + i" [class]="'collapse ' + (i == selectedDetail ? 'show' : '')" role="tabpanel" data-parent="#details-accordion">
+          <div class="card-body">
+            <div class="boards">
+              <div class="small-panel">
+                <div class="number">{{ detail.header1.value.toLocaleString() }}</div>
+                <div class="name">{{ detail.header1.name }}</div>
+              </div>
+              <div class="small-panel">
+                <div class="number">{{ detail.header2.value.toLocaleString() }}</div>
+                <div class="name">{{ detail.header2.name }}</div>
+              </div>
+              <div class="small-panel">
+                <div class="number">{{ detail.header3.value.toLocaleString() }}</div>
+                <div class="name">{{ detail.header3.name }}</div>
+              </div>
+            </div>
+            <div class="description">{{ detail.description }}</div>
+            <div class="update-date">
+              <span class="text-size-10p mr-5">Updated:</span>
+              <span class="text-size-16p">{{ detail.updated }}</span>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

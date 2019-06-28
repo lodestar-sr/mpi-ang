@@ -1,6 +1,5 @@
 .sidebar {
   height: 100%;
-  width: 488px;
   color: #FFFFFF;
   position: relative;
   font-size: 16px;
@@ -139,31 +138,118 @@
     left: 128px;
     padding: 8px;
     top: 0;
+    display: none;
     transition-duration: 0.5s;
+    
+    &.disp {
+      display: block;
+    }
 
-    .details-paragraph {
-      background-color: #426BAF80;
-      width: 100%;
-      padding: 8px;
-      border-radius: 4px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    .accordion-wrapper {
+      height: 100%;
 
-      .title {
-        display: flex;
-        align-items: center;
+      .card {
+        background-color: #426BAF80;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        margin-bottom: 8px;
+        border-radius: 4px;
 
-        i {
-          margin: 8px 8px 8px 12px;
-          font-size: 24px;
+        .card-header {
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          border-bottom: none;
+          background-color: transparent;
+
+          i {
+            margin: 8px 8px 8px 12px;
+            font-size: 24px;
+          }
+
+          span {
+            margin-left: 14px;
+            font-size: 16px;
+          }
+
+          .collapsable {
+            margin-left: auto;
+            color: #ffffff;
+            text-decoration: none;
+
+            .fa-arrow-alt-from-bottom_regular {
+              display: block;
+            }
+
+            .fa-arrow-alt-from-top_regular {
+              display: none;
+            }
+
+            &.collapsed {
+
+              .fa-arrow-alt-from-bottom_regular {
+                display: none;
+              }
+
+              .fa-arrow-alt-from-top_regular {
+                display: block;
+              }
+            }
+
+            &:hover {
+              text-decoration: none;
+            }
+          }
         }
 
-        span {
-          margin-left: 14px;
-          font-size: 16px;
-        }
+        .card-body {
+          padding: 0;
+          margin: 8px;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          transition: all 0.5s;
 
-        .collapsable {
+          .boards {
+            display: flex;
+            justify-content: space-around;
 
+            .small-panel {
+              width: 104px;
+              background-color: #426BAF80;
+              border-radius: 4px;
+              text-align: center;
+              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+
+              .number {
+                font-size: 32px;
+                font-weight: bold;
+                width: 100%;
+              }
+
+              .name {
+                font-size: 12px;
+                width: 100%;
+              }
+            }
+          }
+
+          .description {
+            background-color: #426BAF80;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: 12px;
+            padding: 2px 5px;
+            min-height: 50px;
+            margin: 8px 2px 30px;
+          }
+
+          .update-date {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+          }
         }
       }
     }
