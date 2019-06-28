@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       const wrapHeight = wrapper.clientHeight;
       const cnt = document.querySelectorAll('.card').length;
       const freeSpace = wrapHeight - cnt * (headerHeight + 12);
-      const cardbody = document.querySelector('#collapse' + no + ' .card-body');
+      const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
       cardbody.style.height = freeSpace + 'px';
     }
   }
@@ -107,7 +107,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if (!ele.className.includes('show')) {      // closed status -> open status
       this.recalculateHeight(no);
     } else {    // opened status -> close status
-      const cardbody = document.querySelector('#collapse' + no + ' .card-body');
+      const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
       cardbody.style.height = '0px';
     }
   }
