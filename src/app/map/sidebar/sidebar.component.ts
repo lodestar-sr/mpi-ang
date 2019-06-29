@@ -107,8 +107,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if (!ele.className.includes('show')) {      // closed status -> open status
       this.recalculateHeight(no);
     } else {    // opened status -> close status
-      // const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
-      // cardbody.style.height = '0px';
+      const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
+      cardbody.style.height = '0px';
     }
   }
 }
