@@ -4,8 +4,7 @@
   position: relative;
   font-size: 16px;
   transition-duration: 0.5s;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
 
   .blur-container {
@@ -32,6 +31,10 @@
     width: 128px;
     height: 100%;
     transition-duration: 0.5s;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 
     ul {
 
@@ -90,9 +93,7 @@
 
     .sidebar-switch {
       font-size: 24px;
-      position: absolute;
-      bottom: 8px;
-      right: 16px;
+      margin: auto 16px 8px auto;
       cursor: pointer;
     }
   }
