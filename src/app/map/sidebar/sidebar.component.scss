@@ -156,8 +156,6 @@
 
         .card-header {
           padding: 8px;
-          display: flex;
-          align-items: center;
           border-bottom: none;
           background-color: transparent;
 
@@ -199,16 +197,6 @@
               text-decoration: none;
             }
           }
-        }
-
-        .card-body {
-          padding: 0;
-          margin: 8px;
-          -webkit-transition: all 0.5s;
-          -moz-transition: all 0.5s;
-          -ms-transition: all 0.5s;
-          -o-transition: all 0.5s;
-          transition: all 0.5s;
 
           .boards {
             display: flex;
@@ -233,6 +221,16 @@
               }
             }
           }
+        }
+
+        .card-body {
+          padding: 0;
+          margin: 0 8px 8px 8px;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          transition: all 0.5s;
 
           .description {
             background-color: #426BAF80;
@@ -241,7 +239,7 @@
             font-size: 12px;
             padding: 2px 5px;
             min-height: 50px;
-            margin: 8px 2px 30px;
+            margin: 0 2px 30px;
           }
 
           .update-date {

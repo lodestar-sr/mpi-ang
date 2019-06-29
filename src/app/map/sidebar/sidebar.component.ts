@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {fromEvent} from "rxjs";
+import {fromEvent} from 'rxjs';
 
 declare var $: any;
 
@@ -79,12 +79,12 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   recalculateHeight(no) {
-    const headerHeight = 56;
+    const headerHeight = 122;
     const wrapper = document.querySelector('.accordion-wrapper');
     if (wrapper) {
       const wrapHeight = wrapper.clientHeight;
       const cnt = document.querySelectorAll('.card').length;
-      const freeSpace = wrapHeight - cnt * (headerHeight + 12);
+      const freeSpace = wrapHeight - cnt * (headerHeight + 8.5);
       const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
       cardbody.style.height = freeSpace + 'px';
     }
@@ -107,8 +107,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if (!ele.className.includes('show')) {      // closed status -> open status
       this.recalculateHeight(no);
     } else {    // opened status -> close status
-      const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
-      cardbody.style.height = '0px';
+      // const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
+      // cardbody.style.height = '0px';
     }
   }
 }
