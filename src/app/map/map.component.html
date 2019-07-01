@@ -11,8 +11,6 @@
           <span>COMPLIANCE</span>
         </a>
       </div>
-      <!--<div class="d-flex w-100 align-items-center top-menu-items">-->
-      <!--<a class="hamburger" (click)="toggleSidebar()"><i id="hamburger" class="fas fa-bars_regular text-white"></i></a>-->
       <div class="top-menu">
         <div [class]="'search-form ' + (viSerDesktop ? 'show' : 'hide')">
           <input type="text" class="form-control search-box" placeholder="Search...">
@@ -27,11 +25,11 @@
       </div>
       <!--</div>-->
     </div>
-    <input type="text" [class]="'form-control search-box-bottom ' + (viSerMobile ? 'show' : 'hide')">
+    <input type="text" [class]="'form-control search-box-bottom ' + (viSerMobile ? 'show' : 'hide')" placeholder="Search...">
   </div>
 
   <div class="main">
     <app-sidebar></app-sidebar>
-    <!--<app-miles-map></app-miles-map>-->
+    <app-miles-map></app-miles-map>
   </div>
 </div>
