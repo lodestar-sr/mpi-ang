@@ -27,7 +27,7 @@
       </div>
       <!--</div>-->
     </div>
-    <input type="text" class="form-control search-box-bottom" style="display: none;">
+    <input type="text" [class]="'form-control search-box-bottom ' + (viSerMobile ? 'show' : 'hide')">
   </div>
 
   <div class="main">

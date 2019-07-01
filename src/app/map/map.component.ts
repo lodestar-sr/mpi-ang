@@ -19,9 +19,9 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     fromEvent(window, 'resize').subscribe(event => {
       if (window.innerWidth > 768) {
-        $('.search-box-bottom').hide();
+        this.viSerMobile = false;
       } else {
-        $('.search-box').hide();
+        this.viSerDesktop = false;
       }
     });
     this.viSerDesktop = false;
@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
   }
 
   toggleSearch() {
-    if (window.innerWidth > 576) {
+    if (window.innerWidth > 768) {
       this.viSerDesktop = !this.viSerDesktop;
     } else {
       this.viSerMobile = !this.viSerMobile;

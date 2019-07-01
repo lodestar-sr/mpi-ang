@@ -158,6 +158,12 @@
       -ms-transition: all 1s;
       -o-transition: all 1s;
       transition: all 1s;
+
+      &.hide {
+        height: 0;
+        padding: 0;
+        border: 0;
+      }
     }
 
     .search-form {
