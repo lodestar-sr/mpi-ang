@@ -81,14 +81,6 @@
         margin-right: 16px;
         float: right;
 
-        .search-btn {
-          padding: 0;
-          color: #FFFFFF;
-          cursor: pointer;
-          font-size: 24px;
-          text-shadow: -5px 5px 6px #000000;
-        }
-
         .user-avatar {
           width: 48px;
           height: 48px;
@@ -144,13 +136,13 @@
     }
 
     .search-box, .search-box-bottom {
-      background: transparent;
+      background: #ffffff;
       border: solid 1px #FFFFFF88;
-      border-radius: 0;
-      color: #FFFFFF;
-      margin-right: 12px;
-      font-size: 12px;
-      width: 128px;
+      border-radius: 4px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+      color: #7B8CA8;
+      font-size: 16px;
+      padding-left: 36px;
 
       &:focus {
         box-shadow: #FFFFFF;
@@ -159,7 +151,66 @@
 
     .search-box-bottom {
       width: 100%;
-      background-color: #183c72;
+      padding-left: 24px;
+      padding-right: 24px;
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -ms-transition: all 1s;
+      -o-transition: all 1s;
+      transition: all 1s;
+    }
+
+    .search-form {
+      position: relative;
+
+      &.hide {
+        margin-right: 26px;
+        -webkit-transition: all 1s;
+        -moz-transition: all 1s;
+        -ms-transition: all 1s;
+        -o-transition: all 1s;
+        transition: all 1s;
+
+        .search-box {
+          width: 0;
+          padding: 0;
+          border: 0;
+          -webkit-transition: all 1s;
+          -moz-transition: all 1s;
+          -ms-transition: all 1s;
+          -o-transition: all 1s;
+          transition: all 1s;
+        }
+      }
+
+      &.show {
+        margin-right: 0;
+        -webkit-transition: all 1s;
+        -moz-transition: all 1s;
+        -ms-transition: all 1s;
+        -o-transition: all 1s;
+        transition: all 1s;
+
+        .search-box {
+          width: 300px;
+          -webkit-transition: all 1s;
+          -moz-transition: all 1s;
+          -ms-transition: all 1s;
+          -o-transition: all 1s;
+          transition: all 1s;
+        }
+      }
+    }
+
+    .search-btn {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      padding: 0;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-size: 24px;
+      text-shadow: -5px 5px 6px #000000;
     }
   }
 

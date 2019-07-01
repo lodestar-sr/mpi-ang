@@ -14,8 +14,10 @@
       <!--<div class="d-flex w-100 align-items-center top-menu-items">-->
       <!--<a class="hamburger" (click)="toggleSidebar()"><i id="hamburger" class="fas fa-bars_regular text-white"></i></a>-->
       <div class="top-menu">
-        <input type="text" class="form-control search-box" style="display: none;">
-        <i class="search-btn fa-search_regular" (click)="toggleSearch()"></i>
+        <div [class]="'search-form ' + (viSerDesktop ? 'show' : 'hide')">
+          <input type="text" class="form-control search-box" placeholder="Search...">
+          <i class="search-btn fa-search_regular" (click)="toggleSearch()"></i>
+        </div>
         <div class="user-avatar">
           <img src="/assets/images/avatar.png" width="48" height="48">
           <div class="badge-number">3</div>
@@ -30,6 +32,6 @@
 
   <div class="main">
     <app-sidebar></app-sidebar>
-    <app-miles-map></app-miles-map>
+    <!--<app-miles-map></app-miles-map>-->
   </div>
 </div>

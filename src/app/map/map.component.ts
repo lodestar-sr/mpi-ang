@@ -11,6 +11,9 @@ declare var $: any;
 })
 export class MapComponent implements OnInit {
 
+  viSerDesktop: boolean;
+  viSerMobile: boolean;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -21,6 +24,8 @@ export class MapComponent implements OnInit {
         $('.search-box').hide();
       }
     });
+    this.viSerDesktop = false;
+    this.viSerMobile = false;
   }
 
   signOut() {
@@ -28,13 +33,10 @@ export class MapComponent implements OnInit {
   }
 
   toggleSearch() {
-    if (window.innerWidth > 768) {
-      $('.search-box').slideToggle(500);
+    if (window.innerWidth > 576) {
+      this.viSerDesktop = !this.viSerDesktop;
     } else {
-      $('.search-box-bottom').slideToggle(500);
+      this.viSerMobile = !this.viSerMobile;
     }
-  }
-
-  toggleSidebar() {
   }
 }
