@@ -58,9 +58,11 @@ REMOTE_USER='proc'
 ssh -i $KEYFILE $REMOTE_USER@$IP
 ```
 
-You do not have to connect/login to the machine to run the build/deploy script, just put the script on the remote machine you want to invoke to do a build/deploy.
+You do not have to connect/login to the GCE VM to run the remote build/deploy script
 
-`<ssh command> "/path/to/build_script arg1 arg2"`
+Just put the above script on your local machine, and add the path to the remote build/deploy script to the ssh command. 
+
+`<ssh command> "/path/to/gce/vm/angular/build/firebase/deploy/script arg1 arg2 ..."`
 
 ---
 Usage of the VM is on the honor system, please use responsibly for use with the project only.
