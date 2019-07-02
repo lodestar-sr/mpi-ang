@@ -24,27 +24,47 @@ The project is large and growing in the number of files, and disk size
 The build time, file transfer time to Firebase times out when deploying from a GCE VM, and will be even slower deploying from your personal machine, and also incur costs of data transfer, that is not incurred by transferring files from within GCP. 
 
 ---
-### GCE VM
-
-  * https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instances/mpi-dev-proc1?project=mpi-dev-proc
+### GCE VM - Instance: `mpi-dev-proc1`
+https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instances/mpi-dev-proc1?project=mpi-dev-proc
   
-    * gcp project:    mpi-proc-dev
-    * vm name:        mpi-proc-dev1
-    * Region:         us-west
-    * Zone:           us-west-b
-    * Specs:          4 vCPU, 7.5 GB, preemptible
-    * IP:             35.pending
+  
+* gcp project:    mpi-proc-dev
+* vm name:        mpi-proc-dev1
+* Region:         us-west
+* Zone:           us-west-b
+* Specs:          4 vCPU, 7.5 GB, 100 GB SSD, preemptible
+* IP:             35.pending
     
 ---
-### Getting access to the VM.
+#### Getting access to the VM
 
-Send a ssh .pub key file and your preferred login id.
+* Send me a preferred login id
+* You can send me a ssh .pub key file or upload once you login.
 
 Instructions at the bottom can help with ssh key generation.
 
 ---
-### Connecting
+#### Connecting
 
+Accounts on the VM:
+* you
+* others
+* and account: `proc`
+
+You will be able to ssh with a login id you provide.
+
+On the VM, there is another account created for common use to do the build/deploy **(`proc`)**
+
+**Purpose:** This saves space, since every developer will not then need to clone and update the git project code.
+
+---
+
+**You have the option of:**
+* connecting using your account, switching to the user `proc`, executing the build/deploy script
+* or connecting directly as `proc` (once you get the private ssh key to copy to your local machine)
+* or running a script from your local machine that will invoke the remote build/deploy script (as user `proc`)
+
+---
 #### Example: ssh connect script
 
 Put this in your path, or create an alias to invoke.
@@ -53,14 +73,15 @@ Put this in your path, or create an alias to invoke.
 #!/bin/bash
 IP='35.227.161.39'
 KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"
-REMOTE_USER='proc'
-# ssh -i ~/.ssh/id_ed25519_100_mpi_dev_proc1 proc@$IP
+REMOTE_USER='proc'    # or your login id
 ssh -i $KEYFILE $REMOTE_USER@$IP
+
+# ssh -i ~/.ssh/id_ed25519_100_mpi_dev_proc1 proc@$IP
 ```
 
 You do not have to connect/login to the GCE VM to run the remote build/deploy script
 
-Just put the above script on your local machine, and add the path to the remote build/deploy script to the ssh command. 
+Just put the above script on your local machine, and add the path to the remote build/deploy script to the end of the ssh command. 
 
 `<ssh command> "/path/to/gce/vm/angular/build/firebase/deploy/script arg1 arg2 ..."`
 
@@ -77,9 +98,12 @@ This is a temporary method to build and deploy the project pending implementatio
 #### What's on the VM?
 
 A: The usual stuff
+
 Everything is needed there to run a build and deploy with a single script.
 
 If you need anything on the VM, any additional tools, libraries, please let me know.
+
+I would like to stick with versions of build tools available on Software Collections.
 
 ---
 #### CentOS Software Collections
@@ -113,35 +137,51 @@ With `Software Collections` the latest version of node 10 was installed, but not
 If later versions of node come along (12.x), this will allow installation of node 12 on the machine, while retaining node 10, and using node 10 and it's modules, and libraries, not requiring a global upgrade or conflicthing
 
 You can read more about `Software Collections` here:
+* https://www.softwarecollections.org
 
-`RedHat 7` has the same model, there is a new model `Application Streams`, that will come later.
+---
+#### RHEL
+
+`RHEL 7` has the same model (RHEL Software Collection repos)
+
+With `RHEL 8`, there is a new model `Application Streams`, that will come later.
 
 * https://developers.redhat.com/blog/2018/11/15/rhel8-introducing-appstreams/
 * https://en.wikipedia.org/wiki/Application_streaming
 
-At some future point, I expect CentOS to adopt this model as well.
+At some future point, I expect the upcoming `CentOS 8` and beyond, to adopt this model as well.
 
 ---
-#### Production Options 
+#### Production Deployment Options 
 
 Production deployment may evolve depending on architectural needs, we have many more options than the ones below.
 
-* Firebase
-* Cloud Runner
-* Kubernetes / Pod: running multiple RHEL 8 containers (RHEL 8 UBI)
+* **Firebase**
+  * was fast and easy: https certs, domain name supplied, rich ecosystem integrating with other GCP offerings, and much  more to come, there are trade offs including vendor lock in.
+* **AppEngine:**  
+* **Cloud Runner:** (New May 2019)
+  * Build a container(s), deploy, can scale to zero, pay for only the compute you use. 
+  * Cloud functions will be replaced by this eventually
+* **Kubernetes / Pods**: running multiple RHEL 8 containers (RHEL 8 UBI)
   * https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
+  * Industrial strength way to go
+  * Highest level of customization options offered
+  * can move to any cloud provider (no vendor lock in)
 
 ---
 #### After you login
 
-Shared build user on GCE:  `proc`
+Shared build account on VM:  `proc`
 
-On the VM, there is a shared user `proc` that has a full environment setup for a build and deploy to firebase with script.
+On the VM, there is a shared user `proc` that has a full environment setup for a build and deploy to firebase with a single script.
 
-If you login as this user: `su - proc`
-just type:  `deploy-ang-fb`
+After switching to this user:
+  * `$su - proc`
 
-This is a script found in:   `/home/proc/bin/deploy-ang-fb`, that invokes various scripts.
+type:
+  * `$deploy-ang-fb`
+
+This is a script found in:   `/home/proc/bin/deploy-ang-fb`, that invokes other scripts.
 
 ---
 #### Bitbucket
@@ -150,15 +190,49 @@ The build script:  `deploy-ang-fb` will do a `$git pull origin master` using ssh
 
 The keys used can be found in `/home/proc/.ssh/`
 
-The .pub key has been uploaded as an access key to Bitbucket, not as a user key, but as a git repo project wide key for that project.
+The .pub key has been uploaded as an access key to Bitbucket, not as a user key, but as a git repo project wide key.
 
 There is no user authentication to Bitbucket.
 
+* https://confluence.atlassian.com/bitbucketserver/ssh-access-keys-for-system-use-776639781.html
+
 ---
-Generating a .ssh key
+#### Generating a .ssh key
 
-```<pending>```
+Preferred: Ed25519, use a pass phrase
 
+`$ssh-keygen -f <whatever-file-you-want> -o -a 100 -t ed25519 -C "-C comment optional"`
+
+**Example:**
+
+`$ssh-keygen -f id_ed25519_100_mpi_dev_proc1 -o -a 100 -t ed25519 -C "caleb@bustedwhistle.com Ed25519 100"`
+
+---
+#### Fix ssh permissions
+
+Fix permissions, if needed your ssh keys/directories.
+
+I put this in my .ssh directory, and run now and then, when needed (when all keys begin with **`id_`**):
+```
+#!/bin/bash
+
+# Set correct permissions on .ssh artifacts
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/id*
+chmod 644 $HOME/.ssh/id*.pub
+chmod og-rwx $HOME
+```
+
+---
+#### More SSH Config Info
+ * https://www.ssh.com/ssh
+ * https://www.ssh.com/ssh/keygen
+ * https://www.ssh.com/ssh/copy-id
+ * https://www.ssh.com/ssh/agent
+ * https://www.ssh.com/ssh/config
+ * https://www.ssh.com/ssh/authorized_keys
+ * https://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file
+ 
 ---
 #### Firebase deploys
 
@@ -176,4 +250,4 @@ We are working to get these into a database, so that there is only one hash on t
 
 ---
 
-more later
+possibly more later
