@@ -9,8 +9,12 @@ ls dist
 
 printf '\nbuilding project'
 pwd
+
 export NODE_OPTIONS=--max_old_space_size=4096
+npm install
 ng build --prod
+
+# return
 popd
 pwd
 printf '\nend build'

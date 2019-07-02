@@ -1,16 +1,15 @@
 #!/bin/bash
-printf '\nbegin'
-date
+clear
 pwd
-pushd .
+date
 ./build-prod
-popd
 
+pushd .
 cd ../..
-printf '\nbegin deploy'
+printf '\nbegin firebase deploy'
 firebase use mpi-dev-proc
 firebase deploy
 popd
 pwd
-printf '\nend deploy'
+printf '\nend firebase deploy'
 date
