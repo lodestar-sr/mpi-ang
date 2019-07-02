@@ -30,6 +30,7 @@ https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instan
   
 * gcp project:    mpi-proc-dev
 * vm name:        mpi-proc-dev1
+* OS:             CentOS 7.6.1910 (and CentOS 8 is around the corner, will upgrade the day released)
 * Region:         us-west
 * Zone:           us-west-b
 * Specs:          4 vCPU, 7.5 GB, 100 GB SSD, preemptible
@@ -47,9 +48,10 @@ Instructions at the bottom can help with ssh key generation.
 #### Connecting
 
 Accounts on the VM:
+
 * you
 * others
-* and account: `proc`
+* and shared build/deploy account: **`proc`**
 
 You will be able to ssh with a login id you provide.
 
@@ -58,16 +60,16 @@ On the VM, there is another account created for common use to do the build/deplo
 **Purpose:** This saves space, since every developer will not then need to clone and update the git project code.
 
 ---
-
 **You have the option of:**
-* connecting using your account, switching to the user `proc`, executing the build/deploy script
+
+* connecting, using your account, switching to the user `proc`, executing the build/deploy script
 * or connecting directly as `proc` (once you get the private ssh key to copy to your local machine)
 * or running a script from your local machine that will invoke the remote build/deploy script (as user `proc`)
 
 ---
 #### Example: ssh connect script
 
-Put this in your path, or create an alias to invoke.
+Put this in your path, create an alias to invoke, or whatever fits your workflow
 
 ```
 #!/bin/bash
@@ -79,31 +81,33 @@ ssh -i $KEYFILE $REMOTE_USER@$IP
 # ssh -i ~/.ssh/id_ed25519_100_mpi_dev_proc1 proc@$IP
 ```
 
-You do not have to connect/login to the GCE VM to run the remote build/deploy script
+You do not have to connect/login to the GCE VM to run the remote build/deploy script, as user **`proc`**
 
-Just put the above script on your local machine, and add the path to the remote build/deploy script to the end of the ssh command. 
+Put the above script on your local machine, and add the path to the remote build/deploy script to the end of the ssh command. 
 
-`<ssh command> "/path/to/gce/vm/angular/build/firebase/deploy/script arg1 arg2 ..."`
+`<ssh command> "/home/proc/path/to/gce/vm/angular/build/firebase/deploy/script arg1 arg2 ..."`
 
 ---
+#### Please Use Responsibly:
+
 Usage of the VM is on the honor system, please use responsibly for use with the project only.
 
 If you happen to check any security log files, and notice any type of activity that might be questionable, please let us know.
 
-This is a temporary method to build and deploy the project pending implementation of a CI/CD system and process.
+This is a temporary method to build and deploy the project pending implementation of a **CI/CD** system and process.
 
-2FA may shortly be implemented also.
+**2FA** may shortly be implemented also.
 
 ---
 #### What's on the VM?
 
-A: The usual stuff
+**A: The usual stuff**
 
 Everything is needed there to run a build and deploy with a single script.
 
 If you need anything on the VM, any additional tools, libraries, please let me know.
 
-I would like to stick with versions of build tools available on Software Collections.
+I would like to stick with versions of build tools, languages available on **Software Collections**, for ease of software management, and library, runtime isolation.
 
 ---
 #### CentOS Software Collections
@@ -137,19 +141,20 @@ With `Software Collections` the latest version of node 10 was installed, but not
 If later versions of node come along (12.x), this will allow installation of node 12 on the machine, while retaining node 10, and using node 10 and it's modules, and libraries, not requiring a global upgrade or conflicthing
 
 You can read more about `Software Collections` here:
+
 * https://www.softwarecollections.org
 
 ---
 #### RHEL
 
-`RHEL 7` has the same model (RHEL Software Collection repos)
+*`RHEL 7`* has the same model (RHEL Software Collection repos)
 
-With `RHEL 8`, there is a new model `Application Streams`, that will come later.
+With *`RHEL 8`*, there is a new model *`Application Streams`*, that will come later.
 
 * https://developers.redhat.com/blog/2018/11/15/rhel8-introducing-appstreams/
 * https://en.wikipedia.org/wiki/Application_streaming
 
-At some future point, I expect the upcoming `CentOS 8` and beyond, to adopt this model as well.
+At some future point, I expect the upcoming *`CentOS 8`* and beyond, to adopt this model as well.
 
 ---
 #### Production Deployment Options 
@@ -157,12 +162,19 @@ At some future point, I expect the upcoming `CentOS 8` and beyond, to adopt this
 Production deployment may evolve depending on architectural needs, we have many more options than the ones below.
 
 * **Firebase**
+
   * was fast and easy: https certs, domain name supplied, rich ecosystem integrating with other GCP offerings, and much  more to come, there are trade offs including vendor lock in.
-* **AppEngine:**  
+  
+* **AppEngine:**
+  * yada, yada,...
+
 * **Cloud Runner:** (New May 2019)
+
   * Build a container(s), deploy, can scale to zero, pay for only the compute you use. 
   * Cloud functions will be replaced by this eventually
+  
 * **Kubernetes / Pods**: running multiple RHEL 8 containers (RHEL 8 UBI)
+
   * https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
   * Industrial strength way to go
   * Highest level of customization options offered
@@ -225,6 +237,7 @@ chmod og-rwx $HOME
 
 ---
 #### More SSH Config Info
+
  * https://www.ssh.com/ssh
  * https://www.ssh.com/ssh/keygen
  * https://www.ssh.com/ssh/copy-id
