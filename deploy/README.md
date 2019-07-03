@@ -127,7 +127,7 @@ ssh -i $KEYFILE $REMOTE_USER@$IP -t $SCRIPT
 You will be prompted twice for a ssh passphrase:
 
 1. passphrase to ssh into 'mpi-dev-proc1' (from your local machine)
-2. passphrase to: git pull origin master from bitbucket (ssh/git: from the GCE VM to Bitbucket)
+2. passphrase to: `git pull origin master` from bitbucket (ssh/git: from the GCE VM to Bitbucket)
 
  * You can setup/configure: `ssh-agent` on your local machine to bypass #1
  * I have not yet setup `ssh-agent` on `mpi-dev-proc1` to bypass #2
