@@ -1,17 +1,27 @@
-#!/bin/bash
-printf '\nbegin build'
+#!/bin/bash -l
+
+# Before building, this needs to be invoked:    $scl enable rh-nodejs10 bash
+
+printf '\n--- BEGIN: build'
+
+printf '\n--- node/npm versions'
+npm --version
+node --version
 date
 pwd
 pushd .
 cd ../..
 rm -rf dist
 ls dist
+git pull origin master
 
-printf '\nbuilding project'
 pwd
+
 export NODE_OPTIONS=--max_old_space_size=4096
+npm install
 ng build --prod
+
 popd
 pwd
-printf '\nend build'
+printf '\nEND: build'
 date
