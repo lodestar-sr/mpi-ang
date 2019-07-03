@@ -1,15 +1,23 @@
-#!/bin/bash
+#!/bin/bash -l
 clear
+
+# Before running, node/npm needs to be enabled:     $scl enable rh-nodejs10 bash
+
+printf '\n--- BEGIN: deploy-fb'
+pwd
+node --version
+npm --version
+cd /home/proc/repos/mpi-proc-ang/deploy/firebase
 pwd
 date
+
 ./build-prod
 
 pushd .
 cd ../..
-printf '\nbegin firebase deploy'
 firebase use mpi-dev-proc
 firebase deploy
 popd
 pwd
-printf '\nend firebase deploy'
+printf '\n--- END: deploy-fb'
 date
