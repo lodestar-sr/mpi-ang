@@ -1,5 +1,18 @@
 # Firebase Build/Deploy - mpi-proc-ang
 
+#### Deployed webapp will be at both these URL's
+* https://mpi-dev-proc.web.app
+* https://mpi-dev-proc.firebase.app
+
+---
+#### **Deploy  History:**
+
+If you need to know when/if a deployment was a success/finished, or see a deployment history with timestamp, the log is here:
+
+  * `https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc`
+
+---
+
 ### Resources
 
   * git repos:
@@ -27,12 +40,12 @@ The build time, file transfer time to Firebase times out when deploying from a G
 ### GCE VM - Instance: `mpi-dev-proc1`
 https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instances/mpi-dev-proc1?project=mpi-dev-proc
   
-  
+**Specs:**  
 * gcp project:    mpi-proc-dev
 * vm name:        mpi-proc-dev1
 * OS:             CentOS 7.6.1910 (and CentOS 8 is around the corner, will upgrade the day released)
-* Region:         us-west
-* Zone:           us-west-b
+* Region:         us-west1
+* Zone:           us-west1-b
 * Specs:          4 vCPU, 7.5 GB, 100 GB SSD, preemptible
 * IP:             35.pending
     
@@ -47,45 +60,76 @@ Instructions at the bottom can help with ssh key generation.
 ---
 #### Connecting
 
+On the VM, there is an account created for common use to do the build/deploy: **`proc`**
+
 Accounts on the VM:
 
 * you
 * others
 * and shared build/deploy account: **`proc`**
 
-You will be able to ssh with a login id you provide.
+You will be able to ssh into the VM with both a login id you provide, as well as the shared `proc` account.
 
-On the VM, there is another account created for common use to do the build/deploy **(`proc`)**
+**Purpose:**
 
-**Purpose:** This saves space, since every developer will not then need to clone and update the git project code.
+A common build account saves space.
+
+Every developer will not then need to clone and update the git project code.
+
+Deployments of the app by `proc` account, will appear as:
+
+  * `857911293348-compute@developer.gserviceaccount.com`
+  
+in the console:
+
+  * `https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc`
 
 ---
 **You have the option of:**
 
-* connecting, using your account, switching to the user `proc`, executing the build/deploy script
-* or connecting directly as `proc` (once you get the private ssh key to copy to your local machine)
-* or running a script from your local machine that will invoke the remote build/deploy script (as user `proc`)
+1.  connecting, using your account/login, switching to the account `proc`, executing the build/deploy script
+2.  or connecting directly as `proc` (once you get the private ssh key to copy to your local machine), and running the build/deploy script
+3.  or running a script from your local machine that will invoke the remote build/deploy script (as user `proc`).  This script is provided below.
 
 ---
 #### Example: ssh connect script
 
 Put this in your path, create an alias to invoke, or whatever fits your workflow
 
+**File: ssh-dev-proc**
 ```
 #!/bin/bash
 IP='35.227.161.39'
-KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"
+KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"   # <== or whatever you name the local private key file on your machine
 REMOTE_USER='proc'    # or your login id
 ssh -i $KEYFILE $REMOTE_USER@$IP
-
-# ssh -i ~/.ssh/id_ed25519_100_mpi_dev_proc1 proc@$IP
 ```
+
+---
+#### Build/Deploy script
 
 You do not have to connect/login to the GCE VM to run the remote build/deploy script, as user **`proc`**
 
-Put the above script on your local machine, and add the path to the remote build/deploy script to the end of the ssh command. 
+This script can be run on your local machine, to invoke the build/deploy:
 
-`<ssh command> "/home/proc/path/to/gce/vm/angular/build/firebase/deploy/script arg1 arg2 ..."`
+**File:   deploy-fb**
+```
+#!/bin/bash
+
+IP='35.227.161.39'
+KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"   # <== or whatever you name the local keyfile
+REMOTE_USER='proc'
+SCRIPT='scl enable rh-nodejs10 "bash -l -c /home/proc/repos/mpi-proc-ang/deploy/firebase/deploy-fb"'
+
+ssh -i $KEYFILE $REMOTE_USER@$IP -t $SCRIPT
+```
+You will be prompted twice for a ssh passphrase:
+
+1. passphrase to ssh into 'mpi-dev-proc1' (from your local machine)
+2. passphrase to: git pull origin master from bitbucket (ssh/git: from the GCE VM to Bitbucket)
+
+ * You can setup/configure: `ssh-agent` on your local machine to bypass #1
+ * I have not yet setup `ssh-agent` on `mpi-dev-proc1` to bypass #2
 
 ---
 #### Please Use Responsibly:
@@ -112,33 +156,40 @@ I would like to stick with versions of build tools, languages available on **Sof
 ---
 #### CentOS Software Collections
 
-When you login, your `.bash_profile` will run a few commands to put you into another shell.
+`Software Collections (SCL)`, is a software repo that facilitates installation, maintenance and isolation of software on RHEL and CentOS instances.
 
-If you were to type `$exit`, you would still be at a command prompt.
+After installing software using SCL the software will be present on the system, but not active. 
 
-`Software Collections (scl)`, is a repo used with CentOS to allow installation of software on the VM, or any CentOS instance, but not have the software active.
+This means you can install multiple versions of any programming language for example, and enter a shell where only that version is active.
 
-This means you can install multiple versions of any programming language for example, and enter a shell where that version is active.
-
-If you were to login, type: `$exit`, and look at the version of python it will be 2.7.x.
+If you were to login, and look at the version of python it will be 2.7.x.
 This is the version of Python that came with the base system, and will remain unchanged.
 
-If you were to type:  `$scl enable python3.6 bash`
-You would be put into a bash shell where `Python3` / `pip3` is active.
+If you type:
+
+  - `$scl enable rh-python36 bash`
+
+You would be put into a bash shell where `python3` / `pip3` is active.
+
+  - `$exit` will then exit, disabling python3/pip3, returning back to the base OS.
 
 If you were to type:
 ```
 $node --version
 $npm --version
 ```
+you would see neither are present on the system, because the base CentOS image did not come with node/npm pre-installed.
 
-, you would see neither are present on the system, because the base CentOS image did not come with node pre-installed.
+Using `Software Collections`, I installed latest version of node 10, but it has to be activated on a per session basis.
 
-With `Software Collections` the latest version of node 10 was installed, but not made active.  There is a line in your `.bash_profile` that will activate it.
+To enable node/npm, you will need to enter this:
+  - `$scl enable rh-nodejs10 bash`
+
+you can also put this line in your `.bash_profile` to enable automatically when you login.
 
 **Benefits:**
 
-If later versions of node come along (12.x), this will allow installation of node 12 on the machine, while retaining node 10, and using node 10 and it's modules, and libraries, not requiring a global upgrade or conflicthing
+If later versions of node come along (12.x), this will allow installation of node 12 on the machine, while retaining node 10, and using node 10 and it's modules, and libraries in isolation, not requiring removal of one version, replacement with another, and a global upgrade and testing effort of all projects. 
 
 You can read more about `Software Collections` here:
 
@@ -149,12 +200,12 @@ You can read more about `Software Collections` here:
 
 *`RHEL 7`* has the same model (RHEL Software Collection repos)
 
-With *`RHEL 8`*, there is a new model *`Application Streams`*, that will come later.
+With *`RHEL 8`*, there is a new approach called: *`Application Streams`*, that may replace `Software Collections` 
 
 * https://developers.redhat.com/blog/2018/11/15/rhel8-introducing-appstreams/
 * https://en.wikipedia.org/wiki/Application_streaming
 
-At some future point, I expect the upcoming *`CentOS 8`* and beyond, to adopt this model as well.
+At some future point, I expect the upcoming *`CentOS 8`* and beyond, to adopt this model.
 
 ---
 #### Production Deployment Options 
@@ -183,15 +234,15 @@ Production deployment may evolve depending on architectural needs, we have many 
 ---
 #### After you login
 
-Shared build account on VM:  `proc`
+There is a shared build account on the VM, where the code is checked out:  **`proc`**
 
-On the VM, there is a shared user `proc` that has a full environment setup for a build and deploy to firebase with a single script.
+The account has a full environment setup for a build and deploy to firebase with a single script.
 
 After switching to this user:
-  * `$su - proc`
+  * **`$su - proc`**
 
 type:
-  * `$deploy-ang-fb`
+  * **`$deploy-ang-fb`**
 
 This is a script found in:   `/home/proc/bin/deploy-ang-fb`, that invokes other scripts.
 
@@ -200,41 +251,54 @@ This is a script found in:   `/home/proc/bin/deploy-ang-fb`, that invokes other 
 
 The build script:  `deploy-ang-fb` will do a `$git pull origin master` using ssh.
 
-The keys used can be found in `/home/proc/.ssh/`
+The .pub key file content has been uploaded as an `access key` to Bitbucket, not as a `user account key`, which is a git repo project wide key.
 
-The .pub key has been uploaded as an access key to Bitbucket, not as a user key, but as a git repo project wide key.
+There is no user authentication to Bitbucket using this method.
 
-There is no user authentication to Bitbucket.
+* If you login as `proc`, take a look at: `/home/proc/.ssh/README.md`
 
-* https://confluence.atlassian.com/bitbucketserver/ssh-access-keys-for-system-use-776639781.html
+During the build process, you will be prompted for the `ssh passphrase` to allow connecting from the VM to Bitbucket to pull new code (when `$git pull origin master` is invoked in the build script)
+
+**Reference:**
+  * https://confluence.atlassian.com/bitbucketserver/ssh-access-keys-for-system-use-776639781.html
 
 ---
 #### Generating a .ssh key
+(for your personal login only, all other keys mentioned here have been generated, and are in place)
 
-Preferred: Ed25519, use a pass phrase
+Preferred algorithm: Ed25519
 
-`$ssh-keygen -f <whatever-file-you-want> -o -a 100 -t ed25519 -C "-C comment optional"`
+Please use a passphrase, even if simple.
+
+`ssh-agent` can be configured to supply this passphrase for you when prompted, and to enable non-interactive scripting.
+
+  - `$ssh-keygen -f <whatever-file-you-want> -o -a 100 -t ed25519 -C "-C comment optional"`
 
 **Example:**
 
-`$ssh-keygen -f id_ed25519_100_mpi_dev_proc1 -o -a 100 -t ed25519 -C "caleb@bustedwhistle.com Ed25519 100"`
+  - `$ssh-keygen -f id_ed25519_100_mpi_dev_proc1 -o -a 100 -t ed25519 -C "caleb@bustedwhistle.com Ed25519 100"`
 
 ---
 #### Fix ssh permissions
 
 Fix permissions, if needed your ssh keys/directories.
 
-I put this in my .ssh directory, and run now and then, when needed (when all keys begin with **`id_`**):
+I put this script, in my .ssh directory, and run now and then, when needed (when all keys begin with **`id_`**):
+
+**File: `fix-perms`**
 ```
 #!/bin/bash
-
-# Set correct permissions on .ssh artifacts
+clear
 chmod 700 $HOME/.ssh
-chmod 600 $HOME/.ssh/id*
-chmod 644 $HOME/.ssh/id*.pub
-chmod og-rwx $HOME
-```
+chmod 600 $HOME/.ssh/id* $HOME/.ssh/authorized_keys
+chmod 644 $HOME/.ssh/*.pub
+chmod og-rwx $HOME $HOME/.ssh/*.md $HOME/.ssh/sav $HOME/.ssh/kgen $HOME/.ssh/fix-perms
 
+ls -ld $HOME/.ssh
+printf '\n----------'
+
+ls -l $HOME/.ssh
+```
 ---
 #### More SSH Config Info
 
@@ -253,14 +317,12 @@ Supposedly only new files that have changed will be sent to Firebase.
 
 How it does this is speculative, but I imagine the following.
 
-On the first deploy, it goes through every local file and creates a local database or index of all files by hashing them.
+1.  On the first deploy, it goes through every local file and creates a local database or index of all files by hashing them.
 
-On each subsequent deploy, it cycles through every file again, computes the hash, compares with the previously stored hash, and only uploads the changes (deletes files, adds files, updates files that have been changed) 
+2.  On each subsequent deploy, it cycles through every file again, computes the hash, compares with the previously stored hash, and only uploads the changes (deletes files, adds files, updates files that have been changed) 
 
 This is efficient for a certain number of files, but we have hundreds of thousands.
 
 We are working to get these into a database, so that there is only one hash on the DB, or multiple DB's which might not change often between deploys.
 
 ---
-
-possibly more later
