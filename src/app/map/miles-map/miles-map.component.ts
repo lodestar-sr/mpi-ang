@@ -13,6 +13,7 @@ export class MilesMapComponent implements OnInit {
     alaska: new LngLatBounds(new LngLat(-187.66, 46), new LngLat(-129.9, 71.44)),
     hawaii: new LngLatBounds(new LngLat(-178.45, 18.86), new LngLat(-154.75, 28.52))
   };
+  zoomControl: IControl;
   mapControl: IControl;
   selectedState: string;
   selectedStateName: string;
@@ -40,8 +41,10 @@ export class MilesMapComponent implements OnInit {
 
     this.map.fitBounds(this.mapvars.continental, {padding: 10});
     this.addStates();
-    this.mapControl = {onAdd: evt => this.controlOnAdd(), onRemove: evt => this.controlOnRemove()};
-    this.map.addControl(this.mapControl, 'bottom-left');
+    this.zoomControl = {onAdd: evt => this.controlOnAdd(), onRemove: evt => this.controlOnRemove()};
+    this.map.addControl(this.zoomControl, 'bottom-left');
+    this.mapControl = {onAdd: evt => this.controlOnAddMap(), onRemove: evt => this.controlOnRemoveMap()};
+    this.map.addControl(this.mapControl, 'top-right');
   }
 
   stateClicked(e) {
@@ -430,6 +433,38 @@ export class MilesMapComponent implements OnInit {
 
   controlOnRemove() {
     const container = document.getElementById('zoom-buttons');
+    if (container) {
+      container.parentNode.removeChild(container);
+    }
+  }
+
+  controlOnAddMap() {
+    const container = document.createElement('div');
+
+    container.id = 'map-buttons';
+    const b1 = window.document.createElement('button');
+    b1.className = 'map-ctrl';
+    b1.innerHTML = '<i class="fa-road_regular text-size-24p text-white"></i>';
+    b1.addEventListener('click', (e) => {
+      this.viewCont();
+      e.stopPropagation();
+    });
+    container.appendChild(b1);
+
+    const b2 = window.document.createElement('button');
+    b2.className = 'map-ctrl right';
+    b2.innerHTML = '<i class="fa-satellite_regular text-size-24p text-white"></i>';
+    b2.addEventListener('click', (e) => {
+      this.viewAlaska();
+      e.stopPropagation();
+    });
+    container.appendChild(b2);
+
+    return container;
+  }
+
+  controlOnRemoveMap() {
+    const container = document.getElementById('map-buttons');
     if (container) {
       container.parentNode.removeChild(container);
     }

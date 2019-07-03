@@ -7,13 +7,15 @@ mgl-map {
     .mapboxgl-control-container {
 
       .mapboxgl-ctrl-top-right {
+        display: flex;
+        flex-direction: row-reverse;
 
         .mapboxgl-ctrl-group {
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
           margin: 0;
           border-radius: 0;
 
-          .mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out{
+          .mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
             width: 56px;
             height: 56px;
             background: rgba(0, 0, 0, 0.68);
@@ -52,6 +54,40 @@ mgl-map {
             display: none;
           }
         }
+
+        #map-buttons {
+          margin-right: 8px;
+          background: #DDD;
+          height: fit-content;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+          .map-ctrl {
+            width: 56px;
+            height: 56px;
+            background: rgb(84, 84, 84);
+            box-shadow: inset -5px 10px 15px 0px rgba(255, 255, 255, 0.3);
+            font-size: 24px;
+            color: #ffffff;
+            padding: 0;
+            outline: none;
+            border: 0;
+            box-sizing: border-box;
+            border-radius: 0 0 4px 4px;
+            pointer-events: auto;
+
+            &.right {
+              margin-left: 1px;
+            }
+
+            &:hover {
+              background: rgba(0, 0, 0, 0.72);
+            }
+
+            &:focus {
+              background: rgba(0, 0, 0, 0.78);
+            }
+          }
+        }
       }
 
       .mapboxgl-ctrl-bottom-left {
@@ -79,5 +115,47 @@ mgl-map {
         width: 100% !important;
       }
     }
+  }
+}
+
+.map-indicator {
+  position: absolute;
+  width: 360px;
+  height: 0;
+  top: 0;
+  left: 0;
+  background-color: #525252EF;
+  box-shadow: inset -5px 10px 15px 0px rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  padding-left: 28px;
+  padding-right: 28px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-shadow: 0 3px 6px #0000004F;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+
+  i {
+    margin-right: 22px;
+    font-size: 23px;
+    text-shadow: 0 3px 6px #0000004F;
+  }
+
+  &.show {
+    height: 56px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
   }
 }
