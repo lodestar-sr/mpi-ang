@@ -9,10 +9,9 @@
 
 If you need to know when/if a deployment was a success/finished, or see a deployment history with timestamp, the log is here:
 
-  * `https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc`
+* https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc
 
 ---
-
 ### Resources
 
   * git repos:
@@ -41,21 +40,22 @@ The build time, file transfer time to Firebase times out when deploying from a G
 https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instances/mpi-dev-proc1?project=mpi-dev-proc
   
 **Specs:**  
-* gcp project:    mpi-proc-dev
-* vm name:        mpi-proc-dev1
-* OS:             CentOS 7.6.1910 (and CentOS 8 is around the corner, will upgrade the day released)
-* Region:         us-west1
-* Zone:           us-west1-b
-* Specs:          4 vCPU, 7.5 GB, 100 GB SSD, preemptible
-* IP:             35.pending
+  * gcp project:    mpi-proc-dev
+  * vm name:        mpi-proc-dev1
+  * OS:             CentOS 7.6.1910 (and CentOS 8 is around the corner, will upgrade the day released)
+  * Region:         us-west1
+  * Zone:           us-west1-b
+  * Specs:          4 vCPU, 7.5 GB, 100 GB SSD, preemptible
+  * IP:             35.pending
     
 ---
 #### Getting access to the VM
 
 * Send me a preferred login id
-* You can send me a ssh .pub key file or upload once you login.
+* You can send me a ssh .pub key file that I will put into your account, or you can upload once you login.
+* Request the `proc` account private key to ssh direct, that will allow you to bypass some steps. 
 
-Instructions at the bottom can help with ssh key generation.
+Instructions at the bottom can help with ssh key generation for your account.
 
 ---
 #### Connecting
@@ -82,7 +82,7 @@ Deployments of the app by `proc` account, will appear as:
   
 in the console:
 
-  * `https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc`
+  * https://console.firebase.google.com/project/mpi-dev-proc/hosting/sites/mpi-dev-proc
 
 ---
 **You have the option of:**
@@ -239,10 +239,10 @@ There is a shared build account on the VM, where the code is checked out:  **`pr
 The account has a full environment setup for a build and deploy to firebase with a single script.
 
 After switching to this user:
-  * **`$su - proc`**
+  * `$su - proc`
 
 type:
-  * **`$deploy-ang-fb`**
+  * `$deploy-ang-fb`
 
 This is a script found in:   `/home/proc/bin/deploy-ang-fb`, that invokes other scripts.
 
