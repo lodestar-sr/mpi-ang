@@ -2,7 +2,7 @@
 
 #### Deployed webapp will be at both these URL's
 * https://mpi-dev-proc.web.app
-* https://mpi-dev-proc.firebase.app
+* https://mpi-dev-proc.firebaseapp.com
 
 ---
 #### **Deploy  History:**
@@ -40,6 +40,7 @@ The build time, file transfer time to Firebase times out when deploying from a G
 https://console.cloud.google.com/compute/instancesDetail/zones/us-west1-b/instances/mpi-dev-proc1?project=mpi-dev-proc
   
 **Specs:**  
+
   * gcp project:    mpi-proc-dev
   * vm name:        mpi-proc-dev1
   * OS:             CentOS 7.6.1910 (and CentOS 8 is around the corner, will upgrade the day released)
@@ -87,7 +88,7 @@ in the console:
 ---
 **You have the option of:**
 
-1.  connecting, using your account/login, switching to the account `proc`, executing the build/deploy script
+1.  connecting, using your account/login, switching to the account `proc`, and then executing the build/deploy script
 2.  or connecting directly as `proc` (once you get the private ssh key to copy to your local machine), and running the build/deploy script
 3.  or running a script from your local machine that will invoke the remote build/deploy script (as user `proc`).  This script is provided below.
 
@@ -239,6 +240,7 @@ There is a shared build account on the VM, where the code is checked out:  **`pr
 The account has a full environment setup for a build and deploy to firebase with a single script.
 
 After switching to this user:
+
   * `$su - proc`
 
 type:
@@ -260,6 +262,7 @@ There is no user authentication to Bitbucket using this method.
 During the build process, you will be prompted for the `ssh passphrase` to allow connecting from the VM to Bitbucket to pull new code (when `$git pull origin master` is invoked in the build script)
 
 **Reference:**
+
   * https://confluence.atlassian.com/bitbucketserver/ssh-access-keys-for-system-use-776639781.html
 
 ---
