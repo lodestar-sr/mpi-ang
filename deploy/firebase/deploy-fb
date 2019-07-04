@@ -20,7 +20,7 @@ printf '\n$pwd\n'
 pwd
 
 printf '\n$git status\n'
-git status
+git status -u no
 
 printf '\n$git pull origin master\n'
 git pull origin master
