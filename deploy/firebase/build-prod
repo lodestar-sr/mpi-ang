@@ -4,23 +4,45 @@
 
 printf '\n--- BEGIN: build'
 
-printf '\n--- node/npm versions'
-npm --version
+# ------------------------------------------------------------------------------
+printf '\n$node --version'
 node --version
+
+printf '\n$npm --version'
+npm --version
+
+# ------------------------------------------------------------------------------
 date
+
 pwd
 pushd .
 cd ../..
+
+printf '\n$pwd'
+pwd
+
+printf '\n$rm -rf dist'
 rm -rf dist
-ls dist
+
+# ------------------------------------------------------------------------------
+printf '\n$git status'
+git status
+
+printf '\n$git pull origin master'
 git pull origin master
 
 pwd
 
+# ------------------------------------------------------------------------------
 export NODE_OPTIONS=--max_old_space_size=4096
+
+printf '\n$npm install'
 npm install
+
+printf '\n$ng build --proc'
 ng build --prod
 
+# ------------------------------------------------------------------------------
 popd
 pwd
 printf '\nEND: build'
