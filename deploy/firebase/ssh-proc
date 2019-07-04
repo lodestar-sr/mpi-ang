@@ -1,0 +1,6 @@
+#!/bin/bash
+IP='35.227.161.39'
+REMOTE_USER='proc'
+KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"
+
+ssh -i $KEYFILE $REMOTE_USER@$IP
