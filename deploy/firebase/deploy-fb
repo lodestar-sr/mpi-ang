@@ -19,6 +19,9 @@ cd /home/proc/repos/mpi-proc-ang
 printf '\n$pwd\n'
 pwd
 
+printf '\n$git stash\n'
+git stash
+
 printf '\n$git status\n'
 git status -u no
 
