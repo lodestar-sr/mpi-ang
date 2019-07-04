@@ -8,41 +8,41 @@ date
 printf '\n--- BEGIN: deploy-fb'
 
 # ------------------------------------------------------------------------------
-printf '\nnode --version'
+printf '\nnode --version\n'
 node --version
 
-printf '\nnpm --version'
+printf '\nnpm --version\n'
 npm --version
 
 # ------------------------------------------------------------------------------
 cd /home/proc/repos/mpi-proc-ang
-printf '\n$pwd'
+printf '\n$pwd\n'
 pwd
 
-printf '\n$git status'
+printf '\n$git status\n'
 git status
 
-printf '\n$git pull origin master'
+printf '\n$git pull origin master\n'
 git pull origin master
 
 # ------------------------------------------------------------------------------
 cd /home/proc/repos/mpi-proc-ang/deploy/firebase
-printf '\n$pwd'
+printf '\n$pwd\n'
 pwd
 
 ./build-prod
 
 # ------------------------------------------------------------------------------
 cd /home/proc/repos/mpi-proc-ang
-printf '\n$pwd'
+printf '\n$pwd\n'
 pwd
 
-printf '\n$firebase use mpi-dev-proc'
+printf '\n$firebase use mpi-dev-proc\n'
 firebase use mpi-dev-proc
 
-printf '\n$firebase deploy'
+printf '\n$firebase deploy\n'
 firebase deploy
 
 # ------------------------------------------------------------------------------
-printf '\n--- END: deploy-fb'
+printf '\n--- END: deploy-fb\n'
 date

@@ -6,30 +6,30 @@ date
 printf '\n--- BEGIN: build'
 
 # ------------------------------------------------------------------------------
-printf '\n$node --version'
+printf '\n$node --version\n'
 node --version
 
-printf '\n$npm --version'
+printf '\n$npm --version\n'
 npm --version
 
 # ------------------------------------------------------------------------------
 cd $HOME/repos/mpi-proc-ang
-printf '\n$pwd'
+printf '\n$pwd\n'
 pwd
 
-printf '\n$rm -rf dist'
+printf '\n$rm -rf dist\n'
 rm -rf dist
 
 # ------------------------------------------------------------------------------
-export NODE_OPTIONS=--max_old_space_size=4096
+export NODE_OPTIONS="--max_old_space_size=4096"
 
-printf '\n$npm install'
+printf '\n$npm install\n'
 npm install
 
-printf '\n$ng build --proc'
+printf '\n$ng build --proc\n'
 ng build --prod
 
 # ------------------------------------------------------------------------------
 popd
-printf '\nEND: build'
+printf '\nEND: build\n'
 date
