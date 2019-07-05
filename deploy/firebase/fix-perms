@@ -1,0 +1,11 @@
+#!/bin/bash
+clear
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/id* $HOME/.ssh/authorized_keys
+chmod 644 $HOME/.ssh/*.pub
+chmod og-rwx $HOME $HOME/.ssh/*.md $HOME/.ssh/sav $HOME/.ssh/kgen $HOME/.ssh/fix-perms
+
+ls -ld $HOME/.ssh
+printf '\n----------'
+
+ls -l $HOME/.ssh
