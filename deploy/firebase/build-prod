@@ -1,27 +1,35 @@
-#!/bin/bash -l
+#!/bin/bash
 
 # Before building, this needs to be invoked:    $scl enable rh-nodejs10 bash
 
+date
 printf '\n--- BEGIN: build'
 
-printf '\n--- node/npm versions'
-npm --version
+# ------------------------------------------------------------------------------
+printf '\n$node --version\n'
 node --version
-date
+
+printf '\n$npm --version\n'
+npm --version
+
+# ------------------------------------------------------------------------------
+cd $HOME/repos/mpi-proc-ang
+printf '\n$pwd\n'
 pwd
-pushd .
-cd ../..
+
+printf '\n$rm -rf dist\n'
 rm -rf dist
-ls dist
-git pull origin master
 
-pwd
+# ------------------------------------------------------------------------------
+export NODE_OPTIONS="--max_old_space_size=4096"
 
-export NODE_OPTIONS=--max_old_space_size=4096
+printf '\n$npm install\n'
 npm install
+
+printf '\n$ng build --proc\n'
 ng build --prod
 
+# ------------------------------------------------------------------------------
 popd
-pwd
-printf '\nEND: build'
+printf '\nEND: build\n'
 date

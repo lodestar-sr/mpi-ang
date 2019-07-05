@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# This is a script that can be run from your local machine, to invoke the Firebase build/deploy on the GCE build machine.
+
+# --------------------------------------------------------------------------------------------------
+# This script will only run as user 'proc' on the GCE VM.
+REMOTE_USER='proc'
+printf "\nRunning as user: [$REMOTE_USER]"
+
+# --------------------------------------------------------------------------------------------------
+# the Firebase build/deploy script that will run on the GCE VM
+SCRIPT='scl enable rh-nodejs10 "bash -l -c /home/proc/repos/mpi-proc-ang/deploy/firebase/deploy-fb"'
+printf "\nSCRIPT = [$SCRIPT]"
+
+# --------------------------------------------------------------------------------------------------
+# The IP address of the GCE VM, where the user 'proc' exists.
+IP='35.227.161.39'
+printf "\nIP = [$IP]"
+
+# --------------------------------------------------------------------------------------------------
+# This refers to the local private ssh keyfile on your local machine.
+# It is the private keyfile for the user 'proc'
+KEYFILE="$HOME/.ssh/id_ed25519_100_mpi_dev_proc1"
+printf '\necho $HOME\n'
+echo $HOME
+
+printf '\nls -l $HOME/.ssh/id_ed25519_100_mpi_dev_proc1\n'
+ls -l $HOME/.ssh/id_ed25519_100_mpi_dev_proc1
+
+# --------------------------------------------------------------------------------------------------
+# Run the build/deploy script on the GCE VM
+ssh -i $KEYFILE $REMOTE_USER@$IP -t $SCRIPT
