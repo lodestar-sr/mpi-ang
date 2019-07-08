@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-miles-nav',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MilesNavComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

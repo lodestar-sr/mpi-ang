@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {fromEvent} from 'rxjs';
 
@@ -13,7 +13,8 @@ export class MapComponent implements OnInit {
   viSerDesktop: boolean;
   viSerMobile: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
     fromEvent(window, 'resize').subscribe(event => {

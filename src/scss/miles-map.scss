@@ -14,11 +14,12 @@ mgl-map {
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
           margin: 0;
           border-radius: 0;
+          background: transparent;
 
           .mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
             width: 56px;
             height: 56px;
-            background: rgba(0, 0, 0, 0.68);
+            background: rgba(0, 0, 0, 0.7);
             box-shadow: inset -5px 10px 15px 0px rgba(255, 255, 255, 0.3);
             font-size: 24px;
             color: #ffffff;
@@ -57,14 +58,14 @@ mgl-map {
 
         #map-buttons {
           margin-right: 8px;
-          background: #DDD;
+          background: transparent;
           height: fit-content;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
           .map-ctrl {
             width: 56px;
             height: 56px;
-            background: rgb(84, 84, 84);
+            background: rgba(48, 48, 48, 0.84);
             box-shadow: inset -5px 10px 15px 0px rgba(255, 255, 255, 0.3);
             font-size: 24px;
             color: #ffffff;
