@@ -59,7 +59,7 @@ export class MilesMapComponent implements OnInit {
 
   countyClicked(e) {
     const cntyFips = e.features[0].properties.GEOID.replace('DEMO ', '').replace('MAPTILER ', '');
-    const cntyName = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '') ;
+    const cntyName = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
     const bb = new LngLatBounds(
       new LngLat(e.features[0].properties.EXT_MIN_X, e.features[0].properties.EXT_MIN_Y),
       new LngLat(e.features[0].properties.EXT_MAX_X, e.features[0].properties.EXT_MAX_Y)
@@ -309,7 +309,7 @@ export class MilesMapComponent implements OnInit {
     this.unselectTownship();
     this.unselectCounty();
     this.selectedCounty = countyData.fips;
-    this.selectedCountyName = countyData.name ;
+    this.selectedCountyName = countyData.name;
     this.map.fitBounds(countyData.bbox, {padding: 10});
     const filter = ['!in', 'GEOID', this.selectedCounty, 'DEMO ' + this.selectedCounty, 'MAPTILER ' + this.selectedCounty];
     this.map.setFilter('county_poly', filter);
