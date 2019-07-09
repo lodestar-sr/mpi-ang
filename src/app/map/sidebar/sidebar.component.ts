@@ -19,57 +19,57 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.isSmall = false;
     this.activated = 'HOME';
     this.details = [
-      {
-        title: 'COLORADO',
-        header1: {
-          name: 'COUNTIES',
-          value: 64
-        },
-        header2: {
-          name: 'REPORTING',
-          value: 64
-        },
-        header3: {
-          name: 'ORDINANCES',
-          value: 64
-        },
-        description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
-        updated: '06/25/2019'
-      },
-      {
-        title: 'EAGLE',
-        header1: {
-          name: 'MUNI\'S.',
-          value: 11
-        },
-        header2: {
-          name: 'REPORTING',
-          value: 11
-        },
-        header3: {
-          name: 'ORDINANCES',
-          value: 8
-        },
-        description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
-        updated: '06/25/2019'
-      },
-      {
-        title: 'EDWARDS',
-        header1: {
-          name: 'PROPERTIES',
-          value: 9985
-        },
-        header2: {
-          name: 'MANAGED',
-          value: 0
-        },
-        header3: {
-          name: 'ORDINANCES',
-          value: 2
-        },
-        description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
-        updated: '06/25/2019'
-      },
+      // {
+      //   title: 'COLORADO',
+      //   header1: {
+      //     name: 'COUNTIES',
+      //     value: 64
+      //   },
+      //   header2: {
+      //     name: 'REPORTING',
+      //     value: 64
+      //   },
+      //   header3: {
+      //     name: 'ORDINANCES',
+      //     value: 64
+      //   },
+      //   description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+      //   updated: '06/25/2019'
+      // },
+      // {
+      //   title: 'EAGLE',
+      //   header1: {
+      //     name: 'MUNI\'S.',
+      //     value: 11
+      //   },
+      //   header2: {
+      //     name: 'REPORTING',
+      //     value: 11
+      //   },
+      //   header3: {
+      //     name: 'ORDINANCES',
+      //     value: 8
+      //   },
+      //   description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
+      //   updated: '06/25/2019'
+      // },
+      // {
+      //   title: 'EDWARDS',
+      //   header1: {
+      //     name: 'PROPERTIES',
+      //     value: 9985
+      //   },
+      //   header2: {
+      //     name: 'MANAGED',
+      //     value: 0
+      //   },
+      //   header3: {
+      //     name: 'ORDINANCES',
+      //     value: 2
+      //   },
+      //   description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
+      //   updated: '06/25/2019'
+      // },
     ];
     this.selectedDetail = 0;
   }
