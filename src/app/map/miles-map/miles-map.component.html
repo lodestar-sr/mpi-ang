@@ -3,6 +3,8 @@
   [zoom]="[3]"
   [center]="[-87.622088, 41.878781]"
   (load)="onLoad($event)"
+  (mouseOver)="onMouseOver($event)"
+  (mouseOut)="onMouseLeave($event)"
 >
 
   <mgl-control
@@ -11,7 +13,7 @@
 
 </mgl-map>
 
-<div class="map-indicator show">
+<div [class]="'map-indicator ' + (hoverValue ? 'show' : '')">
   <i class="fa-landmark-alt_regular"></i>
-  COLORADO
+  {{ hoverValue }}
 </div>

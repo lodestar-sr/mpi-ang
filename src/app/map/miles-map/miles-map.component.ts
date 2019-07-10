@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
+import {AppService} from "../../app.service";
 
 @Component({
   selector: 'app-miles-map',
@@ -25,7 +26,9 @@ export class MilesMapComponent implements OnInit {
   selectedTownshipName: any;
   datapath: string;
 
-  constructor() {
+  hoverValue;
+
+  constructor(private appService: AppService) {
     this.selectedState = '';
     this.selectedStateName = '';
     this.selectedCounty = '';
@@ -446,7 +449,7 @@ export class MilesMapComponent implements OnInit {
     b1.className = 'map-ctrl';
     b1.innerHTML = '<i class="fa-road_regular text-size-24p text-white"></i>';
     b1.addEventListener('click', (e) => {
-      this.viewCont();
+      this.appService.sendMessage('stateSelected');
       e.stopPropagation();
     });
     container.appendChild(b1);
@@ -455,7 +458,7 @@ export class MilesMapComponent implements OnInit {
     b2.className = 'map-ctrl right';
     b2.innerHTML = '<i class="fa-satellite_regular text-size-24p text-white"></i>';
     b2.addEventListener('click', (e) => {
-      this.viewAlaska();
+      this.appService.sendMessage('stateRemoved');
       e.stopPropagation();
     });
     container.appendChild(b2);
@@ -468,5 +471,13 @@ export class MilesMapComponent implements OnInit {
     if (container) {
       container.parentNode.removeChild(container);
     }
+  }
+
+  onMouseOver(event) {
+    this.hoverValue = 'COLORADO';
+  }
+
+  onMouseLeave(event) {
+    this.hoverValue = null;
   }
 }

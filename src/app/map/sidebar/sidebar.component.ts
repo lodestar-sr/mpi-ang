@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {fromEvent} from 'rxjs';
+import {Subscription} from 'rxjs';
+import {AppService} from '../../app.service';
 
 declare var $: any;
 
@@ -14,68 +15,83 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   activated: string;
   details: any[];
   selectedDetail: number;
+  subscription: Subscription;
+
+  constructor(private appService: AppService) {
+    this.subscription = this.appService.getMessage().subscribe(message => {
+      if (message.msg == 'stateSelected') {
+        this.details = [
+          {
+            title: 'COLORADO',
+            header1: {
+              name: 'COUNTIES',
+              value: 64
+            },
+            header2: {
+              name: 'REPORTING',
+              value: 64
+            },
+            header3: {
+              name: 'ORDINANCES',
+              value: 64
+            },
+            description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+            updated: '06/25/2019'
+          },
+          {
+            title: 'EAGLE',
+            header1: {
+              name: 'MUNI\'S.',
+              value: 11
+            },
+            header2: {
+              name: 'REPORTING',
+              value: 11
+            },
+            header3: {
+              name: 'ORDINANCES',
+              value: 8
+            },
+            description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
+            updated: '06/25/2019'
+          },
+          {
+            title: 'EDWARDS',
+            header1: {
+              name: 'PROPERTIES',
+              value: 9985
+            },
+            header2: {
+              name: 'MANAGED',
+              value: 0
+            },
+            header3: {
+              name: 'ORDINANCES',
+              value: 2
+            },
+            description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
+            updated: '06/25/2019'
+          },
+        ];
+      } else if (message.msg == 'stateRemoved') {
+        this.details = [];
+      }
+    });
+  }
 
   ngOnInit() {
     this.isSmall = false;
     this.activated = 'HOME';
-    this.details = [
-      // {
-      //   title: 'COLORADO',
-      //   header1: {
-      //     name: 'COUNTIES',
-      //     value: 64
-      //   },
-      //   header2: {
-      //     name: 'REPORTING',
-      //     value: 64
-      //   },
-      //   header3: {
-      //     name: 'ORDINANCES',
-      //     value: 64
-      //   },
-      //   description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
-      //   updated: '06/25/2019'
-      // },
-      // {
-      //   title: 'EAGLE',
-      //   header1: {
-      //     name: 'MUNI\'S.',
-      //     value: 11
-      //   },
-      //   header2: {
-      //     name: 'REPORTING',
-      //     value: 11
-      //   },
-      //   header3: {
-      //     name: 'ORDINANCES',
-      //     value: 8
-      //   },
-      //   description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
-      //   updated: '06/25/2019'
-      // },
-      // {
-      //   title: 'EDWARDS',
-      //   header1: {
-      //     name: 'PROPERTIES',
-      //     value: 9985
-      //   },
-      //   header2: {
-      //     name: 'MANAGED',
-      //     value: 0
-      //   },
-      //   header3: {
-      //     name: 'ORDINANCES',
-      //     value: 2
-      //   },
-      //   description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
-      //   updated: '06/25/2019'
-      // },
-    ];
+    this.details = [];
     this.selectedDetail = 0;
   }
 
   ngAfterViewInit(): void {
     this.recalculateHeight(this.selectedDetail);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   recalculateHeight(no) {
@@ -86,7 +102,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       const cnt = document.querySelectorAll('.card').length;
       const freeSpace = wrapHeight - cnt * (headerHeight + 8.5);
       const cardbody: any = document.querySelector('#collapse' + no + ' .card-body');
-      cardbody.style.height = freeSpace + 'px';
+      if (cardbody) {
+        cardbody.style.height = freeSpace + 'px';
+      }
     }
   }
 
