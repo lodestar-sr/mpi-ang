@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
-import {AppService} from "../../app.service";
+import {AppService} from '../../app.service';
 
 @Component({
   selector: 'app-miles-map',
@@ -12,7 +12,11 @@ export class MilesMapComponent implements OnInit {
   mapvars = {
     continental: new LngLatBounds(new LngLat(-124.90, 24.40), new LngLat(-66.90, 49.40)),
     alaska: new LngLatBounds(new LngLat(-187.66, 46), new LngLat(-129.9, 71.44)),
-    hawaii: new LngLatBounds(new LngLat(-178.45, 18.86), new LngLat(-154.75, 28.52))
+    hawaii: new LngLatBounds(new LngLat(-178.45, 18.86), new LngLat(-154.75, 28.52)),
+    highlightedStateId: -1,
+    highlightedCountyId: -1,
+    highlightedTownsipId: -1,
+    highlightedPlaceId: -1
   };
   zoomControl: IControl;
   mapControl: IControl;
@@ -26,9 +30,10 @@ export class MilesMapComponent implements OnInit {
   selectedTownshipName: any;
   datapath: string;
 
-  hoverValue;
+  indicatorTxt: string;
+  indicatorType: string;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private zone: NgZone) {
     this.selectedState = '';
     this.selectedStateName = '';
     this.selectedCounty = '';
@@ -37,6 +42,8 @@ export class MilesMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.indicatorTxt = '';
+    this.indicatorType = '';
   }
 
   onLoad(mapInst: Map) {
@@ -88,20 +95,125 @@ export class MilesMapComponent implements OnInit {
     this.selectPlace(pldata);
   }
 
-  setStateSelected(stateData) {
-    this.unselectState();
-    this.selectedState = stateData.fips;
-    this.selectedStateName = stateData.name;
-    this.map.fitBounds(stateData.bbox, {padding: 10});
-    const filter = ['!in', 'STATEFP', this.selectedState, 'DEMO ' + this.selectedState, 'MAPTILER ' + this.selectedState];
-    this.map.setFilter('states_poly', filter);
-    this.unselectCounty();
-    this.map.addSource('places_src', {
-      type: 'geojson',
-      data: this.datapath + '/assets/jsons/places_ok/places' + this.selectedState + '.json'
-    });
-    this.addCountiesByState();
-    this.addPlacesByState();
+  stateIn(e) {
+    if (e.features.length > 0) {
+      if (this.mapvars.highlightedStateId > -1) {
+        this.map.setFeatureState({
+          source: 'states_src',
+          sourceLayer: 'states',
+          id: this.mapvars.highlightedStateId
+        }, {hover: false});
+      }
+      this.mapvars.highlightedStateId = e.features[0].id;
+      this.map.setFeatureState({
+          source: 'states_src',
+          sourceLayer: 'states',
+          id: this.mapvars.highlightedStateId
+        }, {hover: true});
+
+      const tmp = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
+      this.updateIndicator('state', tmp);
+    }
+  }
+
+  stateOut(e) {
+    if (this.mapvars.highlightedStateId > -1) {
+      this.map.setFeatureState({
+        source: 'states_src',
+        sourceLayer: 'states',
+        id: this.mapvars.highlightedStateId
+      }, {hover: false});
+    }
+    this.mapvars.highlightedStateId = -1;
+    this.updateIndicator('state', '');
+  }
+
+  countyIn(e) {
+    if (e.features.length > 0) {
+      if (this.mapvars.highlightedCountyId > -1) {
+        this.map.setFeatureState({
+          source: 'county_poly_src',
+          sourceLayer: 'counties',
+          id: this.mapvars.highlightedCountyId
+        }, {hover: false});
+      }
+      this.mapvars.highlightedCountyId = e.features[0].id;
+      this.map.setFeatureState({
+        source: 'county_poly_src',
+        sourceLayer: 'counties',
+        id: this.mapvars.highlightedCountyId
+      }, {hover: true});
+      const tmp = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
+      this.updateIndicator('county', tmp);
+    }
+  }
+
+  countyOut(e) {
+    if (this.mapvars.highlightedCountyId > -1) {
+      this.map.setFeatureState({
+        source: 'county_poly_src',
+        sourceLayer: 'counties',
+        id: this.mapvars.highlightedCountyId
+      }, {hover: false});
+    }
+    this.mapvars.highlightedCountyId = -1;
+    this.updateIndicator('county', '');
+  }
+
+  townshipIn(e) {
+    if (e.features.length > 0) {
+      if (this.mapvars.highlightedTownsipId > -1) {
+        this.map.setFeatureState({
+          source: 'twp_poly_src',
+          id: this.mapvars.highlightedTownsipId,
+        }, {hover: false});
+      }
+      this.mapvars.highlightedTownsipId = e.features[0].id;
+      this.map.setFeatureState({
+        source: 'twp_poly_src',
+        id: this.mapvars.highlightedTownsipId
+      }, {hover: true});
+      this.updateIndicator('town', e.features[0].properties.NAMELSAD);
+    }
+  }
+
+  townshipOut(e) {
+    if (this.mapvars.highlightedTownsipId > -1) {
+      this.map.setFeatureState({
+        source: 'twp_poly_src',
+        id: this.mapvars.highlightedTownsipId
+      }, {hover: false});
+    }
+    this.mapvars.highlightedTownsipId = -1;
+    this.updateIndicator('town', '');
+  }
+
+  placeIn(e) {
+    if (e.features.length > 0) {
+      if (this.mapvars.highlightedPlaceId > -1) {
+        this.map.setFeatureState({
+          source: 'places_src',
+          id: this.mapvars.highlightedPlaceId
+        }, {hover: false});
+      }
+      this.mapvars.highlightedPlaceId = e.features[0].id;
+      this.map.setFeatureState({
+        source: 'places_src',
+        id: this.mapvars.highlightedPlaceId
+      }, {hover: true});
+      this.updateIndicator('place', e.features[0].properties.NAMELSAD);
+    }
+  }
+
+  placeOut(e) {
+    if (this.mapvars.highlightedPlaceId > -1) {
+      this.map.setFeatureState({
+        source: 'places_src',
+        id: this.mapvars.highlightedPlaceId
+      }, {hover: false});
+    }
+    this.mapvars.highlightedPlaceId = -1;
+    this.updateIndicator('place', '');
   }
 
   addStates() {
@@ -119,12 +231,26 @@ export class MilesMapComponent implements OnInit {
         visibility: 'visible'
       },
       paint: {
-        'fill-color': '#8B4513',
+        'fill-color': ['match', ['get', 'STATEFP'],
+          '06', '#ff9900', '09', '#ff9900', '10', '#ff9900', '17', '#ff9900', '18', '#ff9900', '20', '#ff9900', '21', '#ff9900', '23', '#ff9900', '24', '#ff9900', '25', '#ff9900',
+          '26', '#ff9900', '27', '#ff9900', '28', '#ff9900', '29', '#ff9900', '31', '#ff9900', '33', '#ff9900', '34', '#ff9900', '36', '#ff9900', '38', '#ff9900', '39', '#ff9900',
+          '42', '#ff9900', '44', '#ff9900', '50', '#ff9900', '51', '#ff9900', '54', '#ff9900', '55', '#ff9900',
+          'DEMO 06', '#ff9900', 'DEMO 09', '#ff9900', 'DEMO 10', '#ff9900', 'DEMO 17', '#ff9900', 'DEMO 18', '#ff9900', 'DEMO 20', '#ff9900', 'DEMO 21', '#ff9900', 'DEMO 23', '#ff9900',
+          'DEMO 24', '#ff9900', 'DEMO 25', '#ff9900', 'DEMO 26', '#ff9900', 'DEMO 27', '#ff9900', 'DEMO 28', '#ff9900', 'DEMO 29', '#ff9900', 'DEMO 31', '#ff9900', 'DEMO 33', '#ff9900',
+          'DEMO 34', '#ff9900', 'DEMO 36', '#ff9900', 'DEMO 38', '#ff9900', 'DEMO 39', '#ff9900', 'DEMO 42', '#ff9900', 'DEMO 44', '#ff9900', 'DEMO 50', '#ff9900', 'DEMO 51', '#ff9900',
+          'DEMO 54', '#ff9900', 'DEMO 55', '#ff9900',
+          'MAPTILER 06', '#ff9900', 'MAPTILER 09', '#ff9900', 'MAPTILER 10', '#ff9900', 'MAPTILER 17', '#ff9900', 'MAPTILER 18', '#ff9900', 'MAPTILER 20', '#ff9900',
+          'MAPTILER 21', '#ff9900', 'MAPTILER 23', '#ff9900', 'MAPTILER 24', '#ff9900', 'MAPTILER 25', '#ff9900', 'MAPTILER 26', '#ff9900', 'MAPTILER 27', '#ff9900',
+          'MAPTILER 28', '#ff9900', 'MAPTILER 29', '#ff9900', 'MAPTILER 31', '#ff9900', 'MAPTILER 33', '#ff9900', 'MAPTILER 34', '#ff9900', 'MAPTILER 36', '#ff9900',
+          'MAPTILER 38', '#ff9900', 'MAPTILER 39', '#ff9900', 'MAPTILER 42', '#ff9900', 'MAPTILER 44', '#ff9900', 'MAPTILER 50', '#ff9900', 'MAPTILER 51', '#ff9900',
+          'MAPTILER 54', '#ff9900', 'MAPTILER 55', '#ff9900', '#8B4513'
+        ],
         'fill-outline-color': '#8B4513',
         'fill-antialias': true,
-        'fill-opacity': 0.3
-      }
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.25, 0.35],
+      },
     });
+
     this.map.addLayer({
       id: 'states_line',
       type: 'line',
@@ -135,11 +261,13 @@ export class MilesMapComponent implements OnInit {
       },
       paint: {
         'line-color': '#8B4513',
-        'line-width': 3,
-        'line-opacity': 1
-      }
+        'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 2],
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
+      },
     });
     this.map.on('click', 'states_poly', (evt: MapMouseEvent) => this.stateClicked(evt));
+    this.map.on('mousemove', 'states_poly', (evt: MapMouseEvent) => this.stateIn(evt));
+    this.map.on('mouseleave', 'states_poly', (evt: MapMouseEvent) => this.stateOut(evt));
   }
 
   addPlacesByState() {
@@ -151,12 +279,27 @@ export class MilesMapComponent implements OnInit {
         visibility: 'none'
       },
       paint: {
-        'fill-color': '#33cccc',
+        'fill-color': ['case', ['boolean', ['feature-state', 'hover'], false], '#33eeee', '#33CCCC'],
         'fill-outline-color': '#ffffff',
         'fill-antialias': true,
-        'fill-opacity': 0.8
+        'fill-opacity': 0.9
       }
     });
+
+    this.map.addLayer({
+      id: 'places_line',
+      type: 'line',
+      source: 'places_src',
+      layout: {
+        visibility: 'none'
+      },
+      paint: {
+        'line-color': '#ffffff',
+        'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 1],
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
+      },
+    });
+
     this.map.addLayer({
       id: 'places_label',
       type: 'symbol',
@@ -175,6 +318,8 @@ export class MilesMapComponent implements OnInit {
       }
     });
     this.map.on('click', 'places_poly', (evt: MapMouseEvent) => this.placeClicked(evt));
+    this.map.on('mousemove', 'places_poly', (evt: MapMouseEvent) => this.placeIn(evt));
+    this.map.on('mouseleave', 'places_poly', (evt: MapMouseEvent) => this.placeOut(evt));
   }
 
   addCountiesByState() {
@@ -194,8 +339,8 @@ export class MilesMapComponent implements OnInit {
         'fill-color': '#8B4513',
         'fill-outline-color': '#8B4513',
         'fill-antialias': true,
-        'fill-opacity': 0.45
-      }
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.40, 0.50],
+      },
     });
 
     this.map.addSource('county_label_src', {
@@ -221,16 +366,19 @@ export class MilesMapComponent implements OnInit {
       }
     });
     this.map.on('click', 'county_poly', (evt: MapMouseEvent) => this.countyClicked(evt));
+    this.map.on('mousemove', 'county_poly', (evt: MapMouseEvent) => this.countyIn(evt));
+    this.map.on('mouseleave', 'county_poly', (evt: MapMouseEvent) => this.countyOut(evt));
   }
 
   addTownshipByCounty() {
     this.map.addSource('twp_poly_src', {
       type: 'geojson',
-      data: this.datapath + '/assets/jsons/towns_ok/twp' + this.selectedCounty + '.json'
+      generateId: true,
+      data: this.datapath + '/assets/jsons/local_authorities/local' + this.selectedCounty + '.json'
     });
     this.map.addSource('twp_label_src', {
       type: 'geojson',
-      data: this.datapath + '/assets/jsons/towns_ok/twp' + this.selectedCounty + 'cen.json'
+      data: this.datapath + '/assets/jsons/local_authorities/local' + this.selectedCounty + 'cen.json'
     });
 
     this.map.addLayer({
@@ -244,9 +392,24 @@ export class MilesMapComponent implements OnInit {
         'fill-color': '#8B4513',
         'fill-outline-color': '#8B4513',
         'fill-antialias': true,
-        'fill-opacity': 0.52
-      }
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.60, 0.75],
+      },
     });
+
+    this.map.addLayer({
+      id: 'twp_line',
+      type: 'line',
+      source: 'twp_poly_src',
+      layout: {
+        visibility: 'visible'
+      },
+      paint: {
+        'line-color': '#8B4513',
+        'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 1],
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
+      },
+    });
+
     this.map.addLayer({
       id: 'twp_label',
       type: 'symbol',
@@ -264,48 +427,50 @@ export class MilesMapComponent implements OnInit {
       }
     });
     this.map.on('click', 'twp_poly', (evt: MapMouseEvent) => this.townshipClicked(evt));
+    this.map.on('mousemove', 'twp_poly', (evt: MapMouseEvent) => this.townshipIn(evt));
+    this.map.on('mouseleave', 'twp_poly', (evt: MapMouseEvent) => this.townshipOut(evt));
+  }
+
+  setStateSelected(stateData) {
+    this.unselectState();
+    this.selectedState = stateData.fips;
+    this.selectedStateName = stateData.name;
+    this.map.fitBounds(stateData.bbox, {padding: 10});
+    const filter = ['!in', 'STATEFP', this.selectedState, 'DEMO ' + this.selectedState, 'MAPTILER ' + this.selectedState];
+    this.map.setFilter('states_poly', filter);
+    this.unselectCounty();
+    this.unselectTownship();
+    this.map.addSource('places_src', {
+      type: 'geojson',
+      generateId: true,
+      data: this.datapath + '/assets/jsons/places_ok/places' + this.selectedState + '.json'
+    });
+    this.addCountiesByState();
+    this.addPlacesByState();
+    // this.indicatorTxt = this.selectedStateName;
   }
 
   unselectState() {
     if (this.selectedState !== '') {
       this.map.off('click', 'county_poly', (evt: MapMouseEvent) => this.countyClicked(evt));
+      this.map.off('mousemove', 'county_poly', (evt: MapMouseEvent) => this.countyIn(evt));
+      this.map.off('mouseleave', 'county_poly', (evt: MapMouseEvent) => this.countyOut(evt));
       this.map.removeLayer('county_poly');
       this.map.removeLayer('county_label');
       this.map.removeSource('county_poly_src');
       this.map.removeSource('county_label_src');
       this.map.off('click', 'places_poly', (evt: MapMouseEvent) => this.placeClicked(evt));
+      this.map.off('mousemove', 'places_poly', (evt: MapMouseEvent) => this.placeIn(evt));
+      this.map.off('mouseleave', 'places_poly', (evt: MapMouseEvent) => this.placeOut(evt));
       this.map.removeLayer('places_poly');
+      this.map.removeLayer('places_line');
       this.map.removeLayer('places_label');
       this.map.removeSource('places_src');
     }
     this.map.setFilter('states_poly', null);
     this.selectedState = '';
     this.selectedStateName = '';
-  }
-
-  unselectCounty() {
-    if (this.selectedCounty !== '') {
-      this.map.off('click', 'twp_poly', (evt: MapMouseEvent) => this.townshipClicked(evt));
-      this.map.removeLayer('twp_poly');
-      this.map.removeLayer('twp_label');
-      this.map.removeSource('twp_poly_src');
-      this.map.removeSource('twp_label_src');
-    }
-    this.selectedCounty = '';
-    this.selectedCountyName = '';
-  }
-
-  unselectTownship() {
-    if (this.selectedTownshipName !== '') {
-      this.map.setFilter('places_poly', null);
-      this.map.setFilter('places_label', null);
-      this.map.setLayoutProperty('places_poly', 'visibility', 'none');
-      this.map.setLayoutProperty('places_label', 'visibility', 'none');
-    }
-    this.selectedTownshipCnt = '';
-    this.selectedTownshipId = '';
-    this.selectedTownshipGeoid = '';
-    this.selectedTownshipName = '';
+    // this.indicatorTxt = this.selectedStateName;
   }
 
   selectCounty(countyData) {
@@ -318,6 +483,23 @@ export class MilesMapComponent implements OnInit {
     this.map.setFilter('county_poly', filter);
     this.map.setFilter('county_label', filter);
     this.addTownshipByCounty();
+    // this.indicatorTxt = this.selectedCountyName;
+  }
+
+  unselectCounty() {
+    if (this.selectedCounty !== '') {
+      this.map.off('click', 'twp_poly', (evt: MapMouseEvent) => this.townshipClicked(evt));
+      this.map.off('mousemove', 'twp_poly', (evt: MapMouseEvent) => this.townshipIn(evt));
+      this.map.off('mouseleave', 'twp_poly', (evt: MapMouseEvent) => this.townshipOut(evt));
+      this.map.removeLayer('twp_poly');
+      this.map.removeLayer('twp_line');
+      this.map.removeLayer('twp_label');
+      this.map.removeSource('twp_poly_src');
+      this.map.removeSource('twp_label_src');
+    }
+    this.selectedCounty = '';
+    this.selectedCountyName = '';
+    // this.indicatorTxt = this.selectedCountyName;
   }
 
   selectTownship(twpData) {
@@ -347,12 +529,32 @@ export class MilesMapComponent implements OnInit {
     this.map.fitBounds(bnds, {padding: 10});
     const placesfilter = ['all', ['==', 'COUSUBFP', this.selectedTownshipId], ['==', 'CountyID', this.selectedTownshipCnt]];
     this.map.setFilter('places_poly', placesfilter);
+    this.map.setFilter('places_line', placesfilter);
     this.map.setFilter('places_label', placesfilter);
     this.map.setLayoutProperty('places_poly', 'visibility', 'visible');
+    this.map.setLayoutProperty('places_line', 'visibility', 'visible');
     this.map.setLayoutProperty('places_label', 'visibility', 'visible');
     const twpfilter = ['!in', 'GEOID', this.selectedTownshipGeoid];
     this.map.setFilter('twp_poly', twpfilter);
+    this.map.setFilter('twp_line', twpfilter);
     this.map.setFilter('twp_label', twpfilter);
+    // this.indicatorTxt = this.selectedTownshipName;
+  }
+
+  unselectTownship() {
+    if (this.selectedTownshipName !== '') {
+      this.map.setFilter('places_poly', null);
+      this.map.setFilter('places_line', null);
+      this.map.setFilter('places_label', null);
+      this.map.setLayoutProperty('places_poly', 'visibility', 'none');
+      this.map.setLayoutProperty('places_line', 'visibility', 'none');
+      this.map.setLayoutProperty('places_label', 'visibility', 'none');
+    }
+    this.selectedTownshipCnt = '';
+    this.selectedTownshipId = '';
+    this.selectedTownshipGeoid = '';
+    this.selectedTownshipName = '';
+    // this.indicatorTxt = this.selectedTownshipName;
   }
 
   selectPlace(placeData) {
@@ -449,7 +651,7 @@ export class MilesMapComponent implements OnInit {
     b1.className = 'map-ctrl';
     b1.innerHTML = '<i class="fa-road_regular text-size-24p text-white"></i>';
     b1.addEventListener('click', (e) => {
-      this.appService.sendMessage('stateSelected');
+
       e.stopPropagation();
     });
     container.appendChild(b1);
@@ -458,7 +660,7 @@ export class MilesMapComponent implements OnInit {
     b2.className = 'map-ctrl right';
     b2.innerHTML = '<i class="fa-satellite_regular text-size-24p text-white"></i>';
     b2.addEventListener('click', (e) => {
-      this.appService.sendMessage('stateRemoved');
+
       e.stopPropagation();
     });
     container.appendChild(b2);
@@ -473,11 +675,12 @@ export class MilesMapComponent implements OnInit {
     }
   }
 
-  onMouseOver(event) {
-    this.hoverValue = 'COLORADO';
-  }
-
-  onMouseLeave(event) {
-    this.hoverValue = null;
+  updateIndicator(type, str) {
+    if (str != this.indicatorTxt) {
+      this.zone.run(() => {
+        this.indicatorTxt = str;
+        this.indicatorType = type;
+      });
+    }
   }
 }
