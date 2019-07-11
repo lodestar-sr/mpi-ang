@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 
@@ -17,12 +17,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   selectedDetail: number;
   subscription: Subscription;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private zone: NgZone) {
     this.subscription = this.appService.getMessage().subscribe(message => {
-      if (message.msg == 'stateSelected') {
-        this.details = [
-          {
-            title: 'COLORADO',
+      this.zone.run(() => {
+        if (message.type == 'state') {
+          this.details = [];
+          this.details[0] = {
+            title: message.name,
             header1: {
               name: 'COUNTIES',
               value: 64
@@ -37,9 +38,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             },
             description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
             updated: '06/25/2019'
-          },
-          {
-            title: 'EAGLE',
+          };
+          this.selectedDetail = 0;
+          setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
+          setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+        } else if (message.type == 'county') {
+          this.details[1] = {
+            title: message.name,
             header1: {
               name: 'MUNI\'S.',
               value: 11
@@ -54,9 +59,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             },
             description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
             updated: '06/25/2019'
-          },
-          {
-            title: 'EDWARDS',
+          };
+          if (this.details.length == 3) {
+            this.details.pop();
+          }
+          this.selectedDetail = 1;
+          setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
+          setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+        } else if (message.type == 'town') {
+          this.details[2] = {
+            title: message.name,
             header1: {
               name: 'PROPERTIES',
               value: 9985
@@ -71,11 +83,15 @@ export class SidebarComponent implements OnInit, AfterViewInit {
             },
             description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
             updated: '06/25/2019'
-          },
-        ];
-      } else if (message.msg == 'stateRemoved') {
-        this.details = [];
-      }
+          };
+          this.selectedDetail = 2;
+          setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
+          setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+        } else if (message.type == 'gotoHome') {
+          this.details = [];
+          setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+        }
+      });
     });
   }
 
@@ -114,10 +130,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if (dtls) {
       dtls.style.left = (this.isSmall ? 56 : 128) + 'px';
     }
+
+    setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
   }
 
   activateMenu(activatedMenu: string) {
     this.activated = activatedMenu;
+
+    if (this.activated == 'HOME') {
+      this.details = [];
+      this.appService.sendMessage({type: 'initMap'});
+    }
   }
 
   changeStatus(no) {

@@ -1,6 +1,7 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
 import {AppService} from '../../app.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-miles-map',
@@ -32,6 +33,7 @@ export class MilesMapComponent implements OnInit {
 
   indicatorTxt: string;
   indicatorType: string;
+  subscription: Subscription;
 
   constructor(private appService: AppService, private zone: NgZone) {
     this.selectedState = '';
@@ -39,11 +41,24 @@ export class MilesMapComponent implements OnInit {
     this.selectedCounty = '';
     this.selectedCountyName = '';
     this.datapath = 'https://mpi-dev-proc.firebaseapp.com';
+    this.subscription = this.appService.getMessage().subscribe(message => {
+      this.zone.run(() => {
+        if (message.type == 'initMap') {
+            this.viewCont();
+        } else if(message.type == 'resizeMap') {
+            this.resize();
+        }
+      });
+    });
   }
 
   ngOnInit() {
     this.indicatorTxt = '';
     this.indicatorType = '';
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onLoad(mapInst: Map) {
@@ -450,7 +465,8 @@ export class MilesMapComponent implements OnInit {
 
     this.appService.sendMessage({
       type: 'state',
-      name: this.selectedStateName
+      name: this.selectedStateName,
+      id: this.selectedState,
     });
   }
 
@@ -487,7 +503,12 @@ export class MilesMapComponent implements OnInit {
     this.map.setFilter('county_poly', filter);
     this.map.setFilter('county_label', filter);
     this.addTownshipByCounty();
-    // this.indicatorTxt = this.selectedCountyName;
+
+    this.appService.sendMessage({
+      type: 'county',
+      name: this.selectedCountyName,
+      id: this.selectedCounty,
+    });
   }
 
   unselectCounty() {
@@ -542,7 +563,12 @@ export class MilesMapComponent implements OnInit {
     this.map.setFilter('twp_poly', twpfilter);
     this.map.setFilter('twp_line', twpfilter);
     this.map.setFilter('twp_label', twpfilter);
-    // this.indicatorTxt = this.selectedTownshipName;
+
+    this.appService.sendMessage({
+      type: 'town',
+      name: this.selectedTownshipName,
+      id: this.selectedTownshipId,
+    });
   }
 
   unselectTownship() {
@@ -594,16 +620,23 @@ export class MilesMapComponent implements OnInit {
     this.unselectState();
     this.unselectCounty();
     this.unselectTownship();
+    this.appService.sendMessage({type: 'gotoHome'});
   }
 
   viewAlaska() {
     this.map.fitBounds(this.mapvars.alaska, {padding: 10});
     this.setStateSelected({fips: '02', name: 'Alaska', bbox: this.mapvars.alaska});
+    this.appService.sendMessage({type: 'gotoHome'});
   }
 
   viewHawaii() {
     this.map.fitBounds(this.mapvars.hawaii, {padding: 10});
     this.setStateSelected({fips: '15', name: 'Hawaii', bbox: this.mapvars.hawaii});
+    this.appService.sendMessage({type: 'gotoHome'});
+  }
+
+  resize() {
+    this.map.resize();
   }
 
   controlOnAdd() {
