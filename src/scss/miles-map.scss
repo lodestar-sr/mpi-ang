@@ -31,6 +31,12 @@ mgl-map {
             &:focus {
               background: rgba(0, 0, 0, 0.78);
             }
+
+            @media (max-width: 576px) {
+              width: 32px;
+              height: 32px;
+              font-size: 16px;
+            }
           }
 
           .mapboxgl-ctrl-zoom-in {
@@ -87,6 +93,12 @@ mgl-map {
             &:focus {
               background: rgba(0, 0, 0, 0.78);
             }
+
+            @media (max-width: 576px) {
+              width: 32px;
+              height: 32px;
+              font-size: 16px;
+            }
           }
         }
       }
@@ -104,6 +116,19 @@ mgl-map {
             img {
               width: 128px;
               height: 84px;
+            }
+          }
+
+          @media (max-width: 576px) {
+            display: flex;
+            flex-direction: column;
+
+            .mapboxgl-ctrl {
+
+              img {
+                width: 64px;
+                height: 42px;
+              }
             }
           }
         }

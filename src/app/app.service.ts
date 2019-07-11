@@ -8,8 +8,8 @@ export class AppService {
 
   private subject = new Subject<any>();
 
-  sendMessage(message: string): void {
-    this.subject.next({msg: message});
+  sendMessage(data: any): void {
+    this.subject.next(data);
   }
 
   getMessage(): Observable<any> {

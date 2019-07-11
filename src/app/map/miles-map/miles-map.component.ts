@@ -447,7 +447,11 @@ export class MilesMapComponent implements OnInit {
     });
     this.addCountiesByState();
     this.addPlacesByState();
-    // this.indicatorTxt = this.selectedStateName;
+
+    this.appService.sendMessage({
+      type: 'state',
+      name: this.selectedStateName
+    });
   }
 
   unselectState() {
@@ -649,7 +653,7 @@ export class MilesMapComponent implements OnInit {
     container.id = 'map-buttons';
     const b1 = window.document.createElement('button');
     b1.className = 'map-ctrl';
-    b1.innerHTML = '<i class="fa-road_regular text-size-24p text-white"></i>';
+    b1.innerHTML = '<i class="fa-road_regular text-white"></i>';
     b1.addEventListener('click', (e) => {
 
       e.stopPropagation();
@@ -658,7 +662,7 @@ export class MilesMapComponent implements OnInit {
 
     const b2 = window.document.createElement('button');
     b2.className = 'map-ctrl right';
-    b2.innerHTML = '<i class="fa-satellite_regular text-size-24p text-white"></i>';
+    b2.innerHTML = '<i class="fa-satellite_regular text-white"></i>';
     b2.addEventListener('click', (e) => {
 
       e.stopPropagation();
