@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# -------------------------------------------------------
+IP='35.227.161.39'
+LOCAL_KEYFILE="$HOME/.ssh/id_ed25519_proc"
+REMOTE_USER='proc'
+
+# -------------------------------------------------------
+ANG="/home/proc/repos/mpi-proc-ang"
+CENTOS_BIN="$HOME/deploy/centos/bin"
+SCRIPT=SCRIPT="$CENTOS_BIN/shutdown"
+# -------------------------------------------------------
+ssh -i $LOCAL_KEYFILE $REMOTE_USER@$IP -t $SCRIPT

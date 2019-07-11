@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Shutdown the VM
+
+sync() {
+    printf "\nsync"
+    sync
+}
+
+shutdown() {
+    printf "\nsudo shutdown now"
+    sudo shutdown now
+}
+
+main() {
+    sync
+    shutdown
+}
+
+main
