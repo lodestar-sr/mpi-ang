@@ -7,7 +7,8 @@
     <ul class="list-unstyled components">
       <li [class]="activated == 'HOME' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('HOME')">
-          <i class="fa-compass_regular"></i>
+          <i class="light fa-compass_light"></i>
+          <i class="regular fa-compass_regular"></i>
           <span>HOME</span>
         </a>
         <div class="activated-bar"></div>
@@ -15,21 +16,24 @@
       <hr class="separator"/>
       <li [class]="activated == 'SEARCH' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('SEARCH')">
-          <i class="fa-search_regular"></i>
+          <i class="light fa-search_light"></i>
+          <i class="regular fa-search_regular"></i>
           <span>SEARCH</span>
         </a>
         <div class="activated-bar"></div>
       </li>
       <li [class]="activated == 'ADD DATA' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('ADD DATA')">
-          <i class="fa-cloud-upload-alt_regular"></i>
+          <i class="light fa-cloud-upload-alt_light"></i>
+          <i class="regular fa-cloud-upload-alt_regular"></i>
           <span>ADD DATA</span>
         </a>
         <div class="activated-bar"></div>
       </li>
       <li [class]="activated == 'DRAW' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('DRAW')">
-          <i class="fa-draw-polygon_regular"></i>
+          <i class="light fa-draw-polygon_light"></i>
+          <i class="regular fa-draw-polygon_regular"></i>
           <span>DRAW</span>
         </a>
         <div class="activated-bar"></div>
@@ -37,14 +41,16 @@
       <hr class="separator"/>
       <li [class]="activated == 'BOUNDARIES' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('BOUNDARIES')">
-          <i class="fa-object-group_regular"></i>
+          <i class="light fa-object-group_light"></i>
+          <i class="regular fa-object-group_regular"></i>
           <span>BOUNDARIES</span>
         </a>
         <div class="activated-bar"></div>
       </li>
       <li [class]="activated == 'DATA LAYERS' ? 'active' : ''">
         <a href="javascript:" (click)="activateMenu('DATA LAYERS')">
-          <i class="fa-database_regular"></i>
+          <i class="light fa-database_light"></i>
+          <i class="regular fa-database_regular"></i>
           <span>DATA LAYERS</span>
         </a>
         <div class="activated-bar"></div>

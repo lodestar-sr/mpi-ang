@@ -60,6 +60,14 @@
             font-size: 24px;
             margin-bottom: 8px;
             margin-top: 8px;
+
+            &.regular {
+              display: none;
+            }
+
+            &.light {
+              display: block;
+            }
           }
         }
 
@@ -74,7 +82,28 @@
           display: none;
         }
 
-        &.active, &:hover {
+        &:hover {
+
+          .activated-bar {
+            display: block;
+          }
+        }
+
+        &.active {
+          font-weight: bold;
+
+          a {
+
+            i {
+              &.regular {
+                display: block;
+              }
+
+              &.light {
+                display: none;
+              }
+            }
+          }
 
           .activated-bar {
             display: block;
