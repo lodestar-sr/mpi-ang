@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 
@@ -11,6 +11,16 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('homeElement', {static: true}) homeEle: ElementRef;
+  @ViewChild('searchElement', {static: true}) searchEle: ElementRef;
+  @ViewChild('addElement', {static: true}) addEle: ElementRef;
+  @ViewChild('drawElement', {static: true}) drawEle: ElementRef;
+  @ViewChild('boundaryElement', {static: true}) boundaryEle: ElementRef;
+  @ViewChild('layerElement', {static: true}) layerEle: ElementRef;
+
+  @ViewChild('sidebar', {static: true}) sidebarEle: ElementRef;
+  @ViewChild('detailsPanel', {static: true}) detailsPanelEle: ElementRef;
+
   isSmall: boolean;
   activated: string;
   details: any[];
@@ -22,10 +32,13 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.zone.run(() => {
         if (message.type == 'state') {
           this.attributeState(message);
+          this.minimizeSidebar();
         } else if (message.type == 'county') {
           this.attributeCounty(message);
+          this.minimizeSidebar();
         } else if (message.type == 'town') {
           this.attributeTown(message);
+          this.minimizeSidebar();
         } else if (message.type == 'gotoHome') {
           this.details = [];
           setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
@@ -63,14 +76,21 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  switchSidebar(sidebar: any, dtls: any) {
+  switchSidebar() {
     this.isSmall = !this.isSmall;
 
-    if (dtls) {
-      dtls.style.left = (this.isSmall ? 56 : 128) + 'px';
+    if (this.detailsPanelEle) {
+      this.detailsPanelEle.nativeElement.style.left = (this.isSmall ? 56 : 128) + 'px';
     }
 
     setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+    setTimeout(() => this.moveScrollbar(), 300);
+  }
+
+  minimizeSidebar() {
+    if (!this.isSmall) {
+      this.switchSidebar();
+    }
   }
 
   activateMenu(activatedMenu: string) {
@@ -80,6 +100,35 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       this.details = [];
       this.appService.sendMessage({type: 'initMap'});
     }
+
+    this.moveScrollbar();
+  }
+
+  moveScrollbar() {
+    let top = 0;
+    switch (this.activated) {
+      case 'HOME':
+        top = this.homeEle.nativeElement.offsetTop;
+        break;
+      case 'SEARCH':
+        top = this.searchEle.nativeElement.offsetTop;
+        break;
+      case 'ADD_DATA':
+        top = this.addEle.nativeElement.offsetTop;
+        break;
+      case 'DRAW':
+        top = this.drawEle.nativeElement.offsetTop;
+        break;
+      case 'BOUNDARIES':
+        top = this.boundaryEle.nativeElement.offsetTop;
+        break;
+      case 'DATA_LAYERS':
+        top = this.layerEle.nativeElement.offsetTop;
+        break;
+    }
+
+    const scrollBar: any = document.querySelector('.scroll-bar');
+    scrollBar.style.top = top + 'px';
   }
 
   changeStatus(no) {

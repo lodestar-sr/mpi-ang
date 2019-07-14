@@ -5,16 +5,17 @@
   </div>
   <div class="sidemenu">
     <ul class="list-unstyled components">
-      <li [class]="activated == 'HOME' ? 'active' : ''">
+      <li [class]="activated == 'HOME' ? 'active' : ''" #homeElement>
         <a href="javascript:" (click)="activateMenu('HOME')">
           <i class="light fa-compass_light"></i>
           <i class="regular fa-compass_regular"></i>
           <span>HOME</span>
         </a>
         <div class="activated-bar"></div>
+        <div class="scroll-bar"></div>
       </li>
       <hr class="separator"/>
-      <li [class]="activated == 'SEARCH' ? 'active' : ''">
+      <li [class]="activated == 'SEARCH' ? 'active' : ''" #searchElement>
         <a href="javascript:" (click)="activateMenu('SEARCH')">
           <i class="light fa-search_light"></i>
           <i class="regular fa-search_regular"></i>
@@ -22,15 +23,15 @@
         </a>
         <div class="activated-bar"></div>
       </li>
-      <li [class]="activated == 'ADD DATA' ? 'active' : ''">
-        <a href="javascript:" (click)="activateMenu('ADD DATA')">
+      <li [class]="activated == 'ADD_DATA' ? 'active' : ''" #addElement>
+        <a href="javascript:" (click)="activateMenu('ADD_DATA')">
           <i class="light fa-cloud-upload-alt_light"></i>
           <i class="regular fa-cloud-upload-alt_regular"></i>
           <span>ADD DATA</span>
         </a>
         <div class="activated-bar"></div>
       </li>
-      <li [class]="activated == 'DRAW' ? 'active' : ''">
+      <li [class]="activated == 'DRAW' ? 'active' : ''" #drawElement>
         <a href="javascript:" (click)="activateMenu('DRAW')">
           <i class="light fa-draw-polygon_light"></i>
           <i class="regular fa-draw-polygon_regular"></i>
@@ -39,7 +40,7 @@
         <div class="activated-bar"></div>
       </li>
       <hr class="separator"/>
-      <li [class]="activated == 'BOUNDARIES' ? 'active' : ''">
+      <li [class]="activated == 'BOUNDARIES' ? 'active' : ''" #boundaryElement>
         <a href="javascript:" (click)="activateMenu('BOUNDARIES')">
           <i class="light fa-object-group_light"></i>
           <i class="regular fa-object-group_regular"></i>
@@ -47,8 +48,8 @@
         </a>
         <div class="activated-bar"></div>
       </li>
-      <li [class]="activated == 'DATA LAYERS' ? 'active' : ''">
-        <a href="javascript:" (click)="activateMenu('DATA LAYERS')">
+      <li [class]="activated == 'DATA_LAYERS' ? 'active' : ''" #layerElement>
+        <a href="javascript:" (click)="activateMenu('DATA_LAYERS')">
           <i class="light fa-database_light"></i>
           <i class="regular fa-database_regular"></i>
           <span>DATA LAYERS</span>
@@ -58,7 +59,7 @@
     </ul>
 
     <i [class]="(isSmall ? 'fa-arrow-alt-from-left_regular' : 'fa-arrow-alt-to-left_regular') + ' sidebar-switch'"
-       (click)="switchSidebar(sidebar, detailsPanel)"></i>
+       (click)="switchSidebar()"></i>
   </div>
 
   <div #detailsPanel [class]="'details ' + (details.length ? 'disp' : '')">
