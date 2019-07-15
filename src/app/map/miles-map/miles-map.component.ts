@@ -793,7 +793,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
   dropAddresses(filename) {
     $.ajax({
-      url: '/jsons/addresses/' + filename + '.json',
+      url: this.datapath + '/assets/jsons/addresses/' + filename + '.json',
       method: 'POST',
       success: (data) => {
         this.processSuccess(data);
