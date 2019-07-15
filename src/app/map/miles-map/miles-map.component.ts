@@ -1,19 +1,22 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {GeoJSONSource, IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
 import {AppService} from '../../app.service';
 import {Subscription} from 'rxjs';
+
+declare var $: any;
 
 @Component({
   selector: 'app-miles-map',
   templateUrl: './miles-map.component.html',
 })
-export class MilesMapComponent implements OnInit {
+export class MilesMapComponent implements OnInit, OnDestroy {
 
   map: Map;
   mapvars = {
     continental: new LngLatBounds(new LngLat(-124.90, 24.40), new LngLat(-66.90, 49.40)),
     alaska: new LngLatBounds(new LngLat(-187.66, 46), new LngLat(-129.9, 71.44)),
     hawaii: new LngLatBounds(new LngLat(-178.45, 18.86), new LngLat(-154.75, 28.52)),
+    initial: new LngLatBounds(new LngLat(-79.77, 38.78), new LngLat(-71.78, 45.01)),
     highlightedStateId: -1,
     highlightedCountyId: -1,
     highlightedTownsipId: -1,
@@ -30,6 +33,15 @@ export class MilesMapComponent implements OnInit {
   selectedTownshipGeoid: any;
   selectedTownshipName: any;
   datapath: string;
+  addrdata: any[];
+  timer: number;
+  stateFillFilter;
+  stateLineFilter;
+  countyFillFilter;
+  countyLineFilter;
+  colors: any;
+  statereg: any[];
+  countyreg: any[];
 
   indicatorTxt: string;
   indicatorType: string;
@@ -41,11 +53,36 @@ export class MilesMapComponent implements OnInit {
     this.selectedCounty = '';
     this.selectedCountyName = '';
     this.datapath = 'https://mpi-dev-proc.firebaseapp.com';
+    this.addrdata = [];
+    this.timer = 0;
+    this.colors = {
+      state_reg_fill: '#EAC6C8',
+      state_reg_line: '#9F3C40',
+      county_reg_fill: '#EAC6C8',
+      county_reg_line: '#9F3C40',
+      twp_reg_fill: '#EAC6C8',
+      twp_reg_line: '#9F3C40',
+      state_noreg_fill: '#BFD6BA',
+      state_noreg_line: '#3E6E62',
+      county_noreg_fill: '#BFD6BA',
+      county_noreg_line: '#3E6E62',
+      twp_noreg_fill: '#BFD6BA',
+      twp_noreg_line: '#3E6E62'
+    };
+    this.statereg = ['01', '04', '09', '13', '20', '24', '34', '36', '41', '47'];
+    this.countyreg = ['04012', '04013', '04025', '06009', '06029', '06039', '06065', '06073', '06099', '08059', '10003', '12007', '12011', '12015', '12017', '12019', '12031', '12043', '12057', '12071', '12073', '12081',
+      '12083', '12099', '12101', '12103', '12117', '13015', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13211', '13247', '13285', '17031', '17089', '20209', '21117', '21151', '21223', '21225',
+      '24031', '24033', '32003', '39017', '39025', '39035', '39061', '39085', '39093', '39095', '39099', '39113', '39151', '39153', '39155', '39165', '41011', '41029', '34001', '34003', '34005', '34007', '34009',
+      '34011', '34013', '34015', '34017', '34019', '34021', '34023', '34025', '34027', '34029', '34031', '34033', '34035', '34037', '34039', '34041', '36001', '36003', '36005', '36007', '36009',
+      '36011', '36013', '36015', '36017', '36019', '36021', '36023', '36025', '36027', '36029', '36031', '36033', '36035', '36037', '36039', '36041', '36043', '36045', '36047', '36049', '36051', '36053', '36055',
+      '36057', '36059', '36061', '36063', '36065', '36067', '36069', '36071', '36073', '36075', '36077', '36079', '36081', '36083', '36085', '36087', '36089', '36091', '36093', '36095', '36097', '36099', '36101',
+      '36103', '36105', '36107', '36109', '36111', '36113', '36115', '36117', '36119', '36121', '36123'];
+
     this.subscription = this.appService.getMessage().subscribe(message => {
       this.zone.run(() => {
         if (message.type == 'initMap') {
             this.viewCont();
-        } else if(message.type == 'resizeMap') {
+        } else if (message.type == 'resizeMap') {
             this.resize();
         }
       });
@@ -64,12 +101,54 @@ export class MilesMapComponent implements OnInit {
   onLoad(mapInst: Map) {
     this.map = mapInst;
 
-    this.map.fitBounds(this.mapvars.continental, {padding: 10});
+    this.stateFillFilter = ['match', ['get', 'STATEFP']];
+    this.stateLineFilter = ['match', ['get', 'STATEFP']];
+    for (let i = 0; i < this.statereg.length; i++) {
+      this.stateFillFilter.push(this.statereg[i]);
+      this.stateFillFilter.push(this.colors.state_reg_fill);
+      this.stateFillFilter.push('DEMO ' + this.statereg[i]);
+      this.stateFillFilter.push(this.colors.state_reg_fill);
+      this.stateFillFilter.push('MAPTILER ' + this.statereg[i]);
+      this.stateFillFilter.push(this.colors.state_reg_fill);
+      this.stateLineFilter.push(this.statereg[i]);
+      this.stateLineFilter.push(this.colors.state_reg_line);
+      this.stateLineFilter.push('DEMO ' + this.statereg[i]);
+      this.stateLineFilter.push(this.colors.state_reg_line);
+      this.stateLineFilter.push('MAPTILER ' + this.statereg[i]);
+      this.stateLineFilter.push(this.colors.state_reg_line);
+    }
+    this.stateFillFilter.push(this.colors.state_noreg_fill);
+    this.stateLineFilter.push(this.colors.state_noreg_line);
+
+    this.countyFillFilter = ['match', ['get', 'GEOID']];
+    this.countyLineFilter = ['match', ['get', 'GEOID']];
+    for (let i = 0; i < this.countyreg.length; i++) {
+      this.countyFillFilter.push(this.countyreg[i]);
+      this.countyFillFilter.push(this.colors.county_reg_fill);
+      this.countyFillFilter.push('DEMO ' + this.countyreg[i]);
+      this.countyFillFilter.push(this.colors.county_reg_fill);
+      this.countyFillFilter.push('MAPTILER ' + this.countyreg[i]);
+      this.countyFillFilter.push(this.colors.county_reg_fill);
+      this.countyLineFilter.push(this.countyreg[i]);
+      this.countyLineFilter.push(this.colors.county_reg_line);
+      this.countyLineFilter.push('DEMO ' + this.countyreg[i]);
+      this.countyLineFilter.push(this.colors.county_reg_line);
+      this.countyLineFilter.push('MAPTILER ' + this.countyreg[i]);
+      this.countyLineFilter.push(this.colors.county_reg_line);
+    }
+    this.countyFillFilter.push(this.colors.county_noreg_fill);
+    this.countyLineFilter.push(this.colors.county_noreg_line);
+
+    this.map.fitBounds(this.mapvars.initial, {padding: 10});
     this.addStates();
     this.zoomControl = {onAdd: evt => this.controlOnAdd(), onRemove: evt => this.controlOnRemove()};
     this.map.addControl(this.zoomControl, 'bottom-left');
     this.mapControl = {onAdd: evt => this.controlOnAddMap(), onRemove: evt => this.controlOnRemoveMap()};
     this.map.addControl(this.mapControl, 'top-right');
+    this.map.loadImage('./assets/images/2216353-32.png', (error, image) => {
+      if (error) { throw error; }
+      this.map.addImage('pin', image);
+    });
   }
 
   stateClicked(e) {
@@ -246,23 +325,10 @@ export class MilesMapComponent implements OnInit {
         visibility: 'visible'
       },
       paint: {
-        'fill-color': ['match', ['get', 'STATEFP'],
-          '06', '#ff9900', '09', '#ff9900', '10', '#ff9900', '17', '#ff9900', '18', '#ff9900', '20', '#ff9900', '21', '#ff9900', '23', '#ff9900', '24', '#ff9900', '25', '#ff9900',
-          '26', '#ff9900', '27', '#ff9900', '28', '#ff9900', '29', '#ff9900', '31', '#ff9900', '33', '#ff9900', '34', '#ff9900', '36', '#ff9900', '38', '#ff9900', '39', '#ff9900',
-          '42', '#ff9900', '44', '#ff9900', '50', '#ff9900', '51', '#ff9900', '54', '#ff9900', '55', '#ff9900',
-          'DEMO 06', '#ff9900', 'DEMO 09', '#ff9900', 'DEMO 10', '#ff9900', 'DEMO 17', '#ff9900', 'DEMO 18', '#ff9900', 'DEMO 20', '#ff9900', 'DEMO 21', '#ff9900', 'DEMO 23', '#ff9900',
-          'DEMO 24', '#ff9900', 'DEMO 25', '#ff9900', 'DEMO 26', '#ff9900', 'DEMO 27', '#ff9900', 'DEMO 28', '#ff9900', 'DEMO 29', '#ff9900', 'DEMO 31', '#ff9900', 'DEMO 33', '#ff9900',
-          'DEMO 34', '#ff9900', 'DEMO 36', '#ff9900', 'DEMO 38', '#ff9900', 'DEMO 39', '#ff9900', 'DEMO 42', '#ff9900', 'DEMO 44', '#ff9900', 'DEMO 50', '#ff9900', 'DEMO 51', '#ff9900',
-          'DEMO 54', '#ff9900', 'DEMO 55', '#ff9900',
-          'MAPTILER 06', '#ff9900', 'MAPTILER 09', '#ff9900', 'MAPTILER 10', '#ff9900', 'MAPTILER 17', '#ff9900', 'MAPTILER 18', '#ff9900', 'MAPTILER 20', '#ff9900',
-          'MAPTILER 21', '#ff9900', 'MAPTILER 23', '#ff9900', 'MAPTILER 24', '#ff9900', 'MAPTILER 25', '#ff9900', 'MAPTILER 26', '#ff9900', 'MAPTILER 27', '#ff9900',
-          'MAPTILER 28', '#ff9900', 'MAPTILER 29', '#ff9900', 'MAPTILER 31', '#ff9900', 'MAPTILER 33', '#ff9900', 'MAPTILER 34', '#ff9900', 'MAPTILER 36', '#ff9900',
-          'MAPTILER 38', '#ff9900', 'MAPTILER 39', '#ff9900', 'MAPTILER 42', '#ff9900', 'MAPTILER 44', '#ff9900', 'MAPTILER 50', '#ff9900', 'MAPTILER 51', '#ff9900',
-          'MAPTILER 54', '#ff9900', 'MAPTILER 55', '#ff9900', '#8B4513'
-        ],
-        'fill-outline-color': '#8B4513',
+        'fill-color': this.stateFillFilter,
+        'fill-outline-color': this.stateFillFilter,
         'fill-antialias': true,
-        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.25, 0.35],
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.55, 0.35],
       },
     });
 
@@ -275,8 +341,13 @@ export class MilesMapComponent implements OnInit {
         visibility: 'visible'
       },
       paint: {
-        'line-color': '#8B4513',
+        'line-color': this.stateLineFilter,
         'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 3, 2],
+        'line-offset': ['case',
+          ['boolean', ['feature-state', 'hover'], false],
+          1.5,
+          1
+        ],
         'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
       },
     });
@@ -323,8 +394,7 @@ export class MilesMapComponent implements OnInit {
         visibility: 'none',
         'text-field': '{NAME}',
         'text-font': [
-          'DIN Offc Pro Medium',
-          'Arial Unicode MS Bold'
+          'Montserrat Medium',
         ],
         'text-size': 11
       },
@@ -351,11 +421,39 @@ export class MilesMapComponent implements OnInit {
         visibility: 'visible'
       },
       paint: {
-        'fill-color': '#8B4513',
-        'fill-outline-color': '#8B4513',
+        'fill-color': this.countyFillFilter,
+        'fill-outline-color': this.countyFillFilter,
         'fill-antialias': true,
-        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.40, 0.50],
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.75, 0.55],
       },
+    });
+
+    this.map.addLayer({
+      id: 'county_line',
+      type: 'line',
+      source: 'county_poly_src',
+      'source-layer': 'counties',
+      layout: {
+        visibility: 'visible'
+      },
+      paint: {
+        'line-color': this.countyLineFilter,
+        'line-width': ['case',
+          ['boolean', ['feature-state', 'hover'], false],
+          3,
+          2
+        ],
+        'line-offset': ['case',
+          ['boolean', ['feature-state', 'hover'], false],
+          1.5,
+          1
+        ],
+        'line-opacity': ['case',
+          ['boolean', ['feature-state', 'hover'], false],
+          1,
+          0.5
+        ]
+      }
     });
 
     this.map.addSource('county_label_src', {
@@ -369,8 +467,7 @@ export class MilesMapComponent implements OnInit {
       layout: {
         'text-field': '{NAME}',
         'text-font': [
-          'DIN Offc Pro Medium',
-          'Arial Unicode MS Bold'
+          'Montserrat Medium'
         ],
         'text-size': 15
       },
@@ -432,8 +529,7 @@ export class MilesMapComponent implements OnInit {
       layout: {
         'text-field': '{NAME}',
         'text-font': [
-          'DIN Offc Pro Medium',
-          'Arial Unicode MS Bold'
+          'Montserrat Medium'
         ],
         'text-size': 13
       },
@@ -462,6 +558,14 @@ export class MilesMapComponent implements OnInit {
     });
     this.addCountiesByState();
     this.addPlacesByState();
+    setTimeout(() => {
+      if (this.selectedState === '34') {
+        this.dropAddresses('nj_list2');
+      }
+      if (this.selectedState === '36') {
+        this.dropAddresses('ny_list2');
+      }
+    }, 1000);
 
     this.appService.sendMessage({
       type: 'state',
@@ -476,6 +580,7 @@ export class MilesMapComponent implements OnInit {
       this.map.off('mousemove', 'county_poly', (evt: MapMouseEvent) => this.countyIn(evt));
       this.map.off('mouseleave', 'county_poly', (evt: MapMouseEvent) => this.countyOut(evt));
       this.map.removeLayer('county_poly');
+      this.map.removeLayer('county_line');
       this.map.removeLayer('county_label');
       this.map.removeSource('county_poly_src');
       this.map.removeSource('county_label_src');
@@ -486,6 +591,11 @@ export class MilesMapComponent implements OnInit {
       this.map.removeLayer('places_line');
       this.map.removeLayer('places_label');
       this.map.removeSource('places_src');
+      if (this.map.getLayer('address')) {
+        this.map.off('click', 'address', (evt: MapMouseEvent) => this.addressClicked(evt));
+        this.map.removeLayer('address');
+        this.map.removeSource('address_src');
+      }
     }
     this.map.setFilter('states_poly', null);
     this.selectedState = '';
@@ -501,6 +611,7 @@ export class MilesMapComponent implements OnInit {
     this.map.fitBounds(countyData.bbox, {padding: 10});
     const filter = ['!in', 'GEOID', this.selectedCounty, 'DEMO ' + this.selectedCounty, 'MAPTILER ' + this.selectedCounty];
     this.map.setFilter('county_poly', filter);
+    this.map.setFilter('county_line', filter);
     this.map.setFilter('county_label', filter);
     this.addTownshipByCounty();
 
@@ -678,6 +789,118 @@ export class MilesMapComponent implements OnInit {
     if (container) {
       container.parentNode.removeChild(container);
     }
+  }
+
+  dropAddresses(filename) {
+    $.ajax({
+      url: '/jsons/addresses/' + filename + '.json',
+      method: 'POST',
+      success: (data) => {
+        this.processSuccess(data);
+      }
+    });
+  }
+
+  processSuccess(data) {
+    this.addrdata = [];
+    const ub = this.map.getBounds().getNorth() - 0.01;
+    for (let i = 0 ; i < data[0].data.length ; i++) {
+      this.addrdata.push({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [parseFloat(data[0].data[i].Lng), ub]
+        },
+        properties : {
+          address : data[0].data[i].Address,
+          client : data[0].data[i].Client,
+          latO : parseFloat(data[0].data[i].Lat),
+          lngO : parseFloat(data[0].data[i].Lng),
+          anim : 0
+        }
+      });
+    }
+
+    const dat: any = this.ptCalcData(0);
+    this.map.addSource('address_src', {
+      type: 'geojson',
+      cluster: false,
+      clusterRadius: 1,
+      clusterMaxZoom: 0,
+      data: dat,
+    });
+
+    this.map.addLayer({
+      id: 'address',
+      type: 'symbol',
+      source: 'address_src',
+      layout: {
+        'icon-image': 'pin',
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
+        'icon-anchor': 'bottom'
+      }
+    });
+    this.map.on('click', 'address', (evt: MapMouseEvent) => this.addressClicked(evt));
+    requestAnimationFrame(ts => {
+      this.resetTimer(ts);
+    });
+    this.animatePoints(0);
+  }
+
+  ptCalcData(timestamp) {
+    const fallps = 15;
+    const falltime = 2;
+    const totaltime = this.addrdata.length / fallps;
+    const time = (timestamp - this.timer) / 1000;
+    const ub = this.map.getBounds().getNorth() + 0.01;
+    if (time > 0) {
+      let first = (time > falltime) ? Math.ceil((time - falltime) * fallps) : 0;
+      const last = (time > totaltime) ? this.addrdata.length : Math.ceil(time * fallps);
+      if (first > 0) {
+        if (first > last) { first = last; }
+        for (let i = first - 1; i >= 0; i--) {
+          this.addrdata[i].geometry.coordinates[1] = this.addrdata[i].properties.latO;
+          if (this.addrdata[i].properties.anim < 2) { this.addrdata[i].properties.anim = 2; } else { break; }
+        }
+      }
+      let basetime = time - first / fallps;
+      const timestep = 1 / fallps;
+      for (let i = first; i < last; i++) {
+        this.addrdata[i].geometry.coordinates[1] = ub - (ub - this.addrdata[i].properties.latO) * basetime / falltime;
+        basetime -= timestep;
+      }
+    } else {
+      for (let i = 0; i < this.addrdata.length; i++) {
+        this.addrdata[i].geometry.coordinates[1] = ub;
+      }
+    }
+
+    return {type: 'FeatureCollection', features: this.addrdata};
+  }
+
+  animatePoints(timestamp) {
+    const x: any = this.ptCalcData(timestamp);
+    (this.map.getSource('address_src') as GeoJSONSource).setData(x);
+    const cnt = this.addrdata.length - 1;
+    if (this.addrdata[cnt].properties.anim < 2) {
+      requestAnimationFrame(ts => {
+        this.animatePoints(ts);
+      });
+    }
+  }
+
+  addressClicked(e) {
+    // e.stopPropagation();
+    const html = '<strong>' + e.features[0].properties.address + '</strong><br /><strong>Client:</strong>' + e.features[0].properties.client;
+    new Popup()
+      .setLngLat(e.lngLat)
+      .setHTML(html)
+      .addTo(this.map);
+  }
+
+  resetTimer(timestamp) {
+    this.timer = timestamp;
   }
 
   controlOnAddMap() {
