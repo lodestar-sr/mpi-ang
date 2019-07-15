@@ -11,15 +11,15 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('homeElement', {static: true}) homeEle: ElementRef;
-  @ViewChild('searchElement', {static: true}) searchEle: ElementRef;
-  @ViewChild('addElement', {static: true}) addEle: ElementRef;
-  @ViewChild('drawElement', {static: true}) drawEle: ElementRef;
-  @ViewChild('boundaryElement', {static: true}) boundaryEle: ElementRef;
-  @ViewChild('layerElement', {static: true}) layerEle: ElementRef;
+  @ViewChild('homeElement') homeEle: ElementRef;
+  @ViewChild('searchElement') searchEle: ElementRef;
+  @ViewChild('addElement') addEle: ElementRef;
+  @ViewChild('drawElement') drawEle: ElementRef;
+  @ViewChild('boundaryElement') boundaryEle: ElementRef;
+  @ViewChild('layerElement') layerEle: ElementRef;
 
-  @ViewChild('sidebar', {static: true}) sidebarEle: ElementRef;
-  @ViewChild('detailsPanel', {static: true}) detailsPanelEle: ElementRef;
+  @ViewChild('sidebar') sidebarEle: ElementRef;
+  @ViewChild('detailsPanel') detailsPanelEle: ElementRef;
 
   isSmall: boolean;
   activated: string;
