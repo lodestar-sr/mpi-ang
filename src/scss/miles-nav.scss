@@ -13,7 +13,7 @@
     .miles-item {
       color: #FFFFFF;
       margin-right: 40px;
-      text-shadow: #000000 -5px 10px 15px;
+      text-shadow: 0 3px 6px #000000;
 
       i {
         font-size: 24px;
@@ -25,13 +25,30 @@
 
       &:hover {
         text-decoration: none;
-        font-weight: bold;
+      }
+
+      &.active {
+        text-shadow: -5px 10px 7px rgba(0, 0, 0, 0.7);
+
+        i {
+          font-size: 26px;
+        }
+
+        span {
+          font-size: 17px;
+        }
       }
     }
   }
 
   .hamburger-menu {
     display: none;
+  }
+
+  .miles-logo {
+    cursor: pointer;
+    width: 335px;
+    margin: 20px;
   }
 
   @media (max-width: 1412px) {

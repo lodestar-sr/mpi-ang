@@ -7,7 +7,7 @@
   .landing-text {
     width: 100%;
     height: calc(100% - 241px);
-    padding-top: 219px;
+    padding-top: 180px;
     text-align: center;
     color: #FFFFFF;
     font-size: 64px;
@@ -28,22 +28,26 @@
   color: #FFFFFF;
 
   .modal-dialog {
-    margin-top: 100px;
+    max-width: 480px;
 
     .modal-content {
-      border-radius: 0;
-      border: #707070 solid 1px;
-      background-color: #00000080;
+      border-radius: 6px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.7);
       max-width: 480px;
+      box-shadow: -10px 20px 20px #000000a0;
 
       .modal-body {
         text-align: center;
-        padding: 35px 52px 115px 52px;
+        border-radius: 6px;
+        padding: 35px 52px 97px 52px;
+        -webkit-box-shadow: inset -10px 20px 20px #2e7be924;
+        -moz-box-shadow: inset -10px 20px 20px #2e7be924;
+        box-shadow: inset -10px 20px 20px #2e7be924;
 
         .login-title {
-          margin-top: 24px;
-          font-size: 16px;
-          font-weight: bold;
+          margin-top: 32px;
+          font-size: 24px;
         }
 
         .login-form {
@@ -52,9 +56,9 @@
 
           button {
             font-size: 12px;
-            padding: 10px 38px;
-            border-width: 2px;
-            box-shadow: #000000 0 3px 6px;
+            padding: 12px 36px;
+            border-width: 1px;
+            box-shadow: -5px 5px 10px #0000007F;
           }
         }
 
@@ -64,6 +68,8 @@
           background: #000;
           color: #FFFFFF;
           margin-bottom: 22px;
+          padding: 16px 8px;
+          height: 48px;
         }
 
         .forgot-pwd {
@@ -73,6 +79,10 @@
       }
     }
   }
+}
+
+.modal.fade .modal-dialog {
+  transition: transform .3s ease-out,-webkit-transform .3s ease-out;
 }
 
 body.modal-open {

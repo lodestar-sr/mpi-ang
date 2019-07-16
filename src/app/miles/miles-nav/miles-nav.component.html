@@ -1,20 +1,20 @@
 <div class="miles-nav">
-  <img class="miles-logo" src="/assets/images/miles_logo@2x.png" width="295">
+  <img class="miles-logo" src="/assets/images/miles_logo@2x.png" (click)="chooseMenu('')">
   <div class="miles-menu">
-    <a class="miles-item text-center" href="#">
-      <i class="fa-hand-holding-seedling_regular"></i><br>
+    <a class="miles-item text-center {{ selected == 'PRESERVATION' ? 'active' : '' }}" href="#" (click)="chooseMenu('PRESERVATION')">
+      <i class="fa-hand-holding-seedling_light"></i><br>
       <span>PRESERVATION</span>
     </a>
-    <a class="miles-item text-center" href="#">
-      <i class="fa-snowplow_regular"></i><br>
+    <a class="miles-item text-center {{ selected == 'CONSTRUCTION' ? 'active' : '' }}" href="#" (click)="chooseMenu('CONSTRUCTION')">
+      <i class="fa-snowplow_light"></i><br>
       <span>CONSTRUCTION</span>
     </a>
-    <a class="miles-item text-center" href="#">
-      <i class="fa-tools_regular"></i><br>
+    <a class="miles-item text-center {{ selected == 'MAINTENANCE' ? 'active' : '' }}" href="#" (click)="chooseMenu('MAINTENANCE')">
+      <i class="fa-tools_light"></i><br>
       <span>MAINTENANCE</span>
     </a>
-    <a class="miles-item text-center mr-0" href="#" data-toggle="modal" data-target="#loginModal">
-      <i class="fa-balance-scale_regular"></i><br>
+    <a class="miles-item text-center mr-0 {{ selected == 'COMPLIANCE' ? 'active' : '' }}" href="#" data-toggle="modal" data-target="#loginModal" (click)="chooseMenu('COMPLIANCE')">
+      <i class="fa-balance-scale_light"></i><br>
       <span>COMPLIANCE</span>
     </a>
   </div>
