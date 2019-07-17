@@ -909,7 +909,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     container.id = 'map-buttons';
     const b1 = window.document.createElement('button');
     b1.className = 'map-ctrl';
-    b1.innerHTML = '<i class="fa-road_regular text-white"></i>';
+    b1.innerHTML = '<i class="fa-road_light text-white"></i>';
     b1.addEventListener('click', (e) => {
 
       e.stopPropagation();
@@ -918,7 +918,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
     const b2 = window.document.createElement('button');
     b2.className = 'map-ctrl right';
-    b2.innerHTML = '<i class="fa-satellite_regular text-white"></i>';
+    b2.innerHTML = '<i class="fa-satellite_light text-white"></i>';
     b2.addEventListener('click', (e) => {
 
       e.stopPropagation();

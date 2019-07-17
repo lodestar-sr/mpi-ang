@@ -17,7 +17,7 @@
         margin-top: -20px;
         background: url(/assets/images/miles_hero.png) center top;
         background-size: cover;
-        filter: blur(20px) brightness(0.5);
+        filter: blur(20px) brightness(0.4);
       }
 
     }
@@ -36,7 +36,10 @@
 
         .logo {
           margin-left: 8px;
-          margin-right: 36px;
+          margin-right: 20px;
+          margin-top: -8px;
+          width: 128px;
+          height: 96px;
         }
 
         .compliance {
@@ -89,10 +92,10 @@
           background-position: center;
           background-size: cover;
           background-repeat: no-repeat;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
 
           img {
             border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
           }
 
           .badge-number {

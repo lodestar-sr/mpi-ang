@@ -14,8 +14,8 @@
 </mgl-map>
 
 <div [class]="'map-indicator ' + (indicatorTxt != '' ? 'show' : '')">
-  <i class="fa-landmark-alt_regular" *ngIf="indicatorType == 'state'"></i>
-  <i class="fa-hotel_regular" *ngIf="indicatorType == 'county'"></i>
-  <i class="fa-building_regular" *ngIf="indicatorType == 'town' || indicatorType == 'place'"></i>
+  <i class="fa-landmark-alt_light" *ngIf="indicatorType == 'state'"></i>
+  <i class="fa-hotel_light" *ngIf="indicatorType == 'county'"></i>
+  <i class="fa-building_light" *ngIf="indicatorType == 'town' || indicatorType == 'place'"></i>
   {{ indicatorTxt }}
 </div>

@@ -1,5 +1,5 @@
 <div #sidebar [class]="'sidebar ' + (isSmall ? 'small' : '')"
-     [style.width.px]="(isSmall ? 56 : 128) + (details.length ? 360 : 0)">
+     [style.width.px]="(isSmall ? 56 : 144) + (details.length ? 360 : 0)">
   <div class="blur-container">
     <div class="backdrop-blur"></div>
   </div>
@@ -58,7 +58,7 @@
       </li>
     </ul>
 
-    <i [class]="(isSmall ? 'fa-arrow-alt-from-left_regular' : 'fa-arrow-alt-to-left_regular') + ' sidebar-switch'"
+    <i [class]="(isSmall ? 'fa-arrow-alt-from-left_light' : 'fa-arrow-alt-to-left_light') + ' sidebar-switch'"
        (click)="switchSidebar()"></i>
   </div>
 
@@ -69,14 +69,14 @@
       <div *ngFor="let detail of details; let i = index" class="card">
         <div class="card-header" role="tab" [id]="detail.title.replace(' ', '_')">
           <div class="w-100 d-flex align-items-center">
-            <i *ngIf="i == 0" class="fa-landmark-alt_regular"></i>
-            <i *ngIf="i == 1" class="fa-hotel_regular"></i>
-            <i *ngIf="i == 2" class="fa-building_regular"></i>
+            <i *ngIf="i == 0" class="fa-landmark-alt_light"></i>
+            <i *ngIf="i == 1" class="fa-hotel_light"></i>
+            <i *ngIf="i == 2" class="fa-building_light"></i>
             <span>{{ detail.title }}</span>
             <a class="collapsable {{ selectedDetail == i ? '' : 'collapsed' }}" data-toggle="collapse" data-parent="#details-accordion" [href]="'#collapse' + i"
                (click)="changeStatus(i)">
-              <i class="fa-arrow-alt-from-bottom_regular"></i>
-              <i class="fa-arrow-alt-from-top_regular"></i>
+              <i class="fa-arrow-alt-from-bottom_light"></i>
+              <i class="fa-arrow-alt-from-top_light"></i>
             </a>
           </div>
           <div class="boards">
@@ -99,7 +99,7 @@
           <div class="card-body">
             <div class="description">{{ detail.description }}</div>
             <div class="update-date">
-              <span class="text-size-10p mr-5">Updated:</span>
+              <span class="text-size-8p mr-5">Updated:</span>
               <span class="text-size-16p">{{ detail.updated }}</span>
             </div>
           </div>

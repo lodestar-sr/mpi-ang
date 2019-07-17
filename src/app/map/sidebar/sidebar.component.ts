@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 
@@ -9,7 +9,7 @@ declare var $: any;
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('homeElement') homeEle: ElementRef;
   @ViewChild('searchElement') searchEle: ElementRef;
@@ -63,7 +63,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   recalculateHeight(no) {
-    const headerHeight = 122;
+    const headerHeight = 146;
     const wrapper = document.querySelector('.accordion-wrapper');
     if (wrapper) {
       const wrapHeight = wrapper.clientHeight;
@@ -80,7 +80,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.isSmall = !this.isSmall;
 
     if (this.detailsPanelEle) {
-      this.detailsPanelEle.nativeElement.style.left = (this.isSmall ? 56 : 128) + 'px';
+      this.detailsPanelEle.nativeElement.style.left = (this.isSmall ? 56 : 144) + 'px';
     }
 
     setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);

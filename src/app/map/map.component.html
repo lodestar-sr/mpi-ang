@@ -5,23 +5,23 @@
     </div>
     <div class="top-bar-content">
       <div class="logo-container">
-        <img class="logo" src="/assets/images/miles_logo_white.png" width="112" height="80">
+        <img class="logo" src="/assets/images/miles_logo.png">
         <a class="compliance" href="#" data-toggle="modal" data-target="#loginModal">
-          <i class="fa-balance-scale_regular"></i>
+          <i class="fa-balance-scale_light mt-0"></i>
           <span>COMPLIANCE</span>
         </a>
       </div>
       <div class="top-menu">
         <div [class]="'search-form ' + (viSerDesktop ? 'show' : 'hide')">
           <input type="text" class="form-control search-box" placeholder="Search...">
-          <i class="search-btn fa-search_regular" (click)="toggleSearch()"></i>
+          <i class="search-btn fa-search_light" (click)="toggleSearch()"></i>
         </div>
         <div class="user-avatar">
           <img src="/assets/images/avatar.png" width="48" height="48">
           <div class="badge-number">3</div>
         </div>
         <span class="separator"></span>
-        <button class="btn fa-sign-out-alt_regular btn-signout" (click)="signOut()"></button>
+        <button class="btn fa-sign-out-alt_light btn-signout" (click)="signOut()"></button>
       </div>
       <!--</div>-->
     </div>
