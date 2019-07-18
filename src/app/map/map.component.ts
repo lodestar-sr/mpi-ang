@@ -12,6 +12,7 @@ export class MapComponent implements OnInit {
 
   viSerDesktop: boolean;
   viSerMobile: boolean;
+  searchKey: string;
 
   constructor(private router: Router) {
   }
@@ -38,5 +39,10 @@ export class MapComponent implements OnInit {
     } else {
       this.viSerMobile = !this.viSerMobile;
     }
+  }
+
+  searchMap() {
+    this.searchKey = '';
+    this.toggleSearch();
   }
 }

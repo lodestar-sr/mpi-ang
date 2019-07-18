@@ -13,7 +13,21 @@
       </div>
       <div class="top-menu">
         <div [class]="'search-form ' + (viSerDesktop ? 'show' : 'hide')">
-          <input type="text" class="form-control search-box" placeholder="Search...">
+          <div class="w-100">
+            <div class="animation-texts">
+              <span class="{{ searchKey ? 'd-none' : '' }}">S</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">e</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">a</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">r</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">c</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">h</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">.</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">.</span>
+              <span class="{{ searchKey ? 'd-none' : '' }}">.</span>
+            </div>
+            <input type="text" class="form-control search-box" [(ngModel)]="searchKey" (keyup.enter)="searchMap()">
+            <div class="text-border"></div>
+          </div>
           <i class="search-btn fa-search_light" (click)="toggleSearch()"></i>
         </div>
         <div class="user-avatar">
@@ -25,12 +39,11 @@
       </div>
       <!--</div>-->
     </div>
-    <input type="text" [class]="'form-control search-box-bottom ' + (viSerMobile ? 'show' : 'hide')"
-           placeholder="Search...">
+    <input type="text" [class]="'form-control search-box-bottom ' + (viSerMobile ? 'show' : 'hide')" placeholder="Search..." (keyup.enter)="searchMap($event)">
   </div>
 
   <div class="main">
     <app-sidebar></app-sidebar>
-    <app-miles-map></app-miles-map>
+    <!--<app-miles-map></app-miles-map>-->
   </div>
 </div>

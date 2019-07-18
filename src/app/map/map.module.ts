@@ -6,12 +6,14 @@ import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {MapComponent} from './map.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {MilesMapComponent} from './miles-map/miles-map.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [MapComponent, SidebarComponent, MilesMapComponent],
   imports: [
     CommonModule,
     MapRoutingModule,
+    FormsModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1Ijoic2RhbGFrb3YiLCJhIjoiY2o1eGxvdnRzMDVhOTJ4bnczd3lpMTRiMiJ9.lb016P2ofij1axIWoobBCQ',
     })
