@@ -170,7 +170,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       'case',
       ['match', ['get', 'STATEFP'], ['34', '36'], true, false], this.colors.twp_reg_line,
       ['match', ['get', 'GEOID'], this.townshipreg, true, false], this.colors.twp_reg_line,
-      this.colors.twp_noreg_fill
+      this.colors.twp_noreg_line
     ];
 
     this.map.fitBounds(this.mapvars.initial, {padding: 10});
@@ -467,7 +467,8 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       paint: {
         'line-color': this.townshipLineFilter,
         'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 1],
-        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
+        'line-offset': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.5],
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.8],
       },
     });
 
@@ -636,7 +637,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
     this.map.setPaintProperty('twp_poly', 'fill-color', twpSelFill);
     this.map.setPaintProperty('twp_poly', 'fill-outline-color', twpSelFill);
-    this.map.setPaintProperty('twp_line', 'fill-color', twpSelLine);
+    this.map.setPaintProperty('twp_line', 'line-color', twpSelLine);
 
     this.appService.sendMessage({
       type: 'town',
@@ -646,13 +647,15 @@ export class MilesMapComponent implements OnInit, OnDestroy {
   }
 
   unselectTownship() {
-    this.selectedTownshipCnt = '';
-    this.selectedTownshipId = '';
-    this.selectedTownshipGeoid = '';
-    this.selectedTownshipName = '';
-    this.map.setPaintProperty('twp_poly', 'fill-color', this.townshipFillFilter);
-    this.map.setPaintProperty('twp_poly', 'fill-outline-color', this.townshipFillFilter);
-    this.map.setPaintProperty('twp_line', 'fill-color', this.townshipLineFilter);
+    if (this.selectedTownshipGeoid !== '') {
+      this.selectedTownshipCnt = '';
+      this.selectedTownshipId = '';
+      this.selectedTownshipGeoid = '';
+      this.selectedTownshipName = '';
+      this.map.setPaintProperty('twp_poly', 'fill-color', this.townshipFillFilter);
+      this.map.setPaintProperty('twp_poly', 'fill-outline-color', this.townshipFillFilter);
+      this.map.setPaintProperty('twp_line', 'line-color', this.townshipLineFilter);
+    }
   }
 
   viewCont() {
