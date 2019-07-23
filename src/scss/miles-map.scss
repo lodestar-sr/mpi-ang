@@ -147,7 +147,7 @@ mgl-map {
 
 .map-indicator {
   position: absolute;
-  width: 256px;
+  min-width: 288px;
   height: 0;
   top: 0;
   left: 0;
