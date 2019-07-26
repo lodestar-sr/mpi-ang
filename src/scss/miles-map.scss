@@ -16,6 +16,11 @@ mgl-map {
           border-radius: 0;
           background: transparent;
 
+          & > button + button {
+            border-top: 0;
+            margin-top: 1px;
+          }
+
           .mapboxgl-ctrl-zoom-in, .mapboxgl-ctrl-zoom-out {
             width: 56px;
             height: 56px;
