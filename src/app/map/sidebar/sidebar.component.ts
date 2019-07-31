@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
-declare var $: any;
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +27,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedDetail: number;
   subscription: Subscription;
 
-  constructor(private appService: AppService, private zone: NgZone) {
+  constructor(private appService: AppService, private zone: NgZone, private http: HttpClient) {
     this.subscription = this.appService.getMessage().subscribe(message => {
       this.zone.run(() => {
         if (message.type == 'state') {
@@ -141,27 +142,59 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   attributeState(message: any) {
-    this.details = [];
-    this.details[0] = {
-      title: message.name,
-      header1: {
-        name: 'COUNTIES',
-        value: 64
-      },
-      header2: {
-        name: 'REPORTING',
-        value: 64
-      },
-      header3: {
-        name: 'ORDINANCES',
-        value: 64
-      },
-      description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
-      updated: '06/25/2019'
-    };
-    this.selectedDetail = 0;
-    setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
-    setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+    this.http.get('assets/jsons/scorecard.json').subscribe((data: any) => {
+      const stateData = data.state_scorecards.scorecard_data.filter(item => {
+        return item.fips == message.id;
+      });
+
+      const isDemo = environment.demo;
+
+      const header1 = data.state_scorecards.card1_header;
+      const header2 = data.state_scorecards.card2_header;
+      const header3 = data.state_scorecards.card3_header;
+
+      this.details = [];
+      if (stateData.length > 0) {
+        this.details[0] = {
+          title: stateData[0].name,
+          header1: {
+            name: header1,
+            value: stateData[0].card1[isDemo ? 'demo_value' : 'value'],
+          },
+          header2: {
+            name: header2,
+            value: stateData[0].card2[isDemo ? 'demo_value' : 'value'],
+          },
+          header3: {
+            name: header3,
+            value: stateData[0].card3[isDemo ? 'demo_value' : 'value'],
+          },
+          description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+          updated: '06/25/2019'
+        };
+      } else {
+        this.details[0] = {
+          title: message.name,
+          header1: {
+            name: 'COUNTIES',
+            value: 64
+          },
+          header2: {
+            name: 'REPORTING',
+            value: 64
+          },
+          header3: {
+            name: 'ORDINANCES',
+            value: 64
+          },
+          description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+          updated: '06/25/2019'
+        };
+      }
+      this.selectedDetail = 0;
+      setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
+      setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+    });
   }
 
   attributeCounty(message: any) {

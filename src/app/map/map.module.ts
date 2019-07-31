@@ -7,6 +7,7 @@ import {MapComponent} from './map.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {MilesMapComponent} from './miles-map/miles-map.component';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [MapComponent, SidebarComponent, MilesMapComponent],
@@ -16,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1Ijoic2RhbGFrb3YiLCJhIjoiY2o1eGxvdnRzMDVhOTJ4bnczd3lpMTRiMiJ9.lb016P2ofij1axIWoobBCQ',
-    })
+    }),
+    HttpClientModule,
   ]
 })
 export class MapModule {

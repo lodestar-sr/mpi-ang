@@ -2,6 +2,7 @@ import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {GeoJSONSource, IControl, LngLat, LngLatBounds, Map, MapMouseEvent, Popup} from 'mapbox-gl';
 import {AppService} from '../../app.service';
 import {Subscription} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 declare var $: any;
 
@@ -55,7 +56,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.selectedStateName = '';
     this.selectedCounty = '';
     this.selectedCountyName = '';
-    this.datapath = 'https://mpi-dev-proc.firebaseapp.com';
+    this.datapath = environment.assetURL;
     this.addrdata = [];
     this.timer = 0;
     this.colors = {

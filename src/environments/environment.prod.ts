@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  demo: true,
+  assetURL: 'https://mpi-dev-proc.firebaseapp.com',
 };
