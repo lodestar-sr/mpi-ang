@@ -198,32 +198,66 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   attributeCounty(message: any) {
-    const tmp = Object.assign({}, this.details[0]);
-    this.details = [];
-    this.details[0] = tmp;
-    this.details[1] = {
-      title: message.name,
-      header1: {
-        name: 'MUNI\'S.',
-        value: 11
-      },
-      header2: {
-        name: 'REPORTING',
-        value: 11
-      },
-      header3: {
-        name: 'ORDINANCES',
-        value: 8
-      },
-      description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
-      updated: '06/25/2019'
-    };
-    if (this.details.length == 3) {
-      this.details.pop();
-    }
-    this.selectedDetail = 1;
-    setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
-    setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+    this.http.get('assets/jsons/scorecard.json').subscribe((data: any) => {
+
+      const countyData = data.county_scorecards.scorecard_data.filter(item => {
+        return item.fips == message.id;
+      });
+
+      const isDemo = environment.demo;
+
+      const header1 = data.county_scorecards.card1_header;
+      const header2 = data.county_scorecards.card2_header;
+      const header3 = data.county_scorecards.card3_header;
+
+      const tmp = Object.assign({}, this.details[0]);
+      this.details = [];
+      this.details[0] = tmp;
+
+      if (countyData.length > 0) {
+        this.details[1] = {
+          title: countyData[0].name,
+          header1: {
+            name: header1,
+            value: countyData[0].card1[isDemo ? 'demo_value' : 'value'],
+          },
+          header2: {
+            name: header2,
+            value: countyData[0].card2[isDemo ? 'demo_value' : 'value'],
+          },
+          header3: {
+            name: header3,
+            value: countyData[0].card3[isDemo ? 'demo_value' : 'value'],
+          },
+          description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
+          updated: '06/25/2019'
+        };
+      } else {
+        this.details[1] = {
+          title: message.name,
+          header1: {
+            name: 'MUNI\'S.',
+            value: 11
+          },
+          header2: {
+            name: 'REPORTING',
+            value: 11
+          },
+          header3: {
+            name: 'ORDINANCES',
+            value: 8
+          },
+          description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
+          updated: '06/25/2019'
+        };
+      }
+      if (this.details.length == 3) {
+        this.details.pop();
+      }
+      this.selectedDetail = 1;
+      setTimeout(() => this.recalculateHeight(this.selectedDetail), 500);
+      setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
+    });
   }
 
   attributeTown(message: any) {
