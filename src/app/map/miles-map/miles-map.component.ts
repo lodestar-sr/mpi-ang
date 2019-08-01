@@ -763,22 +763,22 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       data: dat,
     });
 
-    this.map.addLayer({
-      id: 'address',
-      type: 'symbol',
-      source: 'address_src',
-      layout: {
-        'icon-image': 'pin',
-        'icon-allow-overlap': true,
-        'icon-ignore-placement': true,
-        'icon-anchor': 'bottom'
-      }
-    });
+    // this.map.addLayer({
+    //   id: 'address',
+    //   type: 'symbol',
+    //   source: 'address_src',
+    //   layout: {
+    //     'icon-image': 'pin',
+    //     'icon-allow-overlap': true,
+    //     'icon-ignore-placement': true,
+    //     'icon-anchor': 'bottom'
+    //   }
+    // });
     this.map.on('click', 'address', (evt: MapMouseEvent) => this.addressClicked(evt));
-    requestAnimationFrame(ts => {
-      this.resetTimer(ts);
-    });
-    this.animatePoints(0);
+    // requestAnimationFrame(ts => {
+    //   this.resetTimer(ts);
+    // });
+    // this.animatePoints(0);
   }
 
   ptCalcData(timestamp) {
