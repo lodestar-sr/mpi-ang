@@ -142,12 +142,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   attributeState(message: any) {
-    this.http.get('assets/jsons/scorecard.json').subscribe((data: any) => {
+    this.http.get('assets/jsons/state_scorecard_v2.json').subscribe((data: any) => {
       const stateData = data.state_scorecards.scorecard_data.filter(item => {
-        return item.fips == message.id;
+        return item.fips_state == message.id;
       });
-
-      const isDemo = environment.demo;
 
       const header1 = data.state_scorecards.card1_header;
       const header2 = data.state_scorecards.card2_header;
@@ -156,18 +154,18 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.details = [];
       if (stateData.length > 0) {
         this.details[0] = {
-          title: stateData[0].name,
+          title: stateData[0].state_name,
           header1: {
             name: header1,
-            value: stateData[0].card1[isDemo ? 'demo_value' : 'value'],
+            value: stateData[0]['state_prop_reg_reqs'],
           },
           header2: {
             name: header2,
-            value: stateData[0].card2[isDemo ? 'demo_value' : 'value'],
+            value: stateData[0]['counties_prop_reg_reqs'],
           },
           header3: {
             name: header3,
-            value: stateData[0].card3[isDemo ? 'demo_value' : 'value'],
+            value: stateData[0]['munis_prop_reg_reqs'],
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
           updated: '06/25/2019'
