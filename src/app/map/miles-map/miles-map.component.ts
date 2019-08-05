@@ -196,9 +196,8 @@ export class MilesMapComponent implements OnInit, OnDestroy {
             'fill-outline-color': {},
             'fill-antialias': true,
             'fill-opacity': ['case',
-              ['boolean', ['feature-state', 'hover'], false],
-              0.60,
-              0.75
+              ['boolean', ['feature-state', 'hover'], false], 0.58,
+              0.7
             ]
           }
         },
@@ -294,8 +293,8 @@ export class MilesMapComponent implements OnInit, OnDestroy {
   townshipLineFilter;
   colors: any;
   statereg: any[];
-  countyreg: any[];
-  townshipreg: any[];
+  countyreg: any;
+  townshipreg: any;
 
   indicatorTxt: string;
   indicatorType: string;
@@ -309,10 +308,16 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.addrdata = [];
     this.timer = 0;
     this.colors = {
-      state_reg_fill: '#EAC6C8',
-      state_reg_line: '#9F3C40',
+      noreg_fill: '#BFD6BA',
+      reg_fill1: '#EAC6C8',
+      reg_fill2: '#EE999E',
+      reg_fill3: '#F06767',
+      reg_line: '#9F3C40',
+      reg_line_more: '#FFFF40',
+      noreg_line: '#3E6E62',
       county_reg_fill: '#EAC6C8',
       county_reg_line: '#9F3C40',
+      county_reg_line_more: '#FFFF40',
       twp_reg_fill: '#EAC6C8',
       twp_reg_line: '#9F3C40',
       state_noreg_fill: '#BFD6BA',
@@ -327,27 +332,35 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       twp_reg_sel_line: '#EAC6C8'
     };
     this.statereg = ['01', '04', '09', '13', '20', '24', '34', '36', '41', '47'];
-    this.countyreg = ['04012', '04013', '04025', '06009', '06029', '06039', '06065', '06073', '06099', '08059', '10003', '12007', '12011', '12015', '12017', '12019', '12031', '12043', '12057', '12071', '12073', '12081',
-      '12083', '12099', '12101', '12103', '12117', '13015', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13211', '13247', '13285', '17031', '17089', '20209', '21117', '21151', '21223', '21225',
-      '24031', '24033', '32003', '39017', '39025', '39035', '39061', '39085', '39093', '39095', '39099', '39113', '39151', '39153', '39155', '39165', '41011', '41029', '34001', '34003', '34005', '34007', '34009',
-      '34011', '34013', '34015', '34017', '34019', '34021', '34023', '34025', '34027', '34029', '34031', '34033', '34035', '34037', '34039', '34041', '36001', '36003', '36005', '36007', '36009',
-      '36011', '36013', '36015', '36017', '36019', '36021', '36023', '36025', '36027', '36029', '36031', '36033', '36035', '36037', '36039', '36041', '36043', '36045', '36047', '36049', '36051', '36053', '36055',
-      '36057', '36059', '36061', '36063', '36065', '36067', '36069', '36071', '36073', '36075', '36077', '36079', '36081', '36083', '36085', '36087', '36089', '36091', '36093', '36095', '36097', '36099', '36101',
-      '36103', '36105', '36107', '36109', '36111', '36113', '36115', '36117', '36119', '36121', '36123'];
-    this.townshipreg = ['01', '04', '09', '13', '20', '24', '41', '47',
-      '04012', '04013', '04025',
-      '06009', '06029', '06039', '06065', '06073', '06099',
-      '08059',
-      '10003',
-      '12007', '12011', '12015', '12017', '12019', '12031', '12043', '12057', '12071', '12073', '12081', '12083', '12099', '12101', '12103', '12117',
-      '13015', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13211', '13247', '13285',
-      '17031', '17089',
-      '20209',
-      '21117', '21151', '21223', '21225',
-      '24031', '24033',
-      '32003',
-      '39017', '39025', '39035', '39061', '39085', '39093', '39095', '39099', '39113', '39151', '39153', '39155', '39165',
-      '41011', '41029'];
+    this.countyreg = {
+      '04': ['04012', '04013', '04025'],
+      '06': ['06009', '06029', '06039', '06065', '06073', '06099'],
+      '08': ['08059'],
+      10: ['10003'],
+      12: ['12007', '12011', '12015', '12017', '12019', '12031', '12043', '12057', '12071', '12073', '12081', '12083', '12099', '12101', '12103', '12117'],
+      13: ['13015', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13211', '13247', '13285'],
+      17: ['17031', '17089'],
+      20: ['20209'],
+      21: ['21117', '21151', '21223', '21225'],
+      24: ['24031', '24033'],
+      32: ['32003'],
+      34: ['34001', '34003', '34005', '34007', '34009', '34011', '34013', '34015', '34017', '34019', '34021', '34023', '34025', '34027', '34029', '34031', '34033', '34035', '34037', '34039',
+        '34041'],
+      36: ['36001', '36003', '36005', '36007', '36009', '36011', '36013', '36015', '36017', '36019', '36021', '36023', '36025', '36027', '36029', '36031', '36033', '36035', '36037', '36039',
+        '36041', '36043', '36045', '36047', '36049', '36051', '36053', '36055', '36057', '36059', '36061', '36063', '36065', '36067', '36069', '36071', '36073', '36075', '36077', '36079',
+        '36081', '36083', '36085', '36087', '36089', '36091', '36093', '36095', '36097', '36099', '36101', '36103', '36105', '36107', '36109', '36111', '36113', '36115', '36117', '36119',
+        '36121', '36123'],
+      39: ['39017', '39025', '39035', '39061', '39085', '39093', '39095', '39099', '39113', '39151', '39153', '39155', '39165'],
+      41: ['41011', '41029']
+    };
+    this.townshipreg = {
+      '06': {
+        '06065' : ['0650076', '0616350', '0604758']
+      },
+      36: {
+        36001 : ['3600131104', '3600117343', '3600150672']
+      }
+    };
 
     this.subscription = this.appService.getMessage().subscribe(message => {
       this.zone.run(() => {
@@ -386,7 +399,6 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.map.on('mouseleave', this.mapvars.layers.township.poly.id, (evt: MapMouseEvent) => this.townshipOut(evt));
     this.map.on('click', this.mapvars.layers.address.icon.id, (evt: MapMouseEvent) => this.addressClicked(evt));
 
-    this.map.addControl(new NavigationControl(), 'bottom-right');
     this.zoomControl = {onAdd: evt => this.controlOnAdd(), onRemove: evt => this.controlOnRemove()};
     this.map.addControl(this.zoomControl, 'bottom-left');
     this.mapControl = {onAdd: evt => this.styleControlOnAdd(), onRemove: evt => this.styleControlOnRemove()};
@@ -398,62 +410,149 @@ export class MilesMapComponent implements OnInit, OnDestroy {
   }
 
   generateFilters() {
-    this.stateFillFilter = ['match', ['get', 'STATEFP']];
-    this.stateLineFilter = ['match', ['get', 'STATEFP']];
+    const sfilllist = [];
+    const slin1list = [];
+    const slin2list = [];
     for (let i = 0; i < this.statereg.length; i++) {
-      this.stateFillFilter.push(this.statereg[i]);
-      this.stateFillFilter.push(this.colors.state_reg_fill);
-      this.stateFillFilter.push('DEMO ' + this.statereg[i]);
-      this.stateFillFilter.push(this.colors.state_reg_fill);
-      this.stateFillFilter.push('MAPTILER ' + this.statereg[i]);
-      this.stateFillFilter.push(this.colors.state_reg_fill);
-      this.stateLineFilter.push(this.statereg[i]);
-      this.stateLineFilter.push(this.colors.state_reg_line);
-      this.stateLineFilter.push('DEMO ' + this.statereg[i]);
-      this.stateLineFilter.push(this.colors.state_reg_line);
-      this.stateLineFilter.push('MAPTILER ' + this.statereg[i]);
-      this.stateLineFilter.push(this.colors.state_reg_line);
+      sfilllist.push(this.statereg[i]);
+      sfilllist.push('DEMO ' + this.statereg[i]);
+      sfilllist.push('MAPTILER ' + this.statereg[i]);
+//                if (countyreg[statereg[i]]||townshipreg[statereg[i]]) {
+//                    slin2list.push(statereg[i]);
+//                    slin2list.push('DEMO '+statereg[i]);
+//                    slin2list.push('MAPTILER '+statereg[i]);
+//                } else {
+      slin1list.push(this.statereg[i]);
+      slin1list.push('DEMO ' + this.statereg[i]);
+      slin1list.push('MAPTILER ' + this.statereg[i]);
+//                }
     }
-    this.stateFillFilter.push(this.colors.state_noreg_fill);
-    this.stateLineFilter.push(this.colors.state_noreg_line);
+    for (const stateid in this.countyreg) {
+      slin2list.push(stateid);
+      slin2list.push('DEMO ' + stateid);
+      slin2list.push('MAPTILER ' + stateid);
+    }
+    for (const stateid in this.townshipreg) {
+      if (slin2list.indexOf(stateid) < 0) {
+        slin2list.push(stateid);
+        slin2list.push('DEMO ' + stateid);
+        slin2list.push('MAPTILER ' + stateid);
+      }
+    }
+    this.stateFillFilter = ['case',
+      ['match', ['get', 'STATEFP'], sfilllist, true, false], this.colors.reg_fill1,
+      this.colors.noreg_fill
+    ];
+    this.stateLineFilter = ['case',
+      ['match', ['get', 'STATEFP'], slin2list, true, false], this.colors.reg_line_more,
+      ['match', ['get', 'STATEFP'], slin1list, true, false], this.colors.reg_line,
+      this.colors.noreg_line
+    ];
     this.mapvars.layers.state.poly.paint['fill-color'] = this.stateFillFilter;
     this.mapvars.layers.state.poly.paint['fill-outline-color'] = this.stateFillFilter;
     this.mapvars.layers.state.border.paint['line-color'] = this.stateLineFilter;
 
-    this.countyFillFilter = ['match', ['get', 'GEOID']];
-    this.countyLineFilter = ['match', ['get', 'GEOID']];
-    for (let i = 0; i < this.countyreg.length; i++) {
-      this.countyFillFilter.push(this.countyreg[i]);
-      this.countyFillFilter.push(this.colors.county_reg_fill);
-      this.countyFillFilter.push('DEMO ' + this.countyreg[i]);
-      this.countyFillFilter.push(this.colors.county_reg_fill);
-      this.countyFillFilter.push('MAPTILER ' + this.countyreg[i]);
-      this.countyFillFilter.push(this.colors.county_reg_fill);
-      this.countyLineFilter.push(this.countyreg[i]);
-      this.countyLineFilter.push(this.colors.county_reg_line);
-      this.countyLineFilter.push('DEMO ' + this.countyreg[i]);
-      this.countyLineFilter.push(this.colors.county_reg_line);
-      this.countyLineFilter.push('MAPTILER ' + this.countyreg[i]);
-      this.countyLineFilter.push(this.colors.county_reg_line);
+    const cfill1list = [];
+    const cfill2list = [];
+    const cline1list = [];
+    const cline2list = [];
+    for (const stateid in this.countyreg) {
+      for (let j = 0 ; j < this.countyreg[stateid].length ; j++) {
+        if (this.statereg.indexOf(stateid) > -1) {
+          cfill2list.push(this.countyreg[stateid][j]);
+          cfill2list.push('DEMO ' + this.countyreg[stateid][j]);
+          cfill2list.push('MAPTILER ' + this.countyreg[stateid][j]);
+        } else {
+          cfill1list.push(this.countyreg[stateid][j]);
+          cfill1list.push('DEMO ' + this.countyreg[stateid][j]);
+          cfill1list.push('MAPTILER ' + this.countyreg[stateid][j]);
+        }
+        if (this.townshipreg[stateid] && this.townshipreg[stateid][this.countyreg[stateid][j]]) {
+          cline1list.push(this.countyreg[stateid][j]);
+          cline1list.push('DEMO ' + this.countyreg[stateid][j]);
+          cline1list.push('MAPTILER ' + this.countyreg[stateid][j]);
+        } else {
+          cline2list.push(this.countyreg[stateid][j]);
+          cline2list.push('DEMO ' + this.countyreg[stateid][j]);
+          cline2list.push('MAPTILER ' + this.countyreg[stateid][j]);
+        }
+      }
     }
-    this.countyFillFilter.push(this.colors.county_noreg_fill);
-    this.countyLineFilter.push(this.colors.county_noreg_line);
+    this.countyFillFilter = ['case',
+      ['match', ['get', 'GEOID'], cfill2list, true, false], this.colors.reg_fill2,
+      ['match', ['get', 'GEOID'], cfill1list, true, false], this.colors.reg_fill1,
+      ['match', ['get', 'STATEFP'], sfilllist, true, false], this.colors.reg_fill1,
+      this.colors.noreg_fill
+    ];
+    this.countyLineFilter = ['case',
+      ['match', ['get', 'GEOID'], cline1list, true, false], this.colors.reg_line_more,
+      ['match', ['get', 'GEOID'], cline2list, true, false], this.colors.reg_line,
+      ['match', ['get', 'STATEFP'], sfilllist, true, false], this.colors.reg_line,
+      this.colors.noreg_line
+    ];
     this.mapvars.layers.county.poly.paint['fill-color'] = this.countyFillFilter;
     this.mapvars.layers.county.poly.paint['fill-outline-color'] = this.countyFillFilter;
-    this.mapvars.layers.county.border.paint['line-color'] = this.countyLineFilter;
+    this.mapvars.layers.county.border.paint['line-color'] = this.countyFillFilter;
 
-    this.townshipFillFilter = [
-      'case',
-      ['match', ['get', 'STATEFP'], ['34', '36'], true, false], this.colors.twp_reg_fill,
-      ['match', ['get', 'GEOID'], this.townshipreg, true, false], this.colors.twp_reg_fill,
-      this.colors.twp_noreg_fill
-    ];
-    this.townshipLineFilter = [
-      'case',
-      ['match', ['get', 'STATEFP'], ['34', '36'], true, false], this.colors.twp_reg_line,
-      ['match', ['get', 'GEOID'], this.townshipreg, true, false], this.colors.twp_reg_line,
-      this.colors.twp_noreg_line
-    ];
+    const tfill1list = [];
+    const tfill2list = [];
+    const tfill3list = [];
+    for (const stateid in this.townshipreg) {
+      console.log (stateid);
+      for (const countyid in this.townshipreg[stateid]) {
+        console.log (countyid);
+        for (let j = 0 ; j < this.townshipreg[stateid][countyid].length ; j++) {
+          if (cfill2list.indexOf(countyid) > -1) {
+            tfill3list.push(this.townshipreg[stateid][countyid][j]);
+          } else if (cfill1list.indexOf(this.townshipreg[stateid][countyid]) > -1 || sfilllist.indexOf(stateid) > -1) {
+            tfill2list.push(this.townshipreg[stateid][countyid][j]);
+          } else {
+            tfill1list.push(this.townshipreg[stateid][countyid][j]);
+          }
+        }
+      }
+    }
+
+    this.townshipFillFilter = ['case'];
+    this.townshipLineFilter = ['case'];
+    if (tfill3list.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'GEOID'], tfill3list, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill3);
+      this.townshipLineFilter.push(['match', ['get', 'GEOID'], tfill3list, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    if (tfill2list.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'GEOID'], tfill2list, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill2);
+      this.townshipLineFilter.push(['match', ['get', 'GEOID'], tfill2list, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    if (tfill1list.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'GEOID'], tfill1list, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill1);
+      this.townshipLineFilter.push(['match', ['get', 'GEOID'], tfill1list, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    if (cfill2list.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'CountyID'], cfill2list, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill2);
+      this.townshipLineFilter.push(['match', ['get', 'CountyID'], cfill2list, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    if (cfill1list.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'CountyID'], cfill1list, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill1);
+      this.townshipLineFilter.push(['match', ['get', 'CountyID'], cfill1list, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    if (sfilllist.length > 0) {
+      this.townshipFillFilter.push(['match', ['get', 'STATEFP'], sfilllist, true, false]);
+      this.townshipFillFilter.push(this.colors.reg_fill1);
+      this.townshipLineFilter.push(['match', ['get', 'STATEFP'], sfilllist, true, false]);
+      this.townshipLineFilter.push(this.colors.reg_line);
+    }
+    this.townshipFillFilter.push(this.colors.noreg_fill);
+    this.townshipLineFilter.push(this.colors.noreg_line);
 
     this.mapvars.layers.township.poly.paint['fill-color'] = this.townshipFillFilter;
     this.mapvars.layers.township.poly.paint['fill-outline-color'] = this.townshipFillFilter;
@@ -767,46 +866,12 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     }, new LngLatBounds(carray[0], carray[0]));
 
     this.map.fitBounds(bnds, {padding: 10});
-    const twpSelFill = [
-      'case',
-      ['all',
-        ['==', ['get', 'GEOID'], this.selectedTownshipGeoid],
-        ['any',
-          ['match', ['get', 'STATEFP'], ['34', '36'], true, false],
-          ['match', ['get', 'GEOID'], this.townshipreg, true, false]
-        ]
-      ], this.colors.twp_reg_sel_fill,
-      ['all',
-        ['==', ['get', 'GEOID'], this.selectedTownshipGeoid],
-        ['match', ['get', 'STATEFP'], ['34', '36'], false, true],
-        ['match', ['get', 'GEOID'], this.townshipreg, false, true]
-      ], this.colors.twp_noreg_sel_fill,
-      ['match', ['get', 'STATEFP'], ['34', '36'], true, false], this.colors.twp_reg_fill,
-      ['match', ['get', 'GEOID'], this.townshipreg, true, false], this.colors.twp_reg_fill,
-      this.colors.twp_noreg_fill    // else
+    const opacity = ['case',
+      ['==', ['get', 'GEOID'], this.selectedTownshipGeoid], 0.9,
+      ['boolean', ['feature-state', 'hover'], false], 0.58,
+      0.7
     ];
-    const twpSelLine = [
-      'case',
-      ['all',
-        ['==', ['get', 'GEOID'], this.selectedTownshipGeoid],
-        ['any',
-          ['match', ['get', 'STATEFP'], ['34', '36'], true, false],
-          ['match', ['get', 'GEOID'], this.townshipreg, true, false]
-        ]
-      ], this.colors.twp_reg_sel_line,
-      ['all',
-        ['==', ['get', 'GEOID'], this.selectedTownshipGeoid],
-        ['match', ['get', 'STATEFP'], ['34', '36'], false, true],
-        ['match', ['get', 'GEOID'], this.townshipreg, false, true]
-      ], this.colors.twp_noreg_sel_line,
-      ['match', ['get', 'STATEFP'], ['34', '36'], true, false], this.colors.twp_reg_line,
-      ['match', ['get', 'GEOID'], this.townshipreg, true, false], this.colors.twp_reg_line,
-      this.colors.twp_noreg_line    // else
-    ];
-
-    this.mapvars.layers.township.poly.paint['fill-color'] = twpSelFill;
-    this.mapvars.layers.township.poly.paint['fill-outline-color'] = twpSelFill;
-    this.mapvars.layers.township.border.paint['line-color'] = twpSelLine;
+    this.mapvars.layers.township.poly.paint['fill-opacity'] = opacity;
     this.townshipRepaint();
 
     this.appService.sendMessage({
@@ -824,6 +889,10 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       this.selectedTownshipName = '';
       this.mapvars.layers.township.poly.paint['fill-color'] = this.townshipFillFilter;
       this.mapvars.layers.township.poly.paint['fill-outline-color'] = this.townshipFillFilter;
+      this.mapvars.layers.township.poly.paint['fill-opacity'] = ['case',
+        ['boolean', ['feature-state', 'hover'], false], 0.58,
+        0.7
+      ];
       this.mapvars.layers.township.border.paint['line-color'] = this.townshipLineFilter;
       this.townshipRepaint();
     }
@@ -831,6 +900,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
   townshipRepaint() {
     this.map.setPaintProperty(this.mapvars.layers.township.poly.id, 'fill-color', this.mapvars.layers.township.poly.paint['fill-color']);
+    this.map.setPaintProperty(this.mapvars.layers.township.poly.id, 'fill-opacity', this.mapvars.layers.township.poly.paint['fill-opacity']);
     this.map.setPaintProperty(this.mapvars.layers.township.poly.id, 'fill-outline-color', this.mapvars.layers.township.poly.paint['fill-outline-color']);
     this.map.setPaintProperty(this.mapvars.layers.township.border.id, 'line-color', this.mapvars.layers.township.border.paint['line-color']);
   }

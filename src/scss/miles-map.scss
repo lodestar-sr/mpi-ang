@@ -156,8 +156,8 @@ mgl-map {
   height: 0;
   top: 0;
   left: 0;
-  background: rgba(62, 62, 62, 0.9);
-  box-shadow: inset 2px 3px 7px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(115, 126, 144, 0.7);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
   color: #FFFFFF;
   padding-left: 24px;
   padding-right: 24px;
@@ -165,8 +165,7 @@ mgl-map {
   align-items: center;
   font-size: 16px;
   text-transform: uppercase;
-  text-shadow: 0 3px 6px #0000004F;
-  border-radius: 0 4px 4px 4px;
+  border-radius: 0 0 4px 0;
   overflow: hidden;
   white-space: nowrap;
   -webkit-transition: all 0.5s;
@@ -174,11 +173,12 @@ mgl-map {
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
 
   i {
     margin-right: 23px;
     font-size: 24px;
-    text-shadow: 0 3px 6px #0000004F;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
   }
 
   &.show {

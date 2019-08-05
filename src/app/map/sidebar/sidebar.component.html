@@ -62,50 +62,73 @@
        (click)="switchSidebar()"></i>
   </div>
 
-  <div #detailsPanel [class]="'details ' + (details.length ? 'disp' : '')">
-    <!--Accordion wrapper-->
-    <div class="accordion accordion-wrapper" id="details-accordion" role="tablist" aria-multiselectable="true">
-
-      <div *ngFor="let detail of details; let i = index" class="card">
-        <div class="card-header" role="tab" [id]="detail.title.replace(' ', '_')">
-          <div class="w-100 d-flex align-items-center">
-            <i *ngIf="i == 0" class="fa-landmark-alt_light"></i>
-            <i *ngIf="i == 1" class="fa-hotel_light"></i>
-            <i *ngIf="i == 2" class="fa-building_light"></i>
-            <span>{{ detail.title }}</span>
-            <a class="collapsable {{ selectedDetail == i ? '' : 'collapsed' }}" data-toggle="collapse" data-parent="#details-accordion" [href]="'#collapse' + i"
-               (click)="changeStatus(i)">
-              <i class="fa-arrow-alt-from-bottom_light"></i>
-              <i class="fa-arrow-alt-from-top_light"></i>
-            </a>
-          </div>
-          <div class="boards">
-            <div class="small-panel">
-              <div class="number">{{ detail.header1.value.toLocaleString() }}</div>
-              <div class="name">{{ detail.header1.name }}</div>
-            </div>
-            <div class="small-panel">
-              <div class="number">{{ detail.header2.value.toLocaleString() }}</div>
-              <div class="name">{{ detail.header2.name }}</div>
-            </div>
-            <div class="small-panel">
-              <div class="number">{{ detail.header3.value.toLocaleString() }}</div>
-              <div class="name">{{ detail.header3.name }}</div>
-            </div>
-          </div>
+  <div #detailsPanel [class]="'details ' + (selectedDetail != -1 ? 'disp' : '')">
+    <div class="w-100 h-100" *ngIf="selectedDetail >= 0">
+      <div class="details-header">
+        <i *ngIf="details[selectedDetail].type == 'state'" class="fa-landmark-alt_light"></i>
+        <i *ngIf="details[selectedDetail].type == 'county'" class="fa-hotel_light"></i>
+        <i *ngIf="details[selectedDetail].type == 'town'" class="fa-building_light"></i>
+        <span class="title">{{ details[selectedDetail].title }}</span>
+        <i class="fa-share_light back-button"></i>
+      </div>
+      <div class="details-counts">
+        <div class="small-panel">
+          <div class="number">{{ details[selectedDetail].header1.value.toLocaleString() }}</div>
+          <div class="name">{{ details[selectedDetail].header1.name }}</div>
         </div>
-        <div [id]="'collapse' + i" [class]="'collapse ' + (i == selectedDetail ? 'show' : '')" role="tabpanel"
-             data-parent="#details-accordion">
-          <div class="card-body">
-            <div class="description">{{ detail.description }}</div>
-            <div class="update-date">
-              <span class="text-size-8p mr-5">Updated:</span>
-              <span class="text-size-16p">{{ detail.updated }}</span>
-            </div>
-          </div>
+        <div class="small-panel">
+          <div class="number">{{ details[selectedDetail].header2.value.toLocaleString() }}</div>
+          <div class="name">{{ details[selectedDetail].header2.name }}</div>
+        </div>
+        <div class="small-panel">
+          <div class="number">{{ details[selectedDetail].header3.value.toLocaleString() }}</div>
+          <div class="name">{{ details[selectedDetail].header3.name }}</div>
         </div>
       </div>
-
+      <div class="details-panel">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab">
+            <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab">
+              <i class="fa-chart-network_light"></i>
+            </a>
+            <a class="nav-item nav-link" id="nav-link-tab" data-toggle="tab" href="#nav-link" role="tab">
+              <i class="fa-file-certificate_light"></i>
+            </a>
+            <a class="nav-item nav-link" id="nav-task-tab" data-toggle="tab" href="#nav-task" role="tab">
+              <i class="fa-file-certificate_light"></i>
+            </a>
+            <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab">
+              <i class="fa-comments-alt_light"></i>
+            </a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-info" role="tabpanel">
+            <div class="tab-panel">
+              <i class="fa-landmark_light"></i>
+              <div class="content">
+                Assembly Bill 5000: No New Updates. Referred to the Assembly Appropriations Committee on 3/07/19. The bill requires the Department of Banking to produce a database with an interactive mapping component which provides a graphic representation of the extent of foreclosed properties. The bill establishes a $30 fee for the recording of deeds and lis pendens.
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-link" role="tabpanel">
+            <div class="tab-panel">
+              <i class="fa-landmark_light"></i>
+              <div class="content"></div>
+            </div>
+            <div class="tab-panel">
+              <i class="fa-hotel_light"></i>
+              <div class="content"></div>
+            </div>
+            <div class="tab-panel">
+              <i class="fa-building_light"></i>
+              <div class="content"><i class="fa-file-pdf_light text-size-24p text-red"></i>foreclosed_and_vacant_properties f...</div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-task" role="tabpanel">...</div>
+          <div class="tab-pane fade" id="nav-note" role="tabpanel">...</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

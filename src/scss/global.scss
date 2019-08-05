@@ -12,11 +12,15 @@
 }
 
 .text-size-24p {
-  font-size: 24px;
+  font-size: 24px !important;
 }
 
 .text-size-28p {
   font-size: 28px;
+}
+
+.text-red {
+  color: rgba(210, 22, 22, 1) !important;
 }
 
 .opacity-50 {
