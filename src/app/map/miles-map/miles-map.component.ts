@@ -23,7 +23,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     highlightedCountyId: -1,
     highlightedTownsipId: -1,
     highlightedPlaceId: -1,
-    currentStyle : 'light_custom',
+    currentStyle: 'light_custom',
     styles: {
       satellite: 'mapbox://styles/mapbox/satellite-v9',
       light: 'mapbox://styles/mapbox/light-v10',
@@ -47,7 +47,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
           layout: {
             visibility: 'visible'
           },
-          paint : {
+          paint: {
             'fill-color': {},
             'fill-outline-color': {},
             'fill-antialias': true,
@@ -94,7 +94,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
             tiles: [this.datapath + '/assets/tiles/counties/01/{z}/{x}/{y}.pbf']
           }
         },
-        labelsource : {
+        labelsource: {
           name: 'county_label_src',
           config: {
             type: 'geojson',
@@ -161,8 +161,8 @@ export class MilesMapComponent implements OnInit, OnDestroy {
             'text-size': 15
           },
           paint: {
-            'text-halo-color' : '#ffffff',
-            'text-halo-width' : 1,
+            'text-halo-color': '#ffffff',
+            'text-halo-width': 1,
             'text-color': 'rgb(20, 20, 20)'
           },
         }
@@ -246,7 +246,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
           }
         }
       },
-      address : {
+      address: {
         source: {
           name: 'address_src',
           config: {
@@ -352,9 +352,9 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.subscription = this.appService.getMessage().subscribe(message => {
       this.zone.run(() => {
         if (message.type === 'initMap') {
-            this.viewCont();
+          this.viewCont();
         } else if (message.type === 'resizeMap') {
-            this.resize();
+          this.resize();
         }
       });
     });
@@ -495,10 +495,18 @@ export class MilesMapComponent implements OnInit, OnDestroy {
   stateIn(e) {
     if (e.features.length > 0) {
       if (this.mapvars.highlightedStateId > -1) {
-        this.map.setFeatureState({source: this.mapvars.layers.state.source.name, sourceLayer: this.mapvars.layers.state.poly['source-layer'], id: this.mapvars.highlightedStateId}, {hover: false});
+        this.map.setFeatureState({
+          source: this.mapvars.layers.state.source.name,
+          sourceLayer: this.mapvars.layers.state.poly['source-layer'],
+          id: this.mapvars.highlightedStateId,
+        }, {hover: false});
       }
       this.mapvars.highlightedStateId = e.features[0].id;
-      this.map.setFeatureState({source: this.mapvars.layers.state.source.name, sourceLayer: this.mapvars.layers.state.poly['source-layer'], id: this.mapvars.highlightedStateId}, { hover: true});
+      this.map.setFeatureState({
+        source: this.mapvars.layers.state.source.name,
+        sourceLayer: this.mapvars.layers.state.poly['source-layer'],
+        id: this.mapvars.highlightedStateId,
+      }, {hover: true});
 
       const tmp = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
       this.updateIndicator('state', tmp);
@@ -507,7 +515,11 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
   stateOut(e) {
     if (this.mapvars.highlightedStateId > -1) {
-      this.map.setFeatureState({source: this.mapvars.layers.state.source.name, sourceLayer: this.mapvars.layers.state.poly['source-layer'], id: this.mapvars.highlightedStateId}, {hover: false});
+      this.map.setFeatureState({
+        source: this.mapvars.layers.state.source.name,
+        sourceLayer: this.mapvars.layers.state.poly['source-layer'],
+        id: this.mapvars.highlightedStateId,
+      }, {hover: false});
     }
     this.mapvars.highlightedStateId = -1;
     this.updateIndicator('state', '');
@@ -519,12 +531,16 @@ export class MilesMapComponent implements OnInit, OnDestroy {
         this.map.setFeatureState({
             source: this.mapvars.layers.county.polysource.name,
             sourceLayer: this.mapvars.layers.county.poly['source-layer'],
-            id: this.mapvars.highlightedCountyId
+            id: this.mapvars.highlightedCountyId,
           }, {hover: false}
         );
       }
       this.mapvars.highlightedCountyId = e.features[0].id;
-      this.map.setFeatureState({source: this.mapvars.layers.county.polysource.name, sourceLayer: this.mapvars.layers.county.poly['source-layer'], id: this.mapvars.highlightedCountyId}, { hover: true});
+      this.map.setFeatureState({
+        source: this.mapvars.layers.county.polysource.name,
+        sourceLayer: this.mapvars.layers.county.poly['source-layer'],
+        id: this.mapvars.highlightedCountyId,
+      }, {hover: true});
       const tmp = e.features[0].properties.NAME.replace('DEMO ', '').replace('MAPTILER ', '');
       this.updateIndicator('county', tmp);
     }
@@ -532,7 +548,11 @@ export class MilesMapComponent implements OnInit, OnDestroy {
 
   countyOut(e) {
     if (this.mapvars.highlightedCountyId > -1) {
-      this.map.setFeatureState({source: this.mapvars.layers.county.polysource.name, sourceLayer: this.mapvars.layers.county.poly['source-layer'], id: this.mapvars.highlightedCountyId}, {hover: false});
+      this.map.setFeatureState({
+        source: this.mapvars.layers.county.polysource.name,
+        sourceLayer: this.mapvars.layers.county.poly['source-layer'],
+        id: this.mapvars.highlightedCountyId,
+      }, {hover: false});
     }
     this.mapvars.highlightedCountyId = -1;
     this.updateIndicator('county', '');
@@ -544,7 +564,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
         this.map.setFeatureState({source: this.mapvars.layers.township.polysource.name, id: this.mapvars.highlightedTownsipId}, {hover: false});
       }
       this.mapvars.highlightedTownsipId = e.features[0].id;
-      this.map.setFeatureState({source: this.mapvars.layers.township.polysource.name, id: this.mapvars.highlightedTownsipId}, { hover: true});
+      this.map.setFeatureState({source: this.mapvars.layers.township.polysource.name, id: this.mapvars.highlightedTownsipId}, {hover: true});
       this.updateIndicator('town', e.features[0].properties.NAMELSAD);
     }
   }
@@ -575,7 +595,9 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.map.addLayer(this.mapvars.layers.township.label as Layer);
     if (!this.map.hasImage('pin')) {
       this.map.loadImage('./assets/images/2216353-32.png', (error, image) => {
-        if (error) { throw error; }
+        if (error) {
+          throw error;
+        }
         this.map.addImage('pin', image);
       });
     }
@@ -630,7 +652,7 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.selectedStateName = stateData.name;
     this.map.fitBounds(stateData.bbox, {padding: 10});
     this.mapvars.layers.state.poly['filter'] = ['!in', 'STATEFP', this.selectedState, 'DEMO ' + this.selectedState, 'MAPTILER ' + this.selectedState];
-    this.map.setFilter( this.mapvars.layers.state.poly.id, this.mapvars.layers.state.poly['filter']);
+    this.map.setFilter(this.mapvars.layers.state.poly.id, this.mapvars.layers.state.poly['filter']);
     this.setCountyFilter(null);
     this.unselectTownship();
     this.addCountiesByState();
@@ -937,19 +959,19 @@ export class MilesMapComponent implements OnInit, OnDestroy {
   processSuccess(data) {
     this.addrdata = [];
     const ub = this.map.getBounds().getNorth() - 0.01;
-    for (let i = 0 ; i < data[0].data.length ; i++) {
+    for (let i = 0; i < data[0].data.length; i++) {
       this.addrdata.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [parseFloat(data[0].data[i].Lng), ub]
         },
-        properties : {
-          address : data[0].data[i].Address,
-          client : data[0].data[i].Client,
-          latO : parseFloat(data[0].data[i].Lat),
-          lngO : parseFloat(data[0].data[i].Lng),
-          anim : 0
+        properties: {
+          address: data[0].data[i].Address,
+          client: data[0].data[i].Client,
+          latO: parseFloat(data[0].data[i].Lat),
+          lngO: parseFloat(data[0].data[i].Lng),
+          anim: 0
         }
       });
     }
@@ -976,10 +998,16 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       let first = (time > falltime) ? Math.ceil((time - falltime) * fallps) : 0;
       const last = (time > totaltime) ? this.addrdata.length : Math.ceil(time * fallps);
       if (first > 0) {
-        if (first > last) { first = last; }
+        if (first > last) {
+          first = last;
+        }
         for (let i = first - 1; i >= 0; i--) {
           this.addrdata[i].geometry.coordinates[1] = this.addrdata[i].properties.latO;
-          if (this.addrdata[i].properties.anim < 2) { this.addrdata[i].properties.anim = 2; } else { break; }
+          if (this.addrdata[i].properties.anim < 2) {
+            this.addrdata[i].properties.anim = 2;
+          } else {
+            break;
+          }
         }
       }
       let basetime = time - first / fallps;
