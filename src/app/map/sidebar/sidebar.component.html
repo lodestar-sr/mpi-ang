@@ -1,7 +1,9 @@
 <div #sidebar [class]="'sidebar ' + (isSmall ? 'small' : '')"
      [style.width.px]="(isSmall ? 56 : 144) + (details.length ? 360 : 0)">
   <div class="blur-container">
-    <div class="backdrop-blur"></div>
+    <div class="backdrop-blur">
+      <div class="color-bg"></div>
+    </div>
   </div>
   <div class="sidemenu">
     <ul class="list-unstyled components">

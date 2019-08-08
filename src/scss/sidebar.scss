@@ -20,6 +20,12 @@
       background: url(/assets/images/miles_hero.png) left bottom;
       background-size: cover;
       filter: blur(30px) brightness(0.7);
+
+      .color-bg {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 255, 0.2);
+      }
     }
   }
 
@@ -218,7 +224,7 @@
       margin-bottom: 8px;
       display: flex;
       align-items: center;
-      background-color: rgba(111, 164, 255, 0.25);
+      background-color: rgba(95, 128, 249, 0.25);
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
 
@@ -249,7 +255,7 @@
 
       .small-panel {
         width: 109px;
-        background-color: rgba(111, 164, 255, 0.25);
+        background-color: rgba(95, 128, 249, 0.25);
         border-radius: 4px;
         text-align: center;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
@@ -279,8 +285,8 @@
         .nav-link {
           width: 82px;
           height: 54px;
-          background-color: rgba(111, 164, 255, 0.25);
-          background-image: linear-gradient(90deg, #4770CBAA, #6B9DEBAA);
+          background-color: rgba(95, 128, 249, 0.25);
+          background-image: linear-gradient(60deg, rgba(66, 107, 175, 0.5), rgba(98, 157, 255, 0.65));
           border: 0;
           text-align: center;
           display: flex;
@@ -295,7 +301,7 @@
 
           &.active {
             border: 0;
-            background-image: linear-gradient(90deg, #6b9deb, #5577c3aa, #6b9debe0);
+            background-image: linear-gradient(60deg, rgba(98, 157, 255, 0.85), rgba(66, 107, 175, 0.5), rgba(98, 157, 255, 0.85));
 
             i {
               text-shadow: -5px 10px 7px #000000;
@@ -310,7 +316,7 @@
       }
 
       .tab-content {
-        background-color: rgba(90, 141, 221, 0.5);
+        background-color: rgba(95, 128, 249, 0.25);
         padding: 8px;
         display: flex;
         flex-direction: column;
