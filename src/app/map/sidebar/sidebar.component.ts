@@ -248,4 +248,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.selectedDetail = this.details.length - 1;
     setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
   }
+
+  onBack() {
+    if (this.selectedDetail > 0) {
+      this.selectedDetail --;
+    }
+  }
 }

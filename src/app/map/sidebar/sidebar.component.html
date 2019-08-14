@@ -71,7 +71,7 @@
         <i *ngIf="details[selectedDetail].type == 'county'" class="fa-hotel_light"></i>
         <i *ngIf="details[selectedDetail].type == 'town'" class="fa-building_light"></i>
         <span class="title">{{ details[selectedDetail].title }}</span>
-        <i class="fa-share_light back-button"></i>
+        <i class="fa-share_light back-button" (click)="onBack()"></i>
       </div>
       <div class="details-counts">
         <div class="small-panel">
