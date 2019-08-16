@@ -124,7 +124,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
       const header2 = data.state_scorecards.card2_header;
       const header3 = data.state_scorecards.card3_header;
 
-      // this.details = [];
       if (stateData.length > 0) {
         this.details.push({
           title: stateData[0].state_name,
@@ -142,7 +141,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
             value: stateData[0]['munis_prop_reg_reqs'],
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
-          updated: '06/25/2019'
         });
       } else {
         this.details.push({
@@ -161,7 +159,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
             value: 64
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
-          updated: '06/25/2019'
         });
       }
       this.selectedDetail = this.details.length - 1;
@@ -199,7 +196,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
             value: countyData[0].card3[isDemo ? 'demo_value' : 'value'],
           },
           description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
-          updated: '06/25/2019'
         });
       } else {
         this.details.push({
@@ -218,7 +214,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
             value: 8
           },
           description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
-          updated: '06/25/2019'
         });
       }
       this.selectedDetail = this.details.length - 1;
@@ -243,7 +238,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         value: 2
       },
       description: '**MUNI DATA FEED** This is the area where all data about the selected authority will appear.',
-      updated: '06/25/2019'
     });
     this.selectedDetail = this.details.length - 1;
     setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
