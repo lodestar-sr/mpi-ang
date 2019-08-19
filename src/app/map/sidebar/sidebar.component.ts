@@ -244,8 +244,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   onBack() {
-    if (this.selectedDetail > 0) {
-      this.selectedDetail --;
-    }
+    this.appService.sendMessage({type: 'back'});
+    // if (this.selectedDetail > 0) {
+    //   this.selectedDetail --;
+    // }
   }
 }
