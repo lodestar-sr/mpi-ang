@@ -341,18 +341,23 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       twp_reg_sel_fill: '#9F3C40',
       twp_reg_sel_line: '#EAC6C8'
     };
-    this.statereg = ['01', '04', '09', '13', '20', '24', '34', '36', '41', '47'];
+    this.statereg = ['01', '04', '09', '13', '20', '23', '24', '25', '34', '36', '41', '47'];
     this.countyreg = {
+      '02': ['02020'],
       '04': ['04012', '04013', '04025'],
-      '06': ['06009', '06029', '06039', '06065', '06073', '06099'],
-      '08': ['08059'],
+      '06': ['06009', '06029', '06039', '06065', '06073', '06075', '06099'],
+      '08': ['08014', '08031', '08059'],
       10: ['10003'],
-      12: ['12007', '12011', '12015', '12017', '12019', '12031', '12043', '12057', '12071', '12073', '12081', '12083', '12099', '12101', '12103', '12117'],
-      13: ['13015', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13211', '13247', '13285'],
-      17: ['17031', '17089'],
+      12: ['12007', '12011', '12015', '12017', '12019', '12043', '12053', '12057', '12071', '12073', '12081', '12083', '12086', '12095', '12099', '12101', '12103', '12117'],
+      13: ['13015', '13021', '13035', '13089', '13113', '13121', '13127', '13135', '13139', '13153', '13193', '13211', '13245', '13247', '13285', '13295'],
+      15: ['15003'],
+      17: ['17031', '17089', '17099'],
+      18: ['18179'],
       20: ['20209'],
-      21: ['21117', '21151', '21223', '21225'],
-      24: ['24031', '24033'],
+      21: ['21067', '21111', '21117', '21151', '21223', '21225'],
+      22: ['22033'],
+      24: ['24027', '24031', '24033'],
+      30: ['30023', '30093'],
       32: ['32003'],
       34: ['34001', '34003', '34005', '34007', '34009', '34011', '34013', '34015', '34017', '34019', '34021', '34023', '34025', '34027', '34029', '34031', '34033', '34035', '34037', '34039',
         '34041'],
@@ -361,7 +366,10 @@ export class MilesMapComponent implements OnInit, OnDestroy {
         '36081', '36083', '36085', '36087', '36089', '36091', '36093', '36095', '36097', '36099', '36101', '36103', '36105', '36107', '36109', '36111', '36113', '36115', '36117', '36119',
         '36121', '36123'],
       39: ['39017', '39025', '39035', '39061', '39085', '39093', '39095', '39099', '39113', '39151', '39153', '39155', '39165'],
-      41: ['41011', '41029']
+      41: ['41011', '41029'],
+      42: ['42007'],
+      47: ['47037'],
+      51: ['51013']
     };
     this.townshipreg = {
       '06': {
@@ -429,15 +437,9 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       sfilllist.push(this.statereg[i]);
       sfilllist.push('DEMO ' + this.statereg[i]);
       sfilllist.push('MAPTILER ' + this.statereg[i]);
-//                if (countyreg[statereg[i]]||townshipreg[statereg[i]]) {
-//                    slin2list.push(statereg[i]);
-//                    slin2list.push('DEMO '+statereg[i]);
-//                    slin2list.push('MAPTILER '+statereg[i]);
-//                } else {
       slin1list.push(this.statereg[i]);
       slin1list.push('DEMO ' + this.statereg[i]);
       slin1list.push('MAPTILER ' + this.statereg[i]);
-//                }
     }
     for (const stateid in this.countyreg) {
       slin2list.push(stateid);
@@ -1006,12 +1008,6 @@ export class MilesMapComponent implements OnInit, OnDestroy {
         this.map.setLayoutProperty(this.mapvars.layers.county.border.id, 'visibility', 'visible');
         this.map.setLayoutProperty(this.mapvars.layers.county.label.id, 'visibility', 'visible');
       }
-
-      this.appService.sendMessage({
-        type: 'state',
-        name: state.state_name,
-        id: state.state_fips,
-      });
     }
 
     if (state.county_fips !== this.selectedCounty) {
@@ -1052,12 +1048,6 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       this.map.setLayoutProperty(this.mapvars.layers.township.poly.id, 'visibility', this.mapvars.layers.township.poly.layout.visibility);
       this.map.setLayoutProperty(this.mapvars.layers.township.border.id, 'visibility', this.mapvars.layers.township.border.layout.visibility);
       this.map.setLayoutProperty(this.mapvars.layers.township.label.id, 'visibility', this.mapvars.layers.township.label.layout.visibility);
-
-      this.appService.sendMessage({
-        type: 'county',
-        name: state.county_name,
-        id: state.county_fips,
-      });
     }
 
     if (state.township_fips !== this.selectedTownship) {
@@ -1080,12 +1070,6 @@ export class MilesMapComponent implements OnInit, OnDestroy {
       this.map.setPaintProperty(this.mapvars.layers.township.poly.id, 'fill-opacity', this.mapvars.layers.township.poly.paint['fill-opacity']);
       this.map.setPaintProperty(this.mapvars.layers.township.poly.id, 'fill-outline-color', this.mapvars.layers.township.poly.paint['fill-outline-color']);
       this.map.setPaintProperty(this.mapvars.layers.township.border.id, 'line-color', this.mapvars.layers.township.border.paint['line-color']);
-
-      this.appService.sendMessage({
-        type: 'town',
-        name: state.township_name,
-        id: state.township_fips,
-      });
     } else {
       if (state.township_fips !== '') {
         this.mapvars.layers.township.poly.paint['fill-color'] = this.townshipFillFilter;
@@ -1108,6 +1092,30 @@ export class MilesMapComponent implements OnInit, OnDestroy {
     this.selectedCountyName = state.county_name;
     this.selectedTownship = state.township_fips;
     this.selectedTownshipName = state.township_name;
+
+    if (state.state_fips == '' && state.state_name == '' && state.county_fips == '' && state.county_name == '' && state.township_fips == '' && state.township_name == '') {
+      this.appService.sendMessage({type: 'gotoHome'});
+    }
+
+    if (state.township_fips != '' && state.township_name != '') {
+      this.appService.sendMessage({
+        type: 'town',
+        name: state.township_name,
+        id: state.township_fips,
+      });
+    } else if (state.county_fips != '' && state.county_name != '') {
+      this.appService.sendMessage({
+        type: 'county',
+        name: state.county_name,
+        id: state.county_fips,
+      });
+    } else if (state.state_fips != '' && state.state_name != '') {
+      this.appService.sendMessage({
+        type: 'state',
+        name: state.state_name,
+        id: state.state_fips,
+      });
+    }
   }
 
   deleteMapState() {
