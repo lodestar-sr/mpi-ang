@@ -1,11 +1,11 @@
 {
-  "date_generated": "2019-AUG-15",
+  "date_generated": "2019-AUG-21",
   "title": "PROC Scorecards",
   "version": "1.0.0",
   "state_scorecards": {
-    "card1_description": "Total: state property registration requirements",
-    "card2_description": "Total: county property registration requirements",
-    "card3_description": "Total: muni property registration requirements",
+    "card1_description": "Total:",
+    "card2_description": "Total:",
+    "card3_description": "Total:",
     "card1_header": "State",
     "card2_header": "County",
     "card3_header": "Municipality",
@@ -17,16 +17,30 @@
         "state_ab": "AK",
         "state_property_registration": "0",
         "counties_property_registration": "1",
-        "munis_property_registration": "1"
+        "munis_property_registration": "1",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "4",
+        "munis_property_ordinance": "1",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "5",
+        "muni_reqs_total": "2",
+        "state_total": "7"
       },
       {
         "fips_state": "01",
         "feature_id": "-1",
         "state_name": "ALABAMA",
         "state_ab": "AL",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "3",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "3",
+        "state_total": "4"
       },
       {
         "fips_state": "05",
@@ -35,7 +49,14 @@
         "state_ab": "AR",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "6",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "6",
+        "state_total": "6"
       },
       {
         "fips_state": "60",
@@ -44,16 +65,30 @@
         "state_ab": "AS",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "04",
         "feature_id": "-1",
         "state_name": "ARIZONA",
         "state_ab": "AZ",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "3",
-        "munis_property_registration": "6"
+        "munis_property_registration": "6",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "38",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "4",
+        "muni_reqs_total": "44",
+        "state_total": "49"
       },
       {
         "fips_state": "06",
@@ -62,7 +97,14 @@
         "state_ab": "CA",
         "state_property_registration": "0",
         "counties_property_registration": "7",
-        "munis_property_registration": "125"
+        "munis_property_registration": "125",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "6",
+        "munis_property_ordinance": "323",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "13",
+        "muni_reqs_total": "448",
+        "state_total": "461"
       },
       {
         "fips_state": "08",
@@ -71,16 +113,30 @@
         "state_ab": "CO",
         "state_property_registration": "0",
         "counties_property_registration": "2",
-        "munis_property_registration": "2"
+        "munis_property_registration": "2",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "5",
+        "munis_property_ordinance": "34",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "7",
+        "muni_reqs_total": "36",
+        "state_total": "43"
       },
       {
         "fips_state": "09",
         "feature_id": "-1",
         "state_name": "CONNECTICUT",
         "state_ab": "CT",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "0",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "63",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "66",
+        "state_total": "67"
       },
       {
         "fips_state": "11",
@@ -89,7 +145,14 @@
         "state_ab": "DC",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "10",
@@ -98,7 +161,14 @@
         "state_ab": "DE",
         "state_property_registration": "0",
         "counties_property_registration": "2",
-        "munis_property_registration": "17"
+        "munis_property_registration": "17",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "21",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "2",
+        "muni_reqs_total": "38",
+        "state_total": "40"
       },
       {
         "fips_state": "12",
@@ -107,16 +177,30 @@
         "state_ab": "FL",
         "state_property_registration": "0",
         "counties_property_registration": "17",
-        "munis_property_registration": "133"
+        "munis_property_registration": "133",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "26",
+        "munis_property_ordinance": "233",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "43",
+        "muni_reqs_total": "366",
+        "state_total": "409"
       },
       {
         "fips_state": "13",
         "feature_id": "-1",
         "state_name": "GEORGIA",
         "state_ab": "GA",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "14",
-        "munis_property_registration": "42"
+        "munis_property_registration": "42",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "10",
+        "munis_property_ordinance": "44",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "24",
+        "muni_reqs_total": "86",
+        "state_total": "111"
       },
       {
         "fips_state": "66",
@@ -125,7 +209,14 @@
         "state_ab": "GU",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "15",
@@ -134,7 +225,14 @@
         "state_ab": "HI",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "0",
+        "state_total": "1"
       },
       {
         "fips_state": "19",
@@ -143,7 +241,14 @@
         "state_ab": "IA",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "12"
+        "munis_property_registration": "12",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "15",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "27",
+        "state_total": "27"
       },
       {
         "fips_state": "16",
@@ -152,7 +257,14 @@
         "state_ab": "ID",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "8",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "8",
+        "state_total": "8"
       },
       {
         "fips_state": "17",
@@ -161,7 +273,14 @@
         "state_ab": "IL",
         "state_property_registration": "0",
         "counties_property_registration": "4",
-        "munis_property_registration": "113"
+        "munis_property_registration": "113",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "7",
+        "munis_property_ordinance": "108",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "11",
+        "muni_reqs_total": "221",
+        "state_total": "232"
       },
       {
         "fips_state": "18",
@@ -170,16 +289,30 @@
         "state_ab": "IN",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "13"
+        "munis_property_registration": "13",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "30",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "43",
+        "state_total": "44"
       },
       {
         "fips_state": "20",
         "feature_id": "-1",
         "state_name": "KANSAS",
         "state_ab": "KS",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "1",
-        "munis_property_registration": "1"
+        "munis_property_registration": "1",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "7",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "8",
+        "state_total": "10"
       },
       {
         "fips_state": "21",
@@ -188,7 +321,14 @@
         "state_ab": "KY",
         "state_property_registration": "0",
         "counties_property_registration": "4",
-        "munis_property_registration": "26"
+        "munis_property_registration": "26",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "7",
+        "munis_property_ordinance": "4",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "11",
+        "muni_reqs_total": "30",
+        "state_total": "41"
       },
       {
         "fips_state": "22",
@@ -197,16 +337,30 @@
         "state_ab": "LA",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "1"
+        "munis_property_registration": "1",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "3",
+        "munis_property_ordinance": "11",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "3",
+        "muni_reqs_total": "12",
+        "state_total": "15"
       },
       {
         "fips_state": "25",
         "feature_id": "-1",
         "state_name": "MASSACHUSETTS",
         "state_ab": "MA",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "0",
-        "munis_property_registration": "46"
+        "munis_property_registration": "46",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "99",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "145",
+        "state_total": "146"
       },
       {
         "fips_state": "24",
@@ -215,7 +369,14 @@
         "state_ab": "MD",
         "state_property_registration": "0",
         "counties_property_registration": "2",
-        "munis_property_registration": "20"
+        "munis_property_registration": "20",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "18",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "3",
+        "muni_reqs_total": "38",
+        "state_total": "41"
       },
       {
         "fips_state": "23",
@@ -224,7 +385,14 @@
         "state_ab": "ME",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "8"
+        "munis_property_registration": "8",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "18",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "26",
+        "state_total": "26"
       },
       {
         "fips_state": "26",
@@ -233,7 +401,14 @@
         "state_ab": "MI",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "83"
+        "munis_property_registration": "83",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "138",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "221",
+        "state_total": "221"
       },
       {
         "fips_state": "27",
@@ -242,7 +417,14 @@
         "state_ab": "MN",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "19"
+        "munis_property_registration": "19",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "54",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "73",
+        "state_total": "73"
       },
       {
         "fips_state": "29",
@@ -251,7 +433,14 @@
         "state_ab": "MO",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "40"
+        "munis_property_registration": "40",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "34",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "74",
+        "state_total": "74"
       },
       {
         "fips_state": "69",
@@ -260,7 +449,14 @@
         "state_ab": "MP",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "28",
@@ -269,7 +465,14 @@
         "state_ab": "MS",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "3",
+        "state_total": "3"
       },
       {
         "fips_state": "30",
@@ -278,7 +481,14 @@
         "state_ab": "MT",
         "state_property_registration": "0",
         "counties_property_registration": "2",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "6",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "2",
+        "muni_reqs_total": "6",
+        "state_total": "8"
       },
       {
         "fips_state": "37",
@@ -287,7 +497,14 @@
         "state_ab": "NC",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "7"
+        "munis_property_registration": "7",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "19",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "26",
+        "state_total": "26"
       },
       {
         "fips_state": "38",
@@ -296,7 +513,14 @@
         "state_ab": "ND",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "6",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "6",
+        "state_total": "6"
       },
       {
         "fips_state": "31",
@@ -305,7 +529,14 @@
         "state_ab": "NE",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "2"
+        "munis_property_registration": "2",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "1",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "3",
+        "state_total": "3"
       },
       {
         "fips_state": "33",
@@ -314,16 +545,30 @@
         "state_ab": "NH",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "1"
+        "munis_property_registration": "1",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "3",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "4",
+        "state_total": "4"
       },
       {
         "fips_state": "34",
         "feature_id": "-1",
         "state_name": "NEW JERSEY",
         "state_ab": "NJ",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "1",
-        "munis_property_registration": "278"
+        "munis_property_registration": "280",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "172",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "452",
+        "state_total": "454"
       },
       {
         "fips_state": "35",
@@ -332,7 +577,14 @@
         "state_ab": "NM",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "5",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "8",
+        "state_total": "8"
       },
       {
         "fips_state": "32",
@@ -341,16 +593,30 @@
         "state_ab": "NV",
         "state_property_registration": "0",
         "counties_property_registration": "1",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "11",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "14",
+        "state_total": "15"
       },
       {
         "fips_state": "36",
         "feature_id": "-1",
         "state_name": "NEW YORK",
         "state_ab": "NY",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "0",
-        "munis_property_registration": "63"
+        "munis_property_registration": "61",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "63",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "124",
+        "state_total": "125"
       },
       {
         "fips_state": "39",
@@ -359,7 +625,14 @@
         "state_ab": "OH",
         "state_property_registration": "0",
         "counties_property_registration": "13",
-        "munis_property_registration": "113"
+        "munis_property_registration": "113",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "121",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "13",
+        "muni_reqs_total": "234",
+        "state_total": "247"
       },
       {
         "fips_state": "40",
@@ -368,16 +641,30 @@
         "state_ab": "OK",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "1"
+        "munis_property_registration": "1",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "7",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "8",
+        "state_total": "8"
       },
       {
         "fips_state": "41",
         "feature_id": "-1",
         "state_name": "OREGON",
         "state_ab": "OR",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "2",
-        "munis_property_registration": "22"
+        "munis_property_registration": "22",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "2",
+        "munis_property_ordinance": "33",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "4",
+        "muni_reqs_total": "55",
+        "state_total": "60"
       },
       {
         "fips_state": "42",
@@ -386,7 +673,14 @@
         "state_ab": "PA",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "92"
+        "munis_property_registration": "92",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "84",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "176",
+        "state_total": "177"
       },
       {
         "fips_state": "72",
@@ -395,7 +689,14 @@
         "state_ab": "PR",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "44",
@@ -404,7 +705,14 @@
         "state_ab": "RI",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "7"
+        "munis_property_registration": "7",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "21",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "28",
+        "state_total": "28"
       },
       {
         "fips_state": "45",
@@ -413,7 +721,14 @@
         "state_ab": "SC",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "5",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "8",
+        "state_total": "8"
       },
       {
         "fips_state": "46",
@@ -422,16 +737,30 @@
         "state_ab": "SD",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "4"
+        "munis_property_registration": "4",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "11",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "15",
+        "state_total": "15"
       },
       {
         "fips_state": "47",
         "feature_id": "-1",
         "state_name": "TENNESSEE",
         "state_ab": "TN",
-        "state_property_registration": "0",
+        "state_property_registration": "1",
         "counties_property_registration": "0",
-        "munis_property_registration": "2"
+        "munis_property_registration": "2",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "19",
+        "state_reqs_total": "1",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "21",
+        "state_total": "23"
       },
       {
         "fips_state": "48",
@@ -440,16 +769,14 @@
         "state_ab": "TX",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "31"
-      },
-      {
-        "fips_state": "0",
-        "feature_id": "-1",
-        "state_name": "U.S. MINOR OUTLYING ISLANDS",
-        "state_ab": "UM",
-        "state_property_registration": "0",
-        "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "31",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "68",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "99",
+        "state_total": "99"
       },
       {
         "fips_state": "49",
@@ -458,7 +785,14 @@
         "state_ab": "UT",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "5"
+        "munis_property_registration": "5",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "21",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "26",
+        "state_total": "26"
       },
       {
         "fips_state": "51",
@@ -467,7 +801,14 @@
         "state_ab": "VA",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "12"
+        "munis_property_registration": "12",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "1",
+        "munis_property_ordinance": "35",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "1",
+        "muni_reqs_total": "47",
+        "state_total": "48"
       },
       {
         "fips_state": "78",
@@ -476,7 +817,14 @@
         "state_ab": "VI",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "0",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "0",
+        "state_total": "0"
       },
       {
         "fips_state": "50",
@@ -485,7 +833,14 @@
         "state_ab": "VT",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "3"
+        "munis_property_registration": "3",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "6",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "9",
+        "state_total": "9"
       },
       {
         "fips_state": "53",
@@ -494,7 +849,14 @@
         "state_ab": "WA",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "9"
+        "munis_property_registration": "9",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "40",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "49",
+        "state_total": "49"
       },
       {
         "fips_state": "55",
@@ -503,7 +865,14 @@
         "state_ab": "WI",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "5"
+        "munis_property_registration": "5",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "6",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "11",
+        "state_total": "11"
       },
       {
         "fips_state": "54",
@@ -512,7 +881,14 @@
         "state_ab": "WV",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "28"
+        "munis_property_registration": "28",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "18",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "46",
+        "state_total": "46"
       },
       {
         "fips_state": "56",
@@ -521,7 +897,14 @@
         "state_ab": "WY",
         "state_property_registration": "0",
         "counties_property_registration": "0",
-        "munis_property_registration": "0"
+        "munis_property_registration": "0",
+        "state_property_ordinance": "0",
+        "counties_property_ordinance": "0",
+        "munis_property_ordinance": "3",
+        "state_reqs_total": "0",
+        "counties_reqs_total": "0",
+        "muni_reqs_total": "3",
+        "state_total": "3"
       }
     ]
   },
