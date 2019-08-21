@@ -115,7 +115,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   attributeState(message: any) {
-    this.http.get('assets/jsons/state_scorecard_v2.json').subscribe((data: any) => {
+    this.http.get('assets/jsons/scorecard.json').subscribe((data: any) => {
       const stateData = data.state_scorecards.scorecard_data.filter(item => {
         return item.fips_state == message.id;
       });
@@ -130,15 +130,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
           type: 'state',
           header1: {
             name: header1,
-            value: stateData[0]['state_prop_reg_reqs'],
+            value: stateData[0]['state_property_registration'],
           },
           header2: {
             name: header2,
-            value: stateData[0]['counties_prop_reg_reqs'],
+            value: stateData[0]['counties_property_registration'],
           },
           header3: {
             name: header3,
-            value: stateData[0]['munis_prop_reg_reqs'],
+            value: stateData[0]['munis_property_registration'],
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
         });
@@ -244,8 +244,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   onBack() {
-    if (this.selectedDetail > 0) {
-      this.selectedDetail --;
-    }
+    this.appService.sendMessage({type: 'back'});
   }
 }
