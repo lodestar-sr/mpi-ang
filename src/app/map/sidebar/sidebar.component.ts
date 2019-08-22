@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   isSmall: boolean;
   activated: string;
   details: any[];
+  detail: any;
   selectedDetail: number;
   subscription: Subscription;
 
@@ -41,6 +42,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.minimizeSidebar();
         } else if (message.type == 'gotoHome') {
           this.details = [];
+          this.detail = null;
           this.selectedDetail = -1;
           setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
         }
@@ -52,6 +54,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.isSmall = false;
     this.activated = 'HOME';
     this.details = [];
+    this.detail = {};
     this.selectedDetail = -1;
   }
 
@@ -81,6 +84,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     if (this.activated == 'HOME') {
       this.details = [];
+      this.detail = null;
       this.appService.sendMessage({type: 'initMap'});
     }
 
@@ -142,6 +146,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
         });
+
+        this.detail = null;
+        this.detail = {
+          title: stateData[0].state_name,
+          type: 'state',
+          header1: {
+            name: header1,
+            value: stateData[0]['state_property_registration'],
+          },
+          header2: {
+            name: header2,
+            value: stateData[0]['counties_property_registration'],
+          },
+          header3: {
+            name: header3,
+            value: stateData[0]['munis_property_registration'],
+          },
+          description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+        };
       } else {
         this.details.push({
           title: message.name,
@@ -160,6 +183,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
           },
           description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
         });
+
+        this.detail = null;
+        this.detail = {
+          title: message.name,
+          type: 'state',
+          header1: {
+            name: 'COUNTIES',
+            value: 64
+          },
+          header2: {
+            name: 'REPORTING',
+            value: 64
+          },
+          header3: {
+            name: 'ORDINANCES',
+            value: 64
+          },
+          description: '**STATE DATA FEED** This is the area where all data about the selected authority will appear.',
+        };
       }
       this.selectedDetail = this.details.length - 1;
       setTimeout(() => this.appService.sendMessage({type: 'resizeMap'}), 500);
@@ -197,6 +239,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
           },
           description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
         });
+
+        this.detail = null;
+        this.detail = {
+          title: countyData[0].name,
+          type: 'county',
+          header1: {
+            name: header1,
+            value: countyData[0].card1[isDemo ? 'demo_value' : 'value'],
+          },
+          header2: {
+            name: header2,
+            value: countyData[0].card2[isDemo ? 'demo_value' : 'value'],
+          },
+          header3: {
+            name: header3,
+            value: countyData[0].card3[isDemo ? 'demo_value' : 'value'],
+          },
+          description: '**COUNTY DATA FEED** This is the area where all data about the selected authority will appear.',
+        };
       } else {
         this.details.push({
           title: message.name,
