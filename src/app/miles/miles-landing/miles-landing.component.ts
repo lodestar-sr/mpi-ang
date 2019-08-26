@@ -9,6 +9,9 @@ declare var $: any;
 })
 export class MilesLandingComponent implements OnInit {
 
+  email: string;
+  password: string;
+
   constructor(private router: Router) {
   }
 
