@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {fromEvent} from 'rxjs';
 
-declare var $: any;
-
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
+  selector: 'app-map-layout',
+  templateUrl: './map-layout.component.html',
 })
-export class MapComponent implements OnInit {
+export class MapLayoutComponent implements OnInit {
 
   viSerDesktop: boolean;
   viSerMobile: boolean;
@@ -45,4 +43,5 @@ export class MapComponent implements OnInit {
     this.searchKey = '';
     this.toggleSearch();
   }
+
 }
