@@ -293,7 +293,7 @@
     position: relative;
     height: calc(100vh - 80px);
 
-    app-miles-map {
+    app-miles-map, app-add-data {
       flex: 1;
       position: relative;
     }

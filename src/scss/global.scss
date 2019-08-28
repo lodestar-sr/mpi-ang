@@ -16,7 +16,11 @@
 }
 
 .text-size-28p {
-  font-size: 28px;
+  font-size: 28px !important;
+}
+
+.text-size-56p {
+  font-size: 56px !important;
 }
 
 .text-red {
@@ -61,4 +65,9 @@
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.border-primary {
+  border: solid 1px #214db2;
+  border-radius: 4px;
 }

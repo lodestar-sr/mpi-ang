@@ -3,6 +3,7 @@ import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -28,7 +29,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   selectedDetail: number;
   subscription: Subscription;
 
-  constructor(private appService: AppService, private zone: NgZone, private http: HttpClient) {
+  constructor(private appService: AppService, private router: Router,
+              private zone: NgZone, private http: HttpClient) {
     this.subscription = this.appService.getMessage().subscribe(message => {
       this.zone.run(() => {
         if (message.type == 'state') {
@@ -83,9 +85,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.activated = activatedMenu;
 
     if (this.activated == 'HOME') {
+      this.router.navigate(['/map']);
       this.details = [];
       this.detail = null;
+      this.selectedDetail = -1;
       this.appService.sendMessage({type: 'initMap'});
+    } else if (this.activated == 'ADD_DATA') {
+      this.details = [];
+      this.detail = null;
+      this.selectedDetail = -1;
+      this.router.navigate(['/map/add-data']);
     }
 
     this.moveScrollbar();
