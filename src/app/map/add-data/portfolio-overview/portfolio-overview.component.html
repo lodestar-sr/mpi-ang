@@ -1,0 +1,148 @@
+<div class="overview">
+  <div class="row">
+    <div class="col-md-7">
+      <h4>Portfolio Overview</h4>
+
+    </div>
+    <div class="col-md-5">
+      <h4>VPR Status</h4>
+      <div class="row">
+        <div class="col-6">
+          <div class="block cursor-pointer">
+            <div>Expired</div>
+            <div class="value text-size-56p">14</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="block cursor-pointer">
+            <div>Unregistered</div>
+            <div class="value text-size-56p">48</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <div class="block">
+            <div>Asset Count</div>
+            <div class="value text-size-28p">1066</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="block cursor-pointer">
+            <div>Required</div>
+            <div class="value text-size-28p">621</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="block cursor-pointer">
+            <div>Registered</div>
+            <div class="value text-size-28p">559</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="border-primary p-2">
+            <div>Expired <a class="float-right text-primary cursor-pointer">%</a></div>
+            <div class="row">
+              <div class="col-2"><div class="border-primary text-center">8</div></div>
+              <div class="col-2"><div class="border-primary text-center">3</div></div>
+              <div class="col-2"><div class="border-primary text-center">4</div></div>
+              <div class="col-2"><div class="border-primary text-center">1</div></div>
+              <div class="col-2"><div class="border-primary text-center">0</div></div>
+            </div>
+            <div class="row">
+              <div class="col-2 text-size-10p text-center"><10 days</div>
+              <div class="col-2 text-size-10p text-center">11 - 30</div>
+              <div class="col-2 text-size-10p text-center">31 - 60</div>
+              <div class="col-2 text-size-10p text-center">61 - 90</div>
+              <div class="col-2 text-size-10p text-center"><91 days</div>
+            </div>
+            <div class="row">
+              <div class="col-2"><div class="border-primary text-center">23</div></div>
+              <div class="col-2"><div class="border-primary text-center">13</div></div>
+              <div class="col-2"><div class="border-primary text-center">5</div></div>
+              <div class="col-2"><div class="border-primary text-center">3</div></div>
+              <div class="col-2"><div class="border-primary text-center">4</div></div>
+            </div>
+            <div>Unregistered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-5">
+      <h4>Action Summary</h4>
+      <div class="border-primary text-center p-3">
+
+        <table class="w-100">
+          <thead>
+          <tr>
+            <td class="text-size-24p">Requirement</td>
+            <td class="text-size-24p">Entities</td>
+            <td class="text-size-24p">Assets</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of actionSummary">
+            <td class="pt-2">
+              <i *ngIf="item.type == 'document'" class="fa-file-contract_light text-size-24p text-primary"></i>
+              <i *ngIf="item.type == 'online'" class="fa-network-wired_light text-size-24p text-primary"></i>
+              <i *ngIf="item.type == 'localAgent'" class="fa-user-tie_light text-size-24p text-primary"></i>
+              <i *ngIf="item.type == 'bond'" class="fa-hand-holding-usd_light text-size-24p text-primary"></i>
+              <i *ngIf="item.type == 'notary'" class="fa-stamp_light text-size-24p text-primary"></i>
+              <i *ngIf="item.type == 'inspection'" class="fa-clipboard-check_light text-size-24p text-primary"></i>
+              <br>
+              <div>{{ item.requirement }}</div>
+            </td>
+            <td>{{ item.entities }}</td>
+            <td>{{ item.assets }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <h4>Work Priority</h4>
+      <div class="border-primary text-center p-3 work-priority">
+
+        <table class="w-100">
+          <thead>
+          <tr>
+            <td class="text-size-24p">Count</td>
+            <td class="text-size-24p text-left">Ordinance</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="priority-row cursor-pointer" *ngFor="let priority of workPriority" (click)="onWorkPriority()">
+            <td>{{ priority.count }}</td>
+            <td class="text-left pt-3">
+              <div class="text-size-12p">Vacant Property Registration</div>
+              <div>{{ priority.description }}</div>
+              <div class="small d-flex justify-content-between">
+                <span>Due within <strong>{{ priority.duration }}</strong> days of vacancy</span>
+                <span>Requirements:</span>
+                <span class="text-size-12p text-primary">
+                  <i *ngIf="priority.document" class="fa-file-contract_light ml-2"></i>
+                  <i *ngIf="priority.online" class="fa-network-wired_light ml-2"></i>
+                  <i *ngIf="priority.localAgent" class="fa-user-tie_light ml-2"></i>
+                  <i *ngIf="priority.bond" class="fa-hand-holding-usd_light ml-2"></i>
+                  <i *ngIf="priority.notary" class="fa-stamp_light ml-2"></i>
+                  <i *ngIf="priority.inspection" class="fa-clipboard-check_light ml-2"></i>
+                </span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>

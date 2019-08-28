@@ -1,0 +1,30 @@
+.overview {
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  padding: 16px;
+  color: #707070;
+
+  .block {
+    text-align: center;
+    border: solid 1px #2699FB;
+    border-radius: 4px;
+    padding: 8px;
+
+    .value {
+      font-size: 20px;
+    }
+  }
+
+  .work-priority {
+    height: 444px;
+    overflow-y: auto;
+    
+    .priority-row {
+      
+      &:hover {
+        background-color: #2699fb29;
+      }
+    }
+  }
+}

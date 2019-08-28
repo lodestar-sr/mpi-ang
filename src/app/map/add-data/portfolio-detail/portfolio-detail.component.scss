@@ -1,0 +1,62 @@
+.portfolio-details {
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  padding: 16px;
+  color: #707070;
+
+  .block {
+    text-align: center;
+    border: solid 1px #2699FB;
+    border-radius: 4px;
+
+    .value {
+      font-size: 20px;
+    }
+  }
+
+  .intro {
+    background-color: #EFF0F5;
+  }
+
+  .entity-logo {
+    width: 120px;
+    height: 120px;
+    background-color: #ffffff;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 120px;
+    border: solid 1px #2699FB;
+    margin: auto;
+  }
+
+  .intro-tab-panel {
+    border-top: solid 1px #2699FB;
+    border-radius: 4px;
+    background: #C5C5C5;
+  }
+
+  .nav-tabs {
+    border-bottom: 0;
+
+    .nav-link {
+      border: 0;
+      color: #ffffff;
+      font-size: 20px;
+
+      &.active {
+        color: #ffffff;
+        border-bottom: 2px solid #2699FB;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .property-row {
+
+    &:hover {
+      background-color: #2699fb29;
+    }
+  }
+}

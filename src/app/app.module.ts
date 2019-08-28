@@ -15,8 +15,10 @@ import {CommonModule} from '@angular/common';
 import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
 import {HttpClientModule} from '@angular/common/http';
 import {MilesMapComponent} from './map/miles-map/miles-map.component';
-import { AddDataComponent } from './map/add-data/add-data.component';
+import {AddDataComponent} from './map/add-data/add-data.component';
 import {NgxDropzoneModule} from 'ngx-dropzone';
+import {PortfolioOverviewComponent} from './map/add-data/portfolio-overview/portfolio-overview.component';
+import {PortfolioDetailComponent} from './map/add-data/portfolio-detail/portfolio-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
     MilesNavComponent,
     MilesMapComponent,
     AddDataComponent,
+    PortfolioOverviewComponent,
+    PortfolioDetailComponent,
   ],
   imports: [
     BrowserModule,

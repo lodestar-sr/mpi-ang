@@ -1,4 +1,4 @@
-<div class="bg-light w-100 h-100" *ngIf="!csvFile">
+<div class="bg-light w-100 h-100">
   <ngx-dropzone class="h-100" (change)="onSelect($event)" [multiple]="false">
     <ngx-dropzone-label class="text-size-28p">
       <p>Drag and drop portfolio here...</p>
@@ -6,78 +6,4 @@
       <p><i class="light fa-cloud-upload-alt_regular"></i> Select file to upload</p>
     </ngx-dropzone-label>
   </ngx-dropzone>
-</div>
-
-<div class="overview" *ngIf="csvFile">
-  <div class="row">
-    <div class="col-md-7">
-
-    </div>
-    <div class="col-md-5">
-      <h4>VPR Status</h4>
-      <div class="row">
-        <div class="col-6">
-          <div class="block">
-            <div>Expired</div>
-            <div class="value text-size-56p">14</div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="block">
-            <div>Unregistered</div>
-            <div class="value text-size-56p">48</div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-4">
-          <div class="block">
-            <div>Asset Count</div>
-            <div class="value text-size-28p">1066</div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="block">
-            <div>Required</div>
-            <div class="value text-size-28p">621</div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="block">
-            <div>Registered</div>
-            <div class="value text-size-28p">559</div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-12">
-          <div class="border-primary p-2">
-            <div>Expired <a class="float-right text-primary cursor-pointer">%</a></div>
-            <div class="row">
-              <div class="col-2"><div class="border-primary text-center">8</div></div>
-              <div class="col-2"><div class="border-primary text-center">3</div></div>
-              <div class="col-2"><div class="border-primary text-center">4</div></div>
-              <div class="col-2"><div class="border-primary text-center">1</div></div>
-              <div class="col-2"><div class="border-primary text-center">0</div></div>
-            </div>
-            <div class="row">
-              <div class="col-2 text-size-10p text-center"><10 days</div>
-              <div class="col-2 text-size-10p text-center">11 - 30</div>
-              <div class="col-2 text-size-10p text-center">31 - 60</div>
-              <div class="col-2 text-size-10p text-center">61 - 90</div>
-              <div class="col-2 text-size-10p text-center"><91 days</div>
-            </div>
-            <div class="row">
-              <div class="col-2"><div class="border-primary text-center">23</div></div>
-              <div class="col-2"><div class="border-primary text-center">13</div></div>
-              <div class="col-2"><div class="border-primary text-center">5</div></div>
-              <div class="col-2"><div class="border-primary text-center">3</div></div>
-              <div class="col-2"><div class="border-primary text-center">4</div></div>
-            </div>
-            <div>Unregistered</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

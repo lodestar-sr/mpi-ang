@@ -1,0 +1,140 @@
+<div class="portfolio-details">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="block intro">
+        <div class="mb-2 p-2">
+          <div class="entity-logo" style="background-image: url('assets/images/miles_logo.png')"></div>
+          <h2>Montgomery County, OH</h2>
+          <h6>mcohio.org</h6>
+          <h6>(937) 225-4900</h6>
+
+          <div class="row">
+            <div class="col-sm-6 pt-3">
+              <button class="btn btn-outline-primary w-100">Statistics</button>
+            </div>
+            <div class="col-sm-6 pt-3">
+              <button class="btn btn-outline-primary w-100">Contacts</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 pt-3">
+              <button class="btn btn-outline-primary w-100">Code Enforcement</button>
+            </div>
+            <div class="col-sm-6 pt-3">
+              <button class="btn btn-outline-primary w-100">Permits</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 pt-3">
+              <button class="btn btn-outline-primary w-100">Reference</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-tab-panel pl-2 pr-2 pb-2">
+          <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" href="#tasks" role="tab" data-toggle="tab">Tasks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#notes" role="tab" data-toggle="tab">Notes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#forms" role="tab" data-toggle="tab">Forms</a>
+            </li>
+          </ul>
+
+          <div class="d-flex justify-content-between">
+            <span class="text-primary text-size-24p cursor-pointer"><i class="fa-plus_light"></i></span>
+            <span class="text-primary text-size-24p cursor-pointer"><i class="fa-expand-alt_light"></i></span>
+          </div>
+
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tasks">
+              <div class="block bg-white">
+                <div>
+                  <input type="checkbox" name="tasks[]"> <i class="fa-file-contract_light"></i> <span>Document</span>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="notes">bbb</div>
+            <div role="tabpanel" class="tab-pane" id="forms">ccc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <div class="block cursor-pointer">
+            <div>Unregistered</div>
+            <div class="value text-size-56p">15</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="block cursor-pointer">
+            <div>Past Due</div>
+            <div class="value text-size-56p">6</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="block cursor-pointer">
+            <div>Due < 3 days</div>
+            <div class="value text-size-56p">6</div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="block cursor-pointer">
+            <div>Due 3 + days</div>
+            <div class="value text-size-56p">4</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="block cursor-pointer">
+            <div>Blockers</div>
+            <div class="value text-size-56p">15</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>{{ properties.length }} Properties</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block p-2">
+
+            <table class="w-100">
+              <thead>
+              <tr>
+                <td class="pb-2 text-size-18p">Status</td>
+                <td class="pb-2 text-size-18p">Street Address</td>
+                <td class="pb-2 text-size-18p">Unit</td>
+                <td class="pb-2 text-size-18p">City</td>
+                <td class="pb-2 text-size-18p">State</td>
+                <td class="pb-2 text-size-18p">Zip Code</td>
+                <td class="pb-2 text-size-18p">Date Due</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="property-row" *ngFor="let item of properties">
+                <td class="pt-2 pb-2">
+                  <i class="fa-circle_light text-size-24p {{ item.status == 'red' ? 'text-danger' : (item.status == 'yellow' ? 'text-warning' : 'text-success') }}"></i>
+                </td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.street }}</td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.unit }}</td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.city }}</td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.state }}</td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.zipCode }}</td>
+                <td class="pt-2 pb-2 text-size-16p">{{ item.dateDue }}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

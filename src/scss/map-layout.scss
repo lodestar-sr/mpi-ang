@@ -293,9 +293,10 @@
     position: relative;
     height: calc(100vh - 80px);
 
-    app-miles-map, app-add-data {
+    .map-content {
       flex: 1;
       position: relative;
+      overflow-y: auto;
     }
 
     app-sidebar {

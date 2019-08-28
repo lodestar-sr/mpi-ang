@@ -5,6 +5,8 @@ import {MilesLandingComponent} from './public/miles-landing/miles-landing.compon
 import {MapLayoutComponent} from './layout/map-layout/map-layout.component';
 import {MilesMapComponent} from './map/miles-map/miles-map.component';
 import {AddDataComponent} from './map/add-data/add-data.component';
+import {PortfolioOverviewComponent} from './map/add-data/portfolio-overview/portfolio-overview.component';
+import {PortfolioDetailComponent} from './map/add-data/portfolio-detail/portfolio-detail.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,8 @@ const routes: Routes = [
     children: [
       {path: '', component: MilesMapComponent},
       {path: 'add-data', component: AddDataComponent},
+      {path: 'add-data/overview', component: PortfolioOverviewComponent},
+      {path: 'add-data/details', component: PortfolioDetailComponent},
     ],
   },
 ];

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {PortfolioService} from './portfolio.service';
 
 @Component({
   selector: 'app-add-data',
@@ -7,10 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddDataComponent implements OnInit {
 
-  csvFile: File;
-
-  constructor() {
-    this.csvFile = null;
+  constructor(private router: Router, private portfolioService: PortfolioService) {
   }
 
   ngOnInit() {
@@ -18,8 +17,9 @@ export class AddDataComponent implements OnInit {
 
   onSelect(event) {
     if (event.addedFiles && event.addedFiles.length) {
-      this.csvFile = event.addedFiles[0];
-      console.log(this.csvFile);
+      this.portfolioService.csvFile = event.addedFiles[0];
+      console.log(this.portfolioService.csvFile);
+      this.router.navigate(['/map/add-data/overview']);
     }
   }
 
