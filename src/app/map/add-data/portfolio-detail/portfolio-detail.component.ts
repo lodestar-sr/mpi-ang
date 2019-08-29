@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class PortfolioDetailComponent implements OnInit {
 
   properties: any[];
+  notes: any[];
 
   constructor() { }
 
   ngOnInit() {
     this.properties = [
       {
+        id: 0,
         status: 'red',
         street: '1541 Linwood Ave',
         city: 'Columbus',
@@ -23,6 +25,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 1,
         status: 'red',
         street: '10825 Royalton Rd',
         city: 'Amanda',
@@ -32,6 +35,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 2,
         status: 'red',
         street: '805 Rosemore Ave',
         city: 'Whitehall',
@@ -41,6 +45,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 3,
         status: 'red',
         street: '294 S Ohio Dr',
         city: 'Columbus',
@@ -50,6 +55,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 4,
         status: 'red',
         street: '23464 State Route 141',
         city: 'Lawrence',
@@ -59,6 +65,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 5,
         status: 'red',
         street: '495 W Broad St',
         city: 'Columbus',
@@ -68,6 +75,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 6,
         status: 'yellow',
         street: '4635 Paxton Dr S',
         city: 'Hilliard',
@@ -77,6 +85,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 7,
         status: 'yellow',
         street: '2078 Langham Rd',
         city: 'Upper Arlington',
@@ -86,6 +95,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 8,
         status: 'yellow',
         street: '96 W Lincoln Ave',
         city: 'Worthington',
@@ -95,6 +105,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 9,
         status: 'yellow',
         street: '1970 Cardigan Ave',
         city: 'Marble Cliff',
@@ -104,6 +115,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 10,
         status: 'green',
         street: '7061 Schneider Way',
         city: 'Jefferson Township',
@@ -113,6 +125,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 11,
         status: 'green',
         street: '1151 Bayridge Dr',
         city: 'Orange Township',
@@ -122,6 +135,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 12,
         status: 'green',
         street: '197 W Park St',
         city: 'Westerville',
@@ -131,6 +145,7 @@ export class PortfolioDetailComponent implements OnInit {
         unit: '',
       },
       {
+        id: 13,
         status: 'green',
         street: '7690 Hilliard Ct',
         city: 'Canal Winchester',
@@ -138,6 +153,58 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43110',
         dateDue: '08/28/2019',
         unit: '',
+      },
+    ];
+    this.notes = [
+      {
+        avatar: '',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        date: 'August 28, 2019 - 2:13 PM',
+      },
+      {
+        avatar: '',
+        content: 'Ut enim ad minim veniam, quis nostrud exercitation.',
+        date: 'August 27, 2019 - 6:15 PM',
+      },
+      {
+        avatar: '',
+        content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu.',
+        date: 'August 27, 2018 - 8:16 AM',
+      },
+      {
+        avatar: '',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        date: 'August 28, 2019 - 2:13 PM',
+      },
+      {
+        avatar: '',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        date: 'August 28, 2019 - 2:13 PM',
+      },
+      {
+        avatar: '',
+        content: 'Ut enim ad minim veniam, quis nostrud exercitation.',
+        date: 'August 27, 2019 - 6:15 PM',
+      },
+      {
+        avatar: '',
+        content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu.',
+        date: 'August 27, 2018 - 8:16 AM',
+      },
+      {
+        avatar: '',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        date: 'August 28, 2019 - 2:13 PM',
+      },
+      {
+        avatar: '',
+        content: 'Ut enim ad minim veniam, quis nostrud exercitation.',
+        date: 'August 27, 2019 - 6:15 PM',
+      },
+      {
+        avatar: '',
+        content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatu.',
+        date: 'August 27, 2018 - 8:16 AM',
       },
     ];
   }

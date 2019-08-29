@@ -54,9 +54,54 @@
   }
 
   .property-row {
+    cursor: pointer;
 
     &:hover {
       background-color: #2699fb29;
     }
+  }
+
+  .line {
+    width: 24px;
+    border-top: 1px solid #2699FB;
+  }
+
+  .tasks-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 328px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .note-row {
+    background-color: #F1F9FF;
+    border-radius: 4px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 8px;
+
+    .note-avatar {
+      background-color: #ffffff;
+      border: solid 1px #2699FB;
+      border-radius: 4px;
+      min-width: 48px;
+      height: 48px;
+      margin-right: 8px;
+    }
+
+    .note-description {
+      line-height: 1;
+      font-size: 16px;
+      text-align: left;
+    }
+  }
+
+  .note-panel {
+    height: 330px;
+    overflow-y: auto;
   }
 }

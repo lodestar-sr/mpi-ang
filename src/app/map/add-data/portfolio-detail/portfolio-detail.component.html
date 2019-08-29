@@ -52,13 +52,40 @@
 
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="tasks">
-              <div class="block bg-white">
-                <div>
-                  <input type="checkbox" name="tasks[]"> <i class="fa-file-contract_light"></i> <span>Document</span>
+              <div class="block bg-white d-flex">
+                <div class="tasks-content">
+                  <div class="d-flex align-items-center">
+                    <i class="fa-square_light text-size-16p text-primary mr-3"></i>
+                    <i class="fa-file-contract_light text-size-28p text-primary mr-2"></i>
+                    <div class="line mr-2"></div>
+                    Document
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fa-square_light text-size-16p text-primary mr-3"></i>
+                    <i class="fa-hand-holding-usd_light text-size-28p text-primary mr-2"></i>
+                    <div class="line mr-2"></div>
+                    Bond
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fa-square_light text-size-16p text-primary mr-3"></i>
+                    <i class="fa-clipboard-check_light text-size-28p text-primary mr-2"></i>
+                    <div class="line mr-2"></div>
+                    Inspection
+                  </div>
                 </div>
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="notes">bbb</div>
+            <div role="tabpanel" class="tab-pane" id="notes">
+              <div class="note-panel">
+                <div *ngFor="let note of notes" class="note-row">
+                  <div class="note-avatar" [style]="'background-image: url(' + note.avatar + ')'"></div>
+                  <div class="note-description">
+                    <div>{{ note.content }}</div>
+                    <small>{{ note.date }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div role="tabpanel" class="tab-pane" id="forms">ccc</div>
           </div>
         </div>
@@ -68,31 +95,31 @@
     <div class="col-md-8">
       <div class="row mb-3">
         <div class="col-md-2">
-          <div class="block cursor-pointer">
+          <div class="block">
             <div>Unregistered</div>
             <div class="value text-size-56p">15</div>
           </div>
         </div>
         <div class="col-md-2">
-          <div class="block cursor-pointer">
+          <div class="block">
             <div>Past Due</div>
             <div class="value text-size-56p">6</div>
           </div>
         </div>
         <div class="col-md-2">
-          <div class="block cursor-pointer">
+          <div class="block">
             <div>Due < 3 days</div>
             <div class="value text-size-56p">6</div>
           </div>
         </div>
         <div class="col-md-2">
-          <div class="block cursor-pointer">
+          <div class="block">
             <div>Due 3 + days</div>
             <div class="value text-size-56p">4</div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="block cursor-pointer">
+          <div class="block">
             <div>Blockers</div>
             <div class="value text-size-56p">15</div>
           </div>
