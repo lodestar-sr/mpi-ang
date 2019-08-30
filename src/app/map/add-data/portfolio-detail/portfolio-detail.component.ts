@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-portfolio-detail',
@@ -9,8 +10,10 @@ export class PortfolioDetailComponent implements OnInit {
 
   properties: any[];
   notes: any[];
+  forms: string;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     this.properties = [
@@ -23,6 +26,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43207',
         dateDue: '08/20/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 1,
@@ -33,6 +45,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43102',
         dateDue: '08/20/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 2,
@@ -43,6 +64,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43213',
         dateDue: '08/20/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 3,
@@ -53,6 +83,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43205',
         dateDue: '08/21/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 4,
@@ -63,6 +102,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '45688',
         dateDue: '08/21/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 5,
@@ -73,6 +121,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43215',
         dateDue: '08/22/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 6,
@@ -83,6 +140,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43026',
         dateDue: '08/23/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 7,
@@ -93,6 +159,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43221',
         dateDue: '08/23/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 8,
@@ -103,6 +178,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43085',
         dateDue: '08/24/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 9,
@@ -113,6 +197,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43212',
         dateDue: '08/24/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 10,
@@ -123,6 +216,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43004',
         dateDue: '08/25/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 11,
@@ -133,6 +235,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43035',
         dateDue: '08/26/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 12,
@@ -143,6 +254,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43081',
         dateDue: '08/27/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
       {
         id: 13,
@@ -153,6 +273,15 @@ export class PortfolioDetailComponent implements OnInit {
         zipCode: '43110',
         dateDue: '08/28/2019',
         unit: '',
+        enableStep: false,
+        steps: {
+          step1: false,
+          step2: false,
+          step3: false,
+          step4: false,
+          step5: false,
+          step6: false,
+        },
       },
     ];
     this.notes = [
@@ -207,6 +336,7 @@ export class PortfolioDetailComponent implements OnInit {
         date: 'August 27, 2018 - 8:16 AM',
       },
     ];
+    this.forms = 'https://www.mcs360.com/documents/compliancedoc/VPR/Northwood%20OH%20%20Vacant%20Property%20Registration%20Form.pdf';
   }
 
 }

@@ -45,13 +45,14 @@
             </li>
           </ul>
 
-          <div class="d-flex justify-content-between">
-            <span class="text-primary text-size-24p cursor-pointer"><i class="fa-plus_light"></i></span>
-            <span class="text-primary text-size-24p cursor-pointer"><i class="fa-expand-alt_light"></i></span>
-          </div>
-
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="tasks">
+
+              <div class="d-flex justify-content-between">
+                <span class="text-primary text-size-24p cursor-pointer"><i class="fa-plus_light"></i></span>
+                <span class="text-primary text-size-24p cursor-pointer" data-toggle="modal" data-target="#tasksModal"><i class="fa-expand-alt_light"></i></span>
+              </div>
+
               <div class="block bg-white d-flex">
                 <div class="tasks-content">
                   <div class="d-flex align-items-center">
@@ -74,9 +75,48 @@
                   </div>
                 </div>
               </div>
+
+              <div class="modal fade" id="tasksModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body d-flex flex-column justify-content-center">
+                      <h4>Tasks</h4>
+                      <div class="task-modal-content">
+                        <div class="d-flex align-items-center">
+                          <i class="fa-square_light text-size-16p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          <i class="fa-file-contract_light text-size-28p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          Document
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="fa-square_light text-size-16p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          <i class="fa-hand-holding-usd_light text-size-28p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          Bond
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="fa-square_light text-size-16p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          <i class="fa-clipboard-check_light text-size-28p text-primary mr-2"></i>
+                          <div class="line mr-2"></div>
+                          Inspection
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="notes">
-              <div class="note-panel">
+
+              <div class="d-flex justify-content-between">
+                <span class="text-primary text-size-24p cursor-pointer"><i class="fa-plus_light"></i></span>
+                <span class="text-primary text-size-24p cursor-pointer" data-toggle="modal" data-target="#notesModal"><i class="fa-expand-alt_light"></i></span>
+              </div>
+
+              <div class="fixed-panel">
                 <div *ngFor="let note of notes" class="note-row">
                   <div class="note-avatar" [style]="'background-image: url(' + note.avatar + ')'"></div>
                   <div class="note-description">
@@ -85,8 +125,48 @@
                   </div>
                 </div>
               </div>
+
+              <div class="modal fade" id="notesModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body notes-modal-content">
+
+                      <div *ngFor="let note of notes" class="note-row">
+                        <div class="note-avatar" [style]="'background-image: url(' + note.avatar + ')'"></div>
+                        <div class="note-description">
+                          <div>{{ note.content }}</div>
+                          <small>{{ note.date }}</small>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="forms">ccc</div>
+            <div role="tabpanel" class="tab-pane" id="forms">
+
+              <div class="d-flex justify-content-between">
+                <span class="text-primary text-size-24p cursor-pointer"><i class="fa-plus_light"></i></span>
+                <span class="text-primary text-size-24p cursor-pointer" data-toggle="modal" data-target="#formsModal"><i class="fa-expand-alt_light"></i></span>
+              </div>
+
+              <div class="fixed-panel">
+                <embed [src]="forms | safe" height="330px" width="100%"/>
+              </div>
+
+              <div class="modal fade" id="formsModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body forms-modal-content">
+
+                      <embed [src]="forms | safe" height="100%" width="100%"/>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -129,31 +209,49 @@
       <h4>{{ properties.length }} Properties</h4>
       <div class="row">
         <div class="col-md-12">
-          <div class="block p-2">
+          <div class="block p-2 fixed-block">
 
             <table class="w-100">
               <thead>
               <tr>
-                <td class="pb-2 text-size-18p">Status</td>
-                <td class="pb-2 text-size-18p">Street Address</td>
-                <td class="pb-2 text-size-18p">Unit</td>
-                <td class="pb-2 text-size-18p">City</td>
-                <td class="pb-2 text-size-18p">State</td>
-                <td class="pb-2 text-size-18p">Zip Code</td>
-                <td class="pb-2 text-size-18p">Date Due</td>
+                <td class="pb-4 text-size-18p">Status</td>
+                <td class="pb-4 text-size-18p text-left">Street Address</td>
+                <td class="pb-4 text-size-18p text-left">Unit</td>
+                <td class="pb-4 text-size-18p text-left">City</td>
+                <td class="pb-4 text-size-18p">State</td>
+                <td class="pb-4 text-size-18p">Zip Code</td>
+                <td class="pb-4 text-size-18p text-left">Date Due</td>
               </tr>
               </thead>
-              <tbody>
-              <tr class="property-row" *ngFor="let item of properties">
-                <td class="pt-2 pb-2">
+              <tbody *ngFor="let item of properties">
+              <tr class="property-row" (click)="item.enableStep = !item.enableStep">
+                <td class="">
                   <i class="fa-circle_light text-size-24p {{ item.status == 'red' ? 'text-danger' : (item.status == 'yellow' ? 'text-warning' : 'text-success') }}"></i>
                 </td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.street }}</td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.unit }}</td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.city }}</td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.state }}</td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.zipCode }}</td>
-                <td class="pt-2 pb-2 text-size-16p">{{ item.dateDue }}</td>
+                <td class="text-size-16p text-left">{{ item.street }}</td>
+                <td class="text-size-16p text-left">{{ item.unit }}</td>
+                <td class="text-size-16p text-left">{{ item.city }}</td>
+                <td class="text-size-16p">{{ item.state }}</td>
+                <td class="text-size-16p">{{ item.zipCode }}</td>
+                <td class="text-size-16p text-left">{{ item.dateDue }}</td>
+              </tr>
+              <tr class="h-18p">
+                <td></td>
+                <td colspan="100">
+                  <div *ngIf="item.enableStep" class="check-step">
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step1 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step1 = !item.steps.step1"></i>
+                    <div class="line"></div>
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step2 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step2 = !item.steps.step2"></i>
+                    <div class="line"></div>
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step3 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step3 = !item.steps.step3"></i>
+                    <div class="line"></div>
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step4 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step4 = !item.steps.step4"></i>
+                    <div class="line"></div>
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step5 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step5 = !item.steps.step5"></i>
+                    <div class="line"></div>
+                    <i class="text-size-16p text-primary cursor-pointer {{item.steps.step6 ? 'fa-check-square_light' : 'fa-square_light'}}" (click)="item.steps.step6 = !item.steps.step6"></i>
+                  </div>
+                </td>
               </tr>
               </tbody>
             </table>

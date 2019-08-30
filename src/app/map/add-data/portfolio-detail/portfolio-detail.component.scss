@@ -100,8 +100,45 @@
     }
   }
 
-  .note-panel {
+  .fixed-panel {
     height: 330px;
     overflow-y: auto;
+  }
+
+  .fixed-block {
+    max-height: 666px;
+    overflow-y: auto;
+  }
+
+  .task-modal-content {
+    height: 660px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .notes-modal-content {
+    overflow: auto;
+    height: 660px;
+    background-color: #23242a;
+    padding: 80px;
+  }
+
+  .forms-modal-content {
+    height: 720px;
+    background-color: #23242a;
+  }
+
+  .check-step {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .line {
+      width: 14%;
+    }
   }
 }
