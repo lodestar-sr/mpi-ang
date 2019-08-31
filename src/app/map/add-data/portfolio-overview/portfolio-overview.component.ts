@@ -59,7 +59,6 @@ export class PortfolioOverviewComponent implements OnInit {
         inspection: true,
       },
     ];
-
     this.actionSummary = [
       {
         requirement: 'Document',
@@ -123,7 +122,11 @@ export class PortfolioOverviewComponent implements OnInit {
     this.router.navigate(['/map/add-data/details']);
   }
 
-  getPercent(val) {
-    return (val / this.vprStatus.asset).toFixed(2);
+  getPercent(val, dividedBy) {
+    return (val / dividedBy * 100).toFixed(2);
+  }
+
+  onSelectedState(obj) {
+    console.log(obj);
   }
 }

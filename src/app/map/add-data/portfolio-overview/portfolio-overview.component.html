@@ -1,8 +1,10 @@
 <div class="overview">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-7 d-flex flex-column">
       <h4>Portfolio Overview</h4>
-
+      <div class="flex-grow-1">
+        <app-portfolio-map (clickedState)="onSelectedState($event)"></app-portfolio-map>
+      </div>
     </div>
     <div class="col-md-5">
       <h4>VPR Status</h4>
@@ -10,13 +12,13 @@
         <div class="col-6">
           <div class="block cursor-pointer" (click)="vprStatusPercentage.expired = !vprStatusPercentage.expired">
             <div>Expired</div>
-            <div class="value text-size-56p">{{ vprStatusPercentage.expired ? getPercent(vprStatus.expired) : vprStatus.expired }}</div>
+            <div class="value text-size-56p">{{ vprStatusPercentage.expired ? getPercent(vprStatus.expired, vprStatus.required) : vprStatus.expired }}</div>
           </div>
         </div>
         <div class="col-6">
           <div class="block cursor-pointer" (click)="vprStatusPercentage.unregistered = !vprStatusPercentage.unregistered">
             <div>Unregistered</div>
-            <div class="value text-size-56p">{{ vprStatusPercentage.unregistered ? getPercent(vprStatus.unregistered) : vprStatus.unregistered }}</div>
+            <div class="value text-size-56p">{{ vprStatusPercentage.unregistered ? getPercent(vprStatus.unregistered, vprStatus.required) : vprStatus.unregistered }}</div>
           </div>
         </div>
       </div>
@@ -30,34 +32,34 @@
         <div class="col-4">
           <div class="block cursor-pointer" (click)="vprStatusPercentage.required = !vprStatusPercentage.required">
             <div>Required</div>
-            <div class="value text-size-28p">{{ vprStatusPercentage.required ? getPercent(vprStatus.required) : vprStatus.required }}</div>
+            <div class="value text-size-28p">{{ vprStatusPercentage.required ? getPercent(vprStatus.required, vprStatus.asset) : vprStatus.required }}</div>
           </div>
         </div>
         <div class="col-4">
           <div class="block cursor-pointer" (click)="vprStatusPercentage.registered = !vprStatusPercentage.registered">
             <div>Registered</div>
-            <div class="value text-size-28p">{{ vprStatusPercentage.registered ? getPercent(vprStatus.registered) : vprStatus.registered }}</div>
+            <div class="value text-size-28p">{{ vprStatusPercentage.registered ? getPercent(vprStatus.registered, vprStatus.required) : vprStatus.registered }}</div>
           </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <div class="border-primary p-2">
-            <div>Expired <a class="float-right text-primary cursor-pointer" (click)="vprStatusPercentage.dataList = !vprStatusPercentage.dataList">
+            <div class="mb-1">Expired <a class="float-right text-primary cursor-pointer" (click)="vprStatusPercentage.dataList = !vprStatusPercentage.dataList">
               {{vprStatusPercentage.dataList ? '#' : '%'}}</a>
             </div>
-            <div class="row">
-              <div class="col-2" *ngFor="let exp of vprStatus.dataList.expired"><div class="border-primary text-center">{{vprStatusPercentage.dataList ? getPercent(exp) : exp}}</div></div>
+            <div class="row mb-1">
+              <div class="col-2" *ngFor="let exp of vprStatus.dataList.expired"><div class="border-primary text-center">{{vprStatusPercentage.dataList ? getPercent(exp, vprStatus.required) : exp}}</div></div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-2 text-size-10p text-center"><10 days</div>
               <div class="col-2 text-size-10p text-center">11 - 30</div>
               <div class="col-2 text-size-10p text-center">31 - 60</div>
               <div class="col-2 text-size-10p text-center">61 - 90</div>
               <div class="col-2 text-size-10p text-center"><91 days</div>
             </div>
-            <div class="row">
-              <div class="col-2" *ngFor="let unreg of vprStatus.dataList.unregistered"><div class="border-primary text-center">{{vprStatusPercentage.dataList ? getPercent(unreg) : unreg}}</div></div>
+            <div class="row mb-1">
+              <div class="col-2" *ngFor="let unreg of vprStatus.dataList.unregistered"><div class="border-primary text-center">{{vprStatusPercentage.dataList ? getPercent(unreg, vprStatus.required) : unreg}}</div></div>
             </div>
             <div>Unregistered</div>
           </div>
@@ -66,7 +68,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-3">
 
     <div class="col-md-5">
       <h4>Action Summary</h4>

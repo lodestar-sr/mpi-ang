@@ -20,6 +20,7 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
 import {PortfolioOverviewComponent} from './map/add-data/portfolio-overview/portfolio-overview.component';
 import {PortfolioDetailComponent} from './map/add-data/portfolio-detail/portfolio-detail.component';
 import {SafePipe} from './hubmodule/pipe/SafePipe';
+import {PortfolioMapComponent} from './map/add-data/portfolio-map/portfolio-map.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {SafePipe} from './hubmodule/pipe/SafePipe';
     PortfolioOverviewComponent,
     PortfolioDetailComponent,
     SafePipe,
+    PortfolioMapComponent,
   ],
   imports: [
     BrowserModule,

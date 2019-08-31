@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {fromEvent} from 'rxjs';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-map-layout',
@@ -12,7 +13,7 @@ export class MapLayoutComponent implements OnInit {
   viSerMobile: boolean;
   searchKey: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private location: Location) {
   }
 
   ngOnInit(): void {
@@ -42,6 +43,14 @@ export class MapLayoutComponent implements OnInit {
   searchMap() {
     this.searchKey = '';
     this.toggleSearch();
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  backEnabled() {
+    return this.router.url.startsWith('/map/add-data/overview') || this.router.url.startsWith('/map/add-data/details');
   }
 
 }

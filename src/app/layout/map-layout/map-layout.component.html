@@ -8,7 +8,11 @@
     <div class="top-bar-content">
       <div class="logo-container">
         <img class="logo" src="/assets/images/miles_logo.png">
-        <a class="compliance" href="javascript: void(0)">
+        <a *ngIf="backEnabled()" class="compliance cursor-pointer" (click)="goBack()">
+          <i class="fa-reply_light mt-0"></i>
+          <span>BACK</span>
+        </a>
+        <a *ngIf="!backEnabled()" class="compliance" href="javascript: void(0)">
           <i class="fa-balance-scale_light mt-0"></i>
           <span>COMPLIANCE</span>
         </a>

@@ -1,0 +1,16 @@
+mgl-map.portfolio-map {
+  .mapboxgl-map {
+    .mapboxgl-control-container {
+      .mapboxgl-ctrl-bottom-left {
+        #zoom-buttons {
+          .mapboxgl-ctrl {
+            img.portfolio-map-btn {
+              width: 64px;
+              height: 42px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
