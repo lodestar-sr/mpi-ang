@@ -1,16 +1,16 @@
-import {Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnInit, OnDestroy {
+export class SidebarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('homeElement') homeEle: ElementRef;
   @ViewChild('searchElement') searchEle: ElementRef;
@@ -58,6 +58,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.details = [];
     this.detail = {};
     this.selectedDetail = -1;
+  }
+
+  ngAfterViewInit() {
+    if (this.router.url.startsWith('/map/add-data')) {
+      this.activated = 'ADD_DATA';
+    }
+    this.moveScrollbar();
   }
 
   ngOnDestroy(): void {
