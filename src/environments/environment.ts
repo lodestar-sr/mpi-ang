@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   demo: true,
-  assetURL: 'http://whistle.mapware.net',
+  assetURL: 'https://mpi-dev-proc.firebaseapp.com',
   apiHost: '',
 };
 
