@@ -166,7 +166,7 @@ export class PortfolioMapComponent implements OnInit {
     this.map.addControl(new NavigationControl(), 'bottom-right');
     const viewControl = {onAdd: evt => this.controlOnAdd(), onRemove: evt => this.controlOnRemove()};
     const hoverView = {onAdd: evt => this.hoverControlOnAdd(), onRemove: evt => this.hoverControlOnRemove()};
-    const styleControl = {onAdd: evt => this.styleControlOnAdd(), onRemove: evt => this.styleControlOnRemove()} ;
+    const styleControl = {onAdd: evt => this.styleControlOnAdd(), onRemove: evt => this.styleControlOnRemove()};
     this.map.addControl(viewControl, 'bottom-left');
     this.map.addControl(styleControl, 'top-right');
     this.map.addControl(hoverView, 'top-right');
@@ -188,7 +188,7 @@ export class PortfolioMapComponent implements OnInit {
 
   processFilters(sccard) {
     this.statereg = {};
-    for (let i = 0 ; i < sccard.state_scorecards.scorecard_data.length ; i++) {
+    for (let i = 0; i < sccard.state_scorecards.scorecard_data.length; i++) {
       this.statereg[sccard.state_scorecards.scorecard_data[i].fips_state] = sccard.state_scorecards.scorecard_data[i].state_total;
     }
     $.ajax({
@@ -201,7 +201,7 @@ export class PortfolioMapComponent implements OnInit {
   }
 
   processData(json) {
-    for (let i = 0 ; i < json.features.length ; i++) {
+    for (let i = 0; i < json.features.length; i++) {
       if (json.features[i].properties.Leader == 1) {
         json.features[i].properties.label = json.features[i].properties.STUSPS + ' ' + this.statereg[json.features[i].properties.GEOID];
       } else {
@@ -232,14 +232,14 @@ export class PortfolioMapComponent implements OnInit {
           source: this.mapvars.layers.state.polysource.name,
           sourceLayer: this.mapvars.layers.state.poly['source-layer'],
           id: this.mapvars.highlightedStateId
-          }, {hover: false});
+        }, {hover: false});
       }
       this.mapvars.highlightedStateId = e.features[0].id;
       this.map.setFeatureState({
         source: this.mapvars.layers.state.polysource.name,
         sourceLayer: this.mapvars.layers.state.poly['source-layer'],
         id: this.mapvars.highlightedStateId
-      }, { hover: true});
+      }, {hover: true});
       document.getElementById('hover-state').innerText = e.features[0].properties.NAME;
     }
   }
